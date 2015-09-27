@@ -7,10 +7,11 @@ public class SalesLineItem {
   public SalesLineItem(ProductDescription prod, int qty) {
     this.prod = prod;
     this.qty = qty;
+    this.subtotal = prod.getPrice() * qty;
   }
 
   //calculates the subtotal of a SalesLineItem object
   public float getSubtotal() {
-    return prod.getPrice() * qty;
+    return subtotal;
   }
 }
