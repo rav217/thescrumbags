@@ -24,6 +24,7 @@ public abstract class Employee{
     return employeeName;
   }
   
+  //I may remove this method for privacy sake
   public String getEmployeePassword(){
     return employeePassword;
   }
@@ -32,6 +33,12 @@ public abstract class Employee{
     return employeeID;
   }
   
-  /**abstract method to be defined by subclass*/
-  public abstract String getEmployeeType();
+  /**Returns if the entered password is equal to the employee's recorded password.*/
+  public Boolean correctPassword(String password){
+    return employeePassword.equals(password);
+  }
+  
+  /**abstract method to be defined by subclass. If the employee is a cashier it will return the char 'c'.
+    * It they are a manager it will return 'm'*/
+  public abstract char getEmployeeType();
 }

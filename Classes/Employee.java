@@ -7,16 +7,31 @@
 public abstract class Employee{
   
   //datafields
-  private int employeeID;
-  private String employeeName;
-  private String employeePassword;
+  protected int employeeID;
+  protected String employeeName;
+  protected String employeePassword;
+  protected Boolean isManager;
   
+  public Employee(){
+    this.employeeID = 0; //we will have to make a way of checking to see if an employee already exists
+    this.employeeName = "unknown name";
+    this.employeePassword = "defaultpassword"; //setting the default password
+    isManager = null;
+  }
+  
+  public Employee(int employeeID){
+    this.employeeID = employeeID;
+    this.employeeName = "unknown name";
+    this.employeePassword = "defaultpassword"; //setting the default password
+    isManager = null;
+  }
   
   /**This is the constructor for the Employee object.*/
   public Employee(int employeeID, String employeeName, String employeePassword){
     this.employeeID = employeeID;
     this.employeeName = employeeName;
     this.employeePassword = employeePassword;
+    isManager = null;
   }
   
   /**Get statements for the datafields*/
@@ -40,5 +55,5 @@ public abstract class Employee{
   
   /**abstract method to be defined by subclass. If the employee is a cashier it will return the char 'c'.
     * It they are a manager it will return 'm'*/
-  public abstract char getEmployeeType();
+  public abstract Boolean isManager();
 }

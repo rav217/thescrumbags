@@ -12,7 +12,7 @@ public class Cashier extends Employee{
   }
   
   /**Get method for the description of this object*/
-  public String getEmployeeType(){
-    return "Cashier";
+  public char getEmployeeType(){
+    return 'c';
    }
   }
