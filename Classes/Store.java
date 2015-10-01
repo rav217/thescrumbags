@@ -5,6 +5,7 @@ public class Store{
 	private static Store uniqueInst;
 	private ProductCatalog catalog;
 	private Register register;
+	private ArrayList<Employee> employees;
 	
 	//singleton getInstance() method
 	public static synchronized Store getInstance(){
@@ -16,6 +17,7 @@ public class Store{
 	public Store()
 		this.catalog = new ProductCatalog();
 		this.register = new Register(catalog);
+		this.employees = new ArrayList<Employee>;
 	}
 	
 	//get catalog
@@ -26,5 +28,10 @@ public class Store{
 	//get register
 	public getRegister(){
 		return this.register;
+	}
+	
+	//get employee list
+	public getEmployees(){
+		return this.employees;
 	}
 }
