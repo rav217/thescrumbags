@@ -1,12 +1,19 @@
-//Store class:
+//Store class: singleton class containing ProductCatalog and Register attributes
 
 public class Store{
 	
+	private static Store uniqueInst;
 	private ProductCatalog catalog;
 	private Register register;
 	
+	//singleton getInstance() method
+	public static synchronized Store getInstance(){
+		if (uniqueInst == null)
+			uniqueInst = new Store();
+		return uniqueInst;
+	}
 	//constructor
-	public Store(){
+	public Store()
 		this.catalog = new ProductCatalog();
 		this.register = new Register(catalog);
 	}
