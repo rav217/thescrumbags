@@ -6,7 +6,7 @@ public class Payment{
 	private Money amt;
 	private boolean credit;
 	private String cardNum;
-	public Money calculateTax();
+	public Money addTax();
 	public boolean doCreditCheck();
 	
 	//constructor w/ Money argument
@@ -31,11 +31,13 @@ public class Payment{
 		return this.cardNum;
 	}
 	
-	public Money calculateTax(){
+	//calculate the tax and add to amount
+	public Money addTax(){
 		Money tax = getTax(this.amt);
 		this.amt = amt + tax;
 	}
 	
+	//do credit check. returns whether or not it was successful
 	public boolena doCreditCheck(){
 		return checkCard(this.cardNum)
 	}
