@@ -1,21 +1,25 @@
 //Payment class: has attributes amt, isCredit, and cardNum(default is NULL)
 //still need implementation of external tax calculator and credit check
 
-import Java.String;
+//import Java.String;
   
 public class Payment{
  
  private Money amt;
  private boolean credit;
  private String cardNum;
- public Money calculateTax();
- public boolean doCreditCheck();
  
- //constructor w/ Money argument
- public Payment(Money amt, boolean credit, String cardNum = ""){
+ //constructor for cash payment
+ public Payment(Money amt, boolean credit){
   this.amt = amt;
   this.credit = credit;
-  this.cardNum = cardNum;
+ }
+ 
+ //constructor for credit payment
+ public Payment(Money amt, boolean credit, String cardNum){
+   this.amt = amt;
+   this.credit = credit;
+   this.cardNum = cardNum;
  }
  
  //get the amount
@@ -33,12 +37,13 @@ public class Payment{
   return this.cardNum;
  }
  
- public Money calculateTax(){
-  Money tax = getTax(this.amt);
-  this.amt = amt + tax;
+ public Money calculateAmtPlusTax(){
+  double taxRate = .06; //constant tax rate for now
+  Money tax = this.amt.times(tax);
+  return this.amt.add(tax);
  }
  
- public boolena doCreditCheck(){
-  return checkCard(this.cardNum)
+ public boolean doCreditCheck(){
+  return true; //for demo purposes, always returns true
  }
 }
