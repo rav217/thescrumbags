@@ -1,10 +1,13 @@
 //Payment class: has attributes amt, isCredit, and cardNum(default is NULL)
+//still need implementation of external tax calculator and credit check
 
 public class Payment{
 	
 	private Money amt;
 	private boolean credit;
 	private String cardNum;
+	public Money calculateTax();
+	public boolean doCreditCheck();
 	
 	//constructor w/ Money argument
 	public Payment(Money amt, boolean credit, String cardNum = NULL){
@@ -26,5 +29,14 @@ public class Payment{
 	//return credit card number
 	public String getCardNum(){
 		return this.cardNum;
+	}
+	
+	public Money calculateTax(){
+		Money tax = getTax(this.amt);
+		this.amt = amt + tax;
+	}
+	
+	public boolena doCreditCheck(){
+		return checkCard(this.cardNum)
 	}
 }
