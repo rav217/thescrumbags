@@ -62,8 +62,7 @@ public class Register {
     }
 
     public void makePayment(Money cashTendered) {
-        Payment p = new Payment(cashTendered, false); //creates new cash payment
-        currentSale.makePayment(p);
+        currentSale.makePayment(cashTendered,false,"");
     }
 
     public void clearCurrentSale() {
