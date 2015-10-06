@@ -47,12 +47,12 @@ public class Sale {
   }
 
   //subtracts payment from the total for the Sale object
-  public void makePayment(Payment payment) {
+  public void makePayment(Money amt, boolean credit, String cardNum) {
     //TODO: need to figure out this method
-    this.payment = payment;
+    this.payment = new Payment(amt, credit, cardNum);
     if (payment.isCredit()) {
       //verify credit payment through 3rd party
-      this.becomeCompleted();
+      this.becomeComplete();
     }
     else {
       Money change = payment.getAmt().subtract(this.getTotal());
@@ -62,7 +62,7 @@ public class Sale {
       else if (change.getAmount() < 0) {
         //throw error, they did not have enough money pay for goods
       }
-      this.becomeCompleted();
+      this.becomeComplete();
     }
   }
 
