@@ -19,12 +19,12 @@ public class Sale {
   }
 
   //sets isComplete to true, called at time of sale completion
-  public void becomeCompleted() {
+  public void becomeComplete() {
     this.isComplete = true;
   }
 
   //returns objects isCompleted
-  public boolean isCompleted() {
+  public boolean isComplete() {
     return this.isComplete;
   }
 
@@ -44,9 +44,9 @@ public class Sale {
   }
 
   //subtracts payment from the total for the Sale object
-  public void makePayment(Payment payment) {
+  public void makePayment(Money amt, boolean credit, String cardNum) {
     //TODO: need to figure out this method
-    this.payment = payment;
+    this.payment = new Payment(amt, credit, cardNum);
     if (payment.isCredit()) {
       //verify credit payment through 3rd party
       this.becomeCompleted();
