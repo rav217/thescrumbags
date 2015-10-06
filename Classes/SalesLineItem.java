@@ -7,7 +7,7 @@ public class SalesLineItem {
   public SalesLineItem(ProductDescription prod, int qty) {
     this.prod = prod;
     this.qty = qty;
-    this.subtotal = prod.getPrice().times(qty);
+    this.subtotal = new Money(prod.getPrice().times(qty));
   }
 
   //calculates the subtotal of a SalesLineItem object

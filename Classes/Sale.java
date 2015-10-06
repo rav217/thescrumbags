@@ -19,6 +19,7 @@ public class Sale {
     this.time = new Date();
     this.isComplete = false;
     this.payment = null;
+    this.total = new Money(0);
   }
 
   //sets isComplete to true, called at time of sale completion
@@ -34,11 +35,9 @@ public class Sale {
   //creates a new SalesLineItem for the sale given a description and quantity,
   //adds new SalesLineItem to the lineItems ArrayList, total updated with new subtotal
   public void makeLineItem(ProductDescription desc, int qty) {
-    if (!this.isComplete()) {
       SalesLineItem lineItem = new SalesLineItem(desc, qty);
       lineItems.add(lineItem);
       total = total.add(lineItem.getSubtotal());
-    }
   }
 
   //returns the current total for the Sale object
