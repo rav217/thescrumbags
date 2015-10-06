@@ -22,19 +22,19 @@ public class Sale {
   }
 
   //sets isComplete to true, called at time of sale completion
-  public void becomeCompleted() {
+  public void becomeComplete() {
     this.isComplete = true;
   }
 
-  //returns objects isCompleted
-  public boolean isCompleted() {
+  //returns objects isComplete
+  public boolean isComplete() {
     return this.isComplete;
   }
 
   //creates a new SalesLineItem for the sale given a description and quantity,
   //adds new SalesLineItem to the lineItems ArrayList, total updated with new subtotal
   public void makeLineItem(ProductDescription desc, int qty) {
-    if (!this.isCompleted()) {
+    if (!this.isComplete()) {
       SalesLineItem lineItem = new SalesLineItem(desc, qty);
       lineItems.add(lineItem);
       total = total.add(lineItem.getSubtotal());
