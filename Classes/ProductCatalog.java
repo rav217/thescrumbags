@@ -1,24 +1,30 @@
-Public class ProductCatalog
+import java.util.HashMap;
+
+public class ProductCatalog
 {
-  private HashMap<ProductDescription, ItemID> catalog;
+  private HashMap<ItemID, ProductDescription> catalog;
   
-  pubic ProductCatalog(HashMap<ProductDescription, ItemID> catalog)
+  public ProductCatalog(HashMap<ItemID, ProductDescription> catalog)
   {
     this.catalog = catalog;
   }
   
   public ProductCatalog()
   {
-    catalog = new HashMap<ProductDescriptionm ItemID>();
+    catalog = new HashMap<ItemID, ProductDescription>();
   }
   
-  public HashMap<ProductDescription, ItemID> getCatalog()
+  public HashMap<ItemID, ProductDescription> getCatalog()
   {
     return catalog;
   }
   
-  public void add(ProductDescription pd, ItemID id = NULL)
+  public void add(ProductDescription pd, ItemID id)
   {
-    catalog.put(pd, id);
+    catalog.put(id, pd);
+  }
+  
+  public ProductDescription getProductDescription(ItemID id) {
+    return catalog.get(id);
   }
 }

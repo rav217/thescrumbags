@@ -1,10 +1,13 @@
+import java.util.ArrayList;
+import java.util.Date;
+
 //This is the Sale class which stores a list of items being sold, the current date,
 // the total and customer payment. It is able to add new line items to the sale, calculate the total,
 // and tender a payment. Implements the java.util.Date class
 
 
 public class Sale {
-  ArrayList<SalesLineItem> lineItems = new ArrayList<SalesLineItem>;
+  ArrayList<SalesLineItem> lineItems = new ArrayList<>();
   Date time;
   boolean isComplete;
   Payment payment;
@@ -13,18 +16,18 @@ public class Sale {
   //creates a new sale object, date reflects current date and time, isComplete
   //is set to false at object creation
   public Sale() {
-    this.time = new java.util.Date("yyyy-MM-dd'T'HH:mm:ss");
+    this.time = new Date();
     this.isComplete = false;
-    this.payment = NULL;
+    this.payment = null;
   }
 
   //sets isComplete to true, called at time of sale completion
-  public void becomeComplete() {
+  public void becomeCompleted() {
     this.isComplete = true;
   }
 
   //returns objects isCompleted
-  public boolean isComplete() {
+  public boolean isCompleted() {
     return this.isComplete;
   }
 
@@ -32,9 +35,9 @@ public class Sale {
   //adds new SalesLineItem to the lineItems ArrayList, total updated with new subtotal
   public void makeLineItem(ProductDescription desc, int qty) {
     if (!this.isCompleted()) {
-      lineItem = new SalesLineItem(desc, qty);
+      SalesLineItem lineItem = new SalesLineItem(desc, qty);
       lineItems.add(lineItem);
-      total += lineItem.getSubtotal();
+      total = total.add(lineItem.getSubtotal());
     }
   }
 
@@ -44,19 +47,19 @@ public class Sale {
   }
 
   //subtracts payment from the total for the Sale object
-  public void makePayment(Money amt, boolean credit, String cardNum) {
+  public void makePayment(Payment payment) {
     //TODO: need to figure out this method
-    this.payment = new Payment(amt, credit, cardNum);
+    this.payment = payment;
     if (payment.isCredit()) {
       //verify credit payment through 3rd party
       this.becomeCompleted();
     }
     else {
-      float change = payment.getAmt() - this.getTotal();
-      if (change > 0) {
+      Money change = payment.getAmt().subtract(this.getTotal());
+      if (change.getAmount() > 0) {
         //tender change to customer
       }
-      else if (change < 0) {
+      else if (change.getAmount() < 0) {
         //throw error, they did not have enough money pay for goods
       }
       this.becomeCompleted();
@@ -68,6 +71,6 @@ public class Sale {
     //where does this discount come from? is it user input?
 
     //compute total with discount
-    total *= 1 - discount;
+    total = total.times(1 - discount);
   }
 }

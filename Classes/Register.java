@@ -53,7 +53,7 @@ public class Register {
     }
 
     public void endSale() {
-        currentSale.becomeComplete();
+        currentSale.becomeCompleted();
     }
 
     public void enterItem(ItemID id, int quantity) {

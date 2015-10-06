@@ -39,7 +39,7 @@ public class Payment{
  
  public Money calculateAmtPlusTax(){
   double taxRate = .06; //constant tax rate for now
-  Money tax = this.amt.times(tax);
+  Money tax = this.amt.times(taxRate + 1);
   return this.amt.add(tax);
  }
  

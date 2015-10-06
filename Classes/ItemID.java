@@ -1,0 +1,9 @@
+public class ItemID
+{
+  public int id;
+  
+  public ItemID(int id)
+  {
+    this.id = id;
+  }
+}

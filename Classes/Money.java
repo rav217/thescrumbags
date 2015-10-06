@@ -27,9 +27,27 @@ public class Money {
         return this;
     }
     
+    public Money add(double n)
+    {
+      this.amount += n;
+      return this;
+    }
+    
     public Money subtract(Money m) {
         this.amount-=m.getAmount();
         return this;
+    }
+    
+    public Money subtract(double n)
+    {
+      this.amount -= n;
+      return this;
+    }
+    
+    public Money times(Money m)
+    {
+      this.amount *= m.amount;
+      return this;
     }
     
     public Money times(double n) {
