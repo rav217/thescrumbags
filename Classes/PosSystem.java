@@ -26,8 +26,12 @@ public class PosSystem{
     
     //while sale is not complete
     do{
+      System.out.println("enter item id:");
+      String enterID = in.nextLine(); //enter 1 for demo purposes
+      //go search for itemID in DB
       r.getCurrentSale().makeLineItem(pd, 1); //qty is 1 for demo
-      System.out.println("More items? Y or N");
+      System.out.print("
+      System.out.println("more items? Y or N:");
       String more = in.nextLine();
       if (more.equals("N"))
         r.endSale();
