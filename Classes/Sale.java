@@ -66,6 +66,10 @@ public class Sale {
     }
   }
 
+  public Payment getPayment(){
+    return this.payment;
+  }
+  
   //calculates discount and adds it into the total, discount is a decimal describing the percentage discount
   public void calculateDiscount(float discount) {
     //where does this discount come from? is it user input?

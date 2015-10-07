@@ -27,9 +27,9 @@ public class PosSystem{
     int count = 0;
     do{
       
-      /*System.out.println("enter item id:");
+      System.out.println("enter item id:");
       int rawID = in.nextInt(); //enter 1 for demo purposes
-      ItemID itemID = new ItemID(rawID);*/
+      ItemID itemID = new ItemID(rawID);
       
       //go search for itemID in DB and assign the ProductDescription to pd
       
@@ -38,18 +38,42 @@ public class PosSystem{
       r.getCurrentSale().makeLineItem(pd, qty);
       
       //get SalesLineItem Info
-      String d = pd.getDescription();
-      double p = pd.getPrice().getAmount();            
-      double sT = r.getCurrentSale().lineItems.get(count).getSubtotal().getAmount();
+      String d = pd.getDescription(); //only dependent on product
+      double p = pd.getPrice().getAmount(); //only dependent on product
+      double sT = pd.getPrice().getAmount() * qty;
+     // double sT = r.getCurrentSale().lineItems.get(count).getSubtotal().getAmount();
+      double rT = r.getCurrentSale().getTotal().getAmount(); //depends on previous products
       
       //display SalesLineItem info
-      System.out.println("ProductDescription: "+d+"\tPrice: "+p+"\tQuantity: "+qty+"\tSubtotal: "+sT);
-      System.out.println("more items? Y or N:");
+      System.out.println("ProductDescription: "+d+"\tPrice: "+p+"\tQuantity: "+qty+"\tSubtotal: "+sT+"\tTotal: "+rT);
+      
+      //ask for more items
+      System.out.println("more items? ('Y' or 'N'):");
       String more = in.next();
       if (more.equals("N"))
         r.endSale();
+      
     } while(r.getCurrentSale().isComplete() == false);
     
-    System.out.println("out of sale");
+    //make payment object
+    
+    System.out.println("enter type of payment ('CR' for credit, 'C' for cash): ");
+    String pmtType = in.next();
+    if (pmtType.equals("CR")){
+      System.out.println("enter card number: ");
+      String cardNum = in.next();
+      r.getCurrentSale().makePayment(r.getCurrentSale().getTotal(), true, cardNum);
+      System.out.println("Total amount: "+r.getCurrentSale().getPayment().getAmt().getAmount());
+      System.out.println("Total amount plus tax: "+r.getCurrentSale().getPayment().calculateAmtPlusTax().getAmount());
+      if (r.getCurrentSale().getPayment().doCreditCheck() == false)
+        System.out.println("credit check failed");
+        //exit or break back to some point
+      else
+        System.out.println("credit check successful");
+    }
+    else{
+      r.getCurrentSale().makePayment(r.getCurrentSale().getTotal(), false, null);
+      
+    }
   }
 }
