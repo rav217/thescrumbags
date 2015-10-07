@@ -36,7 +36,7 @@ public class PosSystem{
       System.out.println("enter quantity:");
       int qty = in.nextInt();
       r.getCurrentSale().makeLineItem(pd, qty);
-                  System.out.println(pd.getPrice().getAmount());
+      
       //get SalesLineItem Info
       String d = pd.getDescription();
       double p = pd.getPrice().getAmount();            
@@ -44,11 +44,12 @@ public class PosSystem{
       
       //display SalesLineItem info
       System.out.println("ProductDescription: "+d+"\tPrice: "+p+"\tQuantity: "+qty+"\tSubtotal: "+sT);
-      break;
-     /* System.out.println("more items? Y or N:");
-      String more = in.nextLine();
+      System.out.println("more items? Y or N:");
+      String more = in.next();
       if (more.equals("N"))
-        r.endSale();*/
+        r.endSale();
     } while(r.getCurrentSale().isComplete() == false);
+    
+    System.out.println("out of sale");
   }
 }

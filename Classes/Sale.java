@@ -38,6 +38,7 @@ public class Sale {
       SalesLineItem lineItem = new SalesLineItem(desc, qty);
       lineItems.add(lineItem);
       total = total.add(lineItem.getSubtotal());
+      
   }
 
   //returns the current total for the Sale object
