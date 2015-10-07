@@ -19,22 +19,36 @@ public class PosSystem{
     
     //add ProductDescription to ProductCatalog
     s.getCatalog().add(pd, id);
-    
+      
     //start a new sale
     Register r = s.getRegister();
     r.makeNewSale();
     
-    //while sale is not complete
+    int count = 0;
     do{
-      System.out.println("enter item id:");
-      String enterID = in.nextLine(); //enter 1 for demo purposes
-      //go search for itemID in DB
-      r.getCurrentSale().makeLineItem(pd, 1); //qty is 1 for demo
-      System.out.print("
-      System.out.println("more items? Y or N:");
+      
+      /*System.out.println("enter item id:");
+      int rawID = in.nextInt(); //enter 1 for demo purposes
+      ItemID itemID = new ItemID(rawID);*/
+      
+      //go search for itemID in DB and assign the ProductDescription to pd
+      
+      System.out.println("enter quantity:");
+      int qty = in.nextInt();
+      r.getCurrentSale().makeLineItem(pd, qty);
+                  System.out.println(pd.getPrice().getAmount());
+      //get SalesLineItem Info
+      String d = pd.getDescription();
+      double p = pd.getPrice().getAmount();            
+      double sT = r.getCurrentSale().lineItems.get(count).getSubtotal().getAmount();
+      
+      //display SalesLineItem info
+      System.out.println("ProductDescription: "+d+"\tPrice: "+p+"\tQuantity: "+qty+"\tSubtotal: "+sT);
+      break;
+     /* System.out.println("more items? Y or N:");
       String more = in.nextLine();
       if (more.equals("N"))
-        r.endSale();
+        r.endSale();*/
     } while(r.getCurrentSale().isComplete() == false);
   }
 }

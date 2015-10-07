@@ -12,6 +12,6 @@ public class SalesLineItem {
 
   //calculates the subtotal of a SalesLineItem object
   public Money getSubtotal() {
-    return subtotal;
+    return this.subtotal;
   }
 }
