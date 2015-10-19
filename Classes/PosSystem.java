@@ -41,7 +41,11 @@ public class PosSystem{
       //get itemid and quantity for each sales line item
       System.out.println("Enter item ID");
       itemID = s.nextInt(); 
-     // if(r.getCatalog().)
+      if(!r.getCatalog().getCatalog().containsKey(itemID))
+      {
+          System.out.println("Please enter a valid item id");
+          continue;
+      }
       System.out.println("Enter quantity");
       quantity = s.nextInt();
       
