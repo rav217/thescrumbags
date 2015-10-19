@@ -56,7 +56,7 @@ public class Register {
         currentSale.becomeComplete();
     }
 
-    public void enterItem(ItemID id, int quantity) {
+    public void enterItem(int id, int quantity) {
         ProductDescription desc = catalog.getProductDescription(id);
         currentSale.makeLineItem(desc, quantity);
     }
