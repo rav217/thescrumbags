@@ -22,7 +22,7 @@ public class DBHandler {
             ex.printStackTrace();
             return;
         }
-        System.out.println("JDBC driver successfully loaded.");
+        System.out.println("JDBC driver successfully loaded."); //test
     
         System.out.println("Connecting to database...");
         Connection conn = null;
