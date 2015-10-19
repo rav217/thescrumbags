@@ -71,7 +71,7 @@ public class PosSystem{
       else
         System.out.println("credit check successful");
     }
-    else{
+    else{ //for cash
       r.getCurrentSale().makePayment(r.getCurrentSale().getTotal(), false, null);
       
     }
