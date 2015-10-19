@@ -11,25 +11,28 @@ import java.sql.SQLException;
  * @author Chris
  */
 public class DBHandler {
-    public static void main(String[] args){ 
-        //following code loads the conn driver. testing for commit
-        try{
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-        } catch (Exception ex){
-            //error establishing connection
-            System.out.println("Error loading the connection manager");
-            System.exit(0);
-        }
+    public static void main(String[] args){
         
-        //following code fetches connection from driver
+        System.out.println("Loading JDBC driver...");
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException ex){
+            //error establishing connection
+            System.out.println("Error loading JDBC driver.");
+            ex.printStackTrace();
+            return;
+        }
+        System.out.println("JDBC driver successfully loaded.");
+    
+        System.out.println("Connecting to database...");
         Connection conn = null;
         try{
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/ScrumbagsDB", "ChrisByam", "tolland17");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ScrumbagsDB", "ChrisByam", "tolland17");
         } catch (SQLException ex){
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
+            System.out.println("Error connecting to database.");
+            ex.printStackTrace();
+            return;
         }
-        
+        System.out.println("Successfully connected to database");
     }
 }   
