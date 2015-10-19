@@ -2,29 +2,29 @@ import java.util.HashMap;
 
 public class ProductCatalog
 {
-  private HashMap<ItemID, ProductDescription> catalog;
+  private HashMap<Integer, ProductDescription> catalog;
   
-  public ProductCatalog(HashMap<ItemID, ProductDescription> catalog)
+  public ProductCatalog(HashMap<Integer, ProductDescription> catalog)
   {
     this.catalog = catalog;
   }
   
   public ProductCatalog()
   {
-    catalog = new HashMap<ItemID, ProductDescription>();
+    catalog = new HashMap<Integer, ProductDescription>();
   }
   
-  public HashMap<ItemID, ProductDescription> getCatalog()
+  public HashMap<Integer, ProductDescription> getCatalog()
   {
     return catalog;
   }
   
-  public void add(ProductDescription pd, ItemID id)
+  public void add(ProductDescription pd, Integer id)
   {
     catalog.put(id, pd);
   }
   
-  public ProductDescription getProductDescription(ItemID id) {
+  public ProductDescription getProductDescription(Integer id) {
     return catalog.get(id);
   }
 }
