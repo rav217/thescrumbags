@@ -15,9 +15,12 @@ import java.sql.SQLException;
 public class DBHandler {
     
     private Connection conn = null;
+    private Statement stmt = null;
+    private ResultSet rs = null;
+    
     //put other db variables here. default constructor will make them all null
     
-    //opens connection. returns 0 on success, -1 on error
+    //opens connection. returns false on success, true on error
     public boolean openConnection(String user, String pswd){
        System.out.println("Loading JDBC driver...");
         try{
@@ -39,6 +42,17 @@ public class DBHandler {
         }
         System.out.println("User " + user + " successfully connected to database.");
         return false;
+    }
+    
+    //fetches item from db specified by the id. returns false on success, true on failure
+    public boolean fetchItem(int id){
+        String query = "select * from productdescription where id = " + id;
+        try{
+            con.createStatement();
+            rs = stmt.executeQuery(query);
+        } catch (SQLException ex){
+            System.out.println("Item");
+        }
     }
 
     
