@@ -17,6 +17,8 @@ public class DBTest {
         DBHandler db = new DBHandler();
         boolean next = true; //outer loop conditional
         boolean go = true; //inner loop conditional
+        
+        //establish connection to system
         while(go){
             System.out.println("Enter username:");
             String user = in.nextLine();
@@ -25,6 +27,8 @@ public class DBTest {
             System.out.println("");
             go = db.openConnection(user, pswd);
         }
+        
+        //start menu loop
         while (next){
             System.out.println("What would you like to do?");
             System.out.println("1. Search for item in the system");
@@ -33,10 +37,12 @@ public class DBTest {
             System.out.println("5. Exit");
             int inst = in.nextInt();
             System.out.println("");
+            
+            //perform search
             if (inst == 1){
                 go = true;
                 while(go){
-                    System.out.println("Enter item ID to search for in ProductDescription (0 to return to menu):");
+                    System.out.println("Enter item ID to search for in the system (0 to return to menu):");
                     int id = in.nextInt();
                     if (id ==0){
                         System.out.println("");
@@ -45,6 +51,8 @@ public class DBTest {
                     go = db.fetchItem(id);
                 }
             }
+            
+            //perform add
             else if (inst == 2){
                 go = true;
                 while(go){
@@ -63,6 +71,8 @@ public class DBTest {
                     go = db.addItem(id, price, descr);
                 }
             }
+            
+            //perform remove
             else if (inst == 3){
                 go = true;
                 while(go){
@@ -75,6 +85,8 @@ public class DBTest {
                     go = db.removeItem(id);
                 }
             }
+            
+            //exit
             else if (inst == 5){
                 next = false;
             }

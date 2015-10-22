@@ -68,9 +68,10 @@ public class DBHandler {
             System.out.println("");
             return true;
         }
-        else
+        else{
             System.out.println("Item with ID " + id + " is " + descr + " and costs $" + price + ".");
-        System.out.println("");
+            System.out.println("");
+        }
         return false;
     }
     
@@ -81,7 +82,7 @@ public class DBHandler {
             stmt = conn.createStatement();
             stmt.executeUpdate(query); //is the error here?
         } catch (SQLException ex){
-            System.out.println("Error entering item to system.");
+            System.out.println("Error adding item to system.");
             System.out.println("");
             return true;
         }
