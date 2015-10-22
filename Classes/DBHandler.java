@@ -25,9 +25,8 @@ public class DBHandler {
         try{
             Class.forName("java.sql.Driver");
         } catch (ClassNotFoundException ex){
-            System.out.println("Error loading JDBC driver. " + ex.getMessage());
+            System.out.println("Error loading JDBC driver. ");
             System.out.println("");
-            ex.getMessage();
             return true;
         }
         System.out.println("JDBC driver successfully loaded.");
@@ -48,6 +47,7 @@ public class DBHandler {
     
     //fetches item from db specified by the id. returns false on success, true on failure
     public boolean fetchItem(int id){
+        System.out.println("Searching...");
         String descr = null;
         double price = 0;
         String query = "select * from productdescription where id = " + id;
@@ -59,11 +59,49 @@ public class DBHandler {
                 price = rs.getDouble("price");
             }
         } catch (SQLException ex){
-            System.out.println("Item ID " + id + " not found." + ex.getMessage());
+            System.out.println("Error connecting to system.");
             System.out.println("");
             return true;
         }
-        System.out.println("Item with ID " + id + " is " + descr + " and costs $" + price);
+        if (descr == null || price == 0){
+            System.out.println("Item ID " + id + " not found.");
+            System.out.println("");
+            return true;
+        }
+        else
+            System.out.println("Item with ID " + id + " is " + descr + " and costs $" + price + ".");
+        System.out.println("");
+        return false;
+    }
+    
+    public boolean addItem(int id, double price, String descr){
+        String query = "insert into productdescription values (" + price + ", " + id + ", '" + descr + "')";
+        System.out.println("");
+        try{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query); //is the error here?
+        } catch (SQLException ex){
+            System.out.println("Error entering item to system.");
+            System.out.println("");
+            return true;
+        }
+        System.out.println("Item successfully added to system.");
+        System.out.println("");
+        return false;
+    }
+    
+    public boolean removeItem(int id){
+        String query = "delete from productdescription where id = " + id;
+        System.out.println("");
+        try{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query); //is the error here?
+        } catch (SQLException ex){
+            System.out.println("Error removing item from system.");
+            System.out.println("");
+            return true;
+        }
+        System.out.println("Item successfully removed from system.");
         System.out.println("");
         return false;
     }
