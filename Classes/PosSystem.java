@@ -4,76 +4,78 @@ import java.util.Scanner;
 
 public class PosSystem{
   
-  public static void main(String[] args){
+  public static void main(String[] args)
+  {
+    Store store = Store.getInstance();
     
-    Scanner in = new Scanner(System.in);
- 
-    //creating Store object also creates ProductCatalog, Register,  and ArrayList<Employee>
-    Store s = Store.getInstance();
+    //load in three products (temporary)
+    Money m1 = new Money(100.0);
+    Money m2 = new Money(50.0);
+    Money m3 = new Money(25.0);
+    int prodID1 = 1;
+    int prodID2 = 2;
+    int prodID3 = 3;
+    ProductDescription pd1 = new ProductDescription(prodID1, m1, "shirt");
+    ProductDescription pd2 = new ProductDescription(prodID2, m2, "shorts");
+    ProductDescription pd3 = new ProductDescription(prodID3, m3, "pants");
     
-    //create ProductDescription object
-    Money price = new Money(4.5);
-    String descr = "a product description";
-    ItemID id = new ItemID(1);
-    ProductDescription pd = new ProductDescription(id, price, descr);
+    store.getCatalog().add(pd1, prodID1);
+    store.getCatalog().add(pd2, prodID2);
+    store.getCatalog().add(pd3, prodID3);
     
-    //add ProductDescription to ProductCatalog
-    s.getCatalog().add(pd, id);
-      
-    //start a new sale
-    Register r = s.getRegister();
-    r.makeNewSale();
+    store.getRegister().makeNewSale();
+    Register r = store.getRegister();
     
+    boolean moreItems = true;
+    String response;
+    int quantity, rawID;
+    int itemID;
+    ProductDescription pd;
+    Scanner s = new Scanner(System.in);
     int count = 0;
-    do{
+    double rT;
+    do
+    {  
+      //get itemid and quantity for each sales line item
+      System.out.println("Enter item ID");
+      itemID = s.nextInt(); 
+     // if(r.getCatalog().)
+      System.out.println("Enter quantity");
+      quantity = s.nextInt();
       
-      System.out.println("enter item id:");
-      int rawID = in.nextInt(); //enter 1 for demo purposes
-      ItemID itemID = new ItemID(rawID);
+      //get product description for the given item id
+      pd = store.getCatalog().getProductDescription(itemID);
+      count++;
       
-      //go search for itemID in DB and assign the ProductDescription to pd
-      
-      System.out.println("enter quantity:");
-      int qty = in.nextInt();
-      r.getCurrentSale().makeLineItem(pd, qty);
-      
+      r.getCurrentSale().makeLineItem(pd, quantity);
       //get SalesLineItem Info
       String d = pd.getDescription(); //only dependent on product
       double p = pd.getPrice().getAmount(); //only dependent on product
-      double sT = pd.getPrice().getAmount() * qty;
-     // double sT = r.getCurrentSale().lineItems.get(count).getSubtotal().getAmount();
-      double rT = r.getCurrentSale().getTotal().getAmount(); //depends on previous products
+      double sT = pd.getPrice().getAmount() * quantity;
+      rT = r.getCurrentSale().getTotal().getAmount(); //depends on previous products
       
       //display SalesLineItem info
-      System.out.println("ProductDescription: "+d+"\tPrice: "+p+"\tQuantity: "+qty+"\tSubtotal: "+sT+"\tTotal: "+rT);
+      System.out.println("ProductDescription: "+d+"\tPrice: "+p+"\tQuantity: "+quantity+"\tSubtotal: "+sT+"\tTotal: "+rT);
       
-      //ask for more items
-      System.out.println("more items? ('Y' or 'N'):");
-      String more = in.next();
-      if (more.equals("N"))
+      
+      System.out.println("Does the customer have more items? (Y/N)");
+      response = s.next();
+      if(response.equals("N") || response.equals("n"))
+      {
         r.endSale();
+      }
+      else if(!response.equals("Y") && !response.equals("y"))
+      {
+        System.out.println("Please enter Y or N");
+      }
       
-    } while(r.getCurrentSale().isComplete() == false);
-    
-    //make payment object
+    }while(r.getCurrentSale().isComplete() == false);
     
     System.out.println("enter type of payment ('CR' for credit, 'C' for cash): ");
-    String pmtType = in.next();
+    String pmtType = s.next();
     if (pmtType.equals("CR")){
       System.out.println("enter card number: ");
-      String cardNum = in.next();
-      r.getCurrentSale().makePayment(r.getCurrentSale().getTotal(), true, cardNum);
-      System.out.println("Total amount: "+r.getCurrentSale().getPayment().getAmt().getAmount());
-      System.out.println("Total amount plus tax: "+r.getCurrentSale().getPayment().calculateAmtPlusTax().getAmount());
-      if (r.getCurrentSale().getPayment().doCreditCheck() == false)
-        System.out.println("credit check failed");
-        //exit or break back to some point
-      else
-        System.out.println("credit check successful");
-    }
-    else{ //for cash
-      r.getCurrentSale().makePayment(r.getCurrentSale().getTotal(), false, null);
-      
+      String cardNum = s.next();
     }
   }
 }
