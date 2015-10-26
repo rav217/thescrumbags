@@ -10,6 +10,7 @@ import java.util.Scanner;
  *
  * @author TJ
  */
+//handles the Process Sale use case
 public class HandleProcessSale {
  
   public static void doProcessSale()

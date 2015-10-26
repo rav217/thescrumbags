@@ -10,6 +10,7 @@ import java.util.Scanner;
  *
  * @author TJ
  */
+//presents start menu
 public class MainClass {
     public static void main(String[] args)
     {
