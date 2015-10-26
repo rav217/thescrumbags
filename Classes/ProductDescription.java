@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 /**
  * Ben Candell
  * bsc218@lehigh.edu

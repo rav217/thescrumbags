@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 /*
  * Robert Voit
  * CSE216

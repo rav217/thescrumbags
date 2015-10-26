@@ -5,6 +5,8 @@
  * Money class
  */
 
+package thescrumbags.Classes;
+
 import java.util.*;
 
 public class Money {

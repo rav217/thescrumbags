@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 //Store class: singleton class containing ProductCatalog and Register attributes
 import java.util.ArrayList;
 
