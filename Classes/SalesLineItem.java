@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 public class SalesLineItem {
   ProductDescription prod;
   int qty;

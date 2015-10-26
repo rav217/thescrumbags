@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 //main method to initialize store and run the system
 
 import java.util.Scanner;
