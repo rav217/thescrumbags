@@ -34,7 +34,9 @@ public class DBTest {
             System.out.println("1. Search for item in the system");
             System.out.println("2. Add an item to the system");
             System.out.println("3. Remove an item from the system");
+            System.out.println("4. View items in the system");
             System.out.println("5. Exit");
+            System.out.println("other options?");
             int inst = in.nextInt();
             System.out.println("");
             
@@ -84,6 +86,11 @@ public class DBTest {
                     }
                     go = db.removeItem(id);
                 }
+            }
+            
+            //perform display
+            else if (inst == 4){
+                db.displayItems();
             }
             
             //exit

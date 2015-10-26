@@ -107,6 +107,32 @@ public class DBHandler {
         return false;
     }
     
+    public void displayItems(){
+        String descr = null;
+        double price = 0;
+        int id = 0;
+        String query = "select * from productdescription";
+        System.out.println("ItemID\tDescription\t\t\tPrice");
+        System.out.println("-----------------------------------------------");
+        try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()){
+                id = rs.getInt("id");
+                descr = rs.getString("descr");
+                price = rs.getDouble("price");
+                if (descr.length() > 16)
+                    System.out.println(id + "\t" + descr + "\t" + price);
+                else
+                    System.out.println(id + "\t" + descr + "\t\t\t" + price);
+            }
+        } catch (SQLException ex){
+            System.out.println("Error viewing items in the system.");
+            System.out.println("");
+        }
+        System.out.println("");
+    }
+    
     public void closeConnection(){
         try{
             conn.close();
