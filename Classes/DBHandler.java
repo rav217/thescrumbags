@@ -1,5 +1,5 @@
 /*
-class that will interact with the DB
+class that will interact with the DB. can be adapted as needed
  */
 package thescrumbags.Classes;
 import java.sql.Connection;
