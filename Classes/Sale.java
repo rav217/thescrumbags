@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -7,11 +9,11 @@ import java.util.Date;
 
 
 public class Sale {
-  ArrayList<SalesLineItem> lineItems = new ArrayList<>();
-  Date time;
-  boolean isComplete;
-  Payment payment;
-  Money total;
+  private ArrayList<SalesLineItem> lineItems = new ArrayList<>();
+  private Date time;
+  private boolean isComplete;
+  private Payment payment;
+  private Money total;
 
   //creates a new sale object, date reflects current date and time, isComplete
   //is set to false at object creation
@@ -38,9 +40,23 @@ public class Sale {
       SalesLineItem lineItem = new SalesLineItem(desc, qty);
       lineItems.add(lineItem);
       total = total.add(lineItem.getSubtotal());
-      
+  }
+  
+  public SalesLineItem getLineItem(int index) {
+      return this.lineItems.get(index);
+  }
+  
+  public SalesLineItem getLastLineItem() {
+      return this.lineItems.get(this.lineItems.size() - 1);
   }
 
+  public SalesLineItem removeLineItem(int i) throws NullPointerException{
+      SalesLineItem removed = this.lineItems.remove(i);
+      System.out.println("---------- REMOVED ----------");
+      removed.print();
+      System.out.println("-----------------------------");
+      return removed;
+  }
   //returns the current total for the Sale object
   public Money getTotal() {
     return this.total;
@@ -76,5 +92,22 @@ public class Sale {
 
     //compute total with discount
     total = total.times(1 - discount);
+  }
+  
+  public void printCurrentLineItems() {
+      System.out.println("----- ITEMS IN CART -----");
+      for (int i = 0; i < lineItems.size(); i++) {
+          System.out.print(i);
+          lineItems.get(i).print();
+      }
+      System.out.println("-------------------------");
+      System.out.printf("Total: $%4.2f\n", this.total.getAmount());
+      System.out.println("-------------------------");
+  }
+  
+  public void printReceipt() {
+     System.out.println("Thank you for shopping with the Scrumbags POS system");
+     System.out.println("                 Enjoy your day!                    ");
+     this.printCurrentLineItems();
   }
 }

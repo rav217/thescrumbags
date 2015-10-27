@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 import java.util.HashMap;
 
 public class ProductCatalog
@@ -19,8 +21,9 @@ public class ProductCatalog
     return catalog;
   }
   
-  public void add(ProductDescription pd, Integer id)
+  public void add(ProductDescription pd)
   {
+    Integer id = pd.getItemID();
     catalog.put(id, pd);
   }
   

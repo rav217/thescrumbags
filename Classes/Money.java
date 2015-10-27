@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 /**
  * Scrumbags POS
  * CSE 216
@@ -54,5 +56,4 @@ public class Money {
         this.amount*=n;
         return this;
     }
-    
 }

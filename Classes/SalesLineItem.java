@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 public class SalesLineItem {
   ProductDescription prod;
   int qty;
@@ -14,5 +16,14 @@ public class SalesLineItem {
   //calculates the subtotal of a SalesLineItem object
   public Money getSubtotal() {
     return this.subtotal;
+  }
+  
+  public ProductDescription getProductDescription() {
+      return this.prod;
+  }
+  
+  public void print() {
+  //display SalesLineItem info
+      System.out.printf(": %s\tPrice: $%4.2f\tQuantity: %d\tSubtotal: $%4.2f\n", this.prod.getDescription(), this.prod.getPrice().getAmount(), this.qty, this.subtotal.getAmount());
   }
 }

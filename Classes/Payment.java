@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 //Payment class: has attributes amt, isCredit, and cardNum(default is NULL)
 //still need implementation of external tax calculator and credit check
 
