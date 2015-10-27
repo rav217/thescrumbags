@@ -7,6 +7,8 @@ package thescrumbags.Classes;
  * Money class
  */
 
+package thescrumbags.Classes;
+
 import java.util.*;
 
 public class Money {
@@ -19,7 +21,7 @@ public class Money {
     public Money(double amount) { this.amount=amount; }
     
     public void copy(Money m) {
-        this.amount=m.amount;
+        this.amount=m.getAmount();
     }
     
     public double getAmount() { return amount; } 
@@ -48,12 +50,17 @@ public class Money {
     
     public Money times(Money m)
     {
-      this.amount *= m.amount;
+      this.amount *= m.getAmount();
       return this;
     }
     
     public Money times(double n) {
         this.amount*=n;
         return this;
+    }
+    
+    public boolean equals(Money m) {
+        if (this.amount==m.getAmount()) return true;
+        return false;
     }
 }

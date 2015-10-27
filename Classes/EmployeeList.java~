@@ -1,0 +1,30 @@
+/*
+ * Robert Voit
+ * CSE216
+ * Employee List Class
+ * */
+
+public class EmployeeList{
+  
+  private ArrayList<Employee> employeeList;
+  
+  public EmployeeList(){
+    employeeList = new ArrayList<Employee>()
+  }
+  
+  public void addEmployee(Employee newEmployee){
+    return employeeList.add(newEmployee);
+  }
+  
+  public int employeeCount(){
+    return employeeList.size();
+  }
+  
+  public boolean isEmployee(Employee e){ //make loop to find employee using ID
+    return employeeList.contains(e);
+  }
+  
+  
+  
+  
+}
