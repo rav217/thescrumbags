@@ -15,7 +15,7 @@ import java.util.Date;
 public class Register {
 
     protected ProductCatalog catalog;
-    protected Sale currentSale;
+    protected Transaction currentTransaction;
     protected Date date;
     protected Store location;
     protected boolean isOpen;
@@ -35,8 +35,8 @@ public class Register {
         this.catalog = catalog;
     }
 
-    public Sale getCurrentSale() {
-        return currentSale;
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
     }
 
     public ProductCatalog getCatalog() {
@@ -50,25 +50,26 @@ public class Register {
     /**
      * Creates a new Sale object and stores it in currentSale
      */
-    public void makeNewSale() {
-        currentSale = new Sale();
+    public void makeNewTransaction() {
+        currentTransaction = new Transaction();
     }
+    
 
-    public void endSale() {
-        currentSale.becomeComplete();
+    public void endTransaction() {
+        currentTransaction.becomeComplete();
     }
 
     public void enterItem(int id, int quantity) {
         ProductDescription desc = catalog.getProductDescription(id);
-        currentSale.makeLineItem(desc, quantity);
+        currentTransaction.makeLineItem(desc, quantity);
     }
 
     public void makePayment(Money cashTendered) {
-        currentSale.makePayment(cashTendered,false,"");
+        currentTransaction.makePayment(cashTendered,false,"");
     }
 
-    public void clearCurrentSale() {
-        endSale();
+    public void clearCurrentTransaction() {
+        endTransaction();
     }
 
     public void openRegister() {
