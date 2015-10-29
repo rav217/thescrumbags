@@ -30,11 +30,11 @@ public class HandleProcessSale {
     ProductDescription pd2 = new ProductDescription(prodID2, m2, "shorts");
     ProductDescription pd3 = new ProductDescription(prodID3, m3, "pants");
     
-    store.getCatalog().add(pd1, prodID1);
-    store.getCatalog().add(pd2, prodID2);
-    store.getCatalog().add(pd3, prodID3);
+    store.getCatalog().add(pd1);
+    store.getCatalog().add(pd2);
+    store.getCatalog().add(pd3);
     
-    store.getRegister().makeNewSale();
+    store.getRegister().makeNewTransaction();
     Register r = store.getRegister();
     
     String response;
@@ -61,12 +61,12 @@ public class HandleProcessSale {
       pd = store.getCatalog().getProductDescription(itemID);
       count++;
       
-      r.getCurrentSale().makeLineItem(pd, quantity);
+      r.getCurrentTransaction().makeLineItem(pd, quantity);
       //get SalesLineItem Info
       String d = pd.getDescription(); //only dependent on product
       double p = pd.getPrice().getAmount(); //only dependent on product
       double sT = pd.getPrice().getAmount() * quantity;
-      rT = r.getCurrentSale().getTotal().getAmount(); //depends on previous products
+      rT = r.getCurrentTransaction().getTotal().getAmount(); //depends on previous products
       
       //display SalesLineItem info
       System.out.println("ProductDescription: "+d+"\tPrice: "+p+"\tQuantity: "+quantity+"\tSubtotal: "+sT+"\tTotal: "+rT);
@@ -76,14 +76,14 @@ public class HandleProcessSale {
       response = s.next();
       if(response.equals("N") || response.equals("n"))
       {
-        r.endSale();
+        r.endTransaction();
       }
       else if(!response.equals("Y") && !response.equals("y"))
       {
         System.out.println("Please enter Y or N");
       }
       
-    }while(r.getCurrentSale().isComplete() == false);
+    }while(r.getCurrentTransaction().isComplete() == false);
     
     System.out.println("enter type of payment ('CR' for credit, 'C' for cash): ");
     String pmtType = s.next();
