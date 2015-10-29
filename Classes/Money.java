@@ -7,55 +7,53 @@ package thescrumbags.Classes;
  * Money class
  */
 
-package thescrumbags.Classes;
-
-import java.util.*;
+import java.math.*;
 
 public class Money {
-    private double amount;
+    private BigDecimal amount;
     
     public Money() {}
     public Money(Money m) {
         copy(m); 
     }
-    public Money(double amount) { this.amount=amount; }
+    public Money(BigDecimal amount) { this.amount=amount; }
     
     public void copy(Money m) {
         this.amount=m.getAmount();
     }
     
-    public double getAmount() { return amount; } 
+    public BigDecimal getAmount() { return amount; } 
     
     public Money add(Money m) {
-        this.amount+=m.getAmount();
+        this.amount.add(m.getAmount());
         return this;
     }
     
-    public Money add(double n)
+    public Money add(BigDecimal n)
     {
-      this.amount += n;
+      this.amount.add(n);
       return this;
     }
     
     public Money subtract(Money m) {
-        this.amount-=m.getAmount();
+        this.amount.subtract(m.getAmount());
         return this;
     }
     
-    public Money subtract(double n)
+    public Money subtract(BigDecimal n)
     {
-      this.amount -= n;
+      this.amount.subtract(n);
       return this;
     }
     
     public Money times(Money m)
     {
-      this.amount *= m.getAmount();
+      this.amount.multiply(m.getAmount());
       return this;
     }
     
-    public Money times(double n) {
-        this.amount*=n;
+    public Money times(BigDecimal n) {
+        this.amount.multiply(n);
         return this;
     }
     
