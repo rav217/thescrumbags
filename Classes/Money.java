@@ -7,8 +7,6 @@ package thescrumbags.Classes;
  * Money class
  */
 
-package thescrumbags.Classes;
-
 import java.util.*;
 
 public class Money {
@@ -60,7 +58,6 @@ public class Money {
     }
     
     public boolean equals(Money m) {
-        if (this.amount==m.getAmount()) return true;
-        return false;
+        return this.amount==m.getAmount();
     }
 }
