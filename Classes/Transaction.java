@@ -29,7 +29,7 @@ public class Transaction {
     this.payment = null;
     this.total = new Money(0);
   }
-
+  
   //sets isComplete to true, called at time of sale completion
   public void becomeComplete() {
     this.isComplete = true;
@@ -46,7 +46,16 @@ public class Transaction {
       SalesLineItem lineItem = new SalesLineItem(desc, qty);
       lineItems.add(lineItem);
       total = total.add(lineItem.getSubtotal());
+  } 
+    
+  public SalesLineItem getLineItem(int index) {
+      return this.lineItems.get(index);
   }
+  
+  public SalesLineItem getLastLineItem() {
+      return this.lineItems.get(this.lineItems.size() - 1);
+  }
+  
 
   //returns the current total for the Sale object
   public Money getTotal() {
