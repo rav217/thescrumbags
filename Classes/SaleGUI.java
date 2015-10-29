@@ -6,8 +6,6 @@
 package thescrumbags.Classes;
 
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 /**
  *
  * @author jjn
@@ -26,7 +24,7 @@ public class SaleGUI extends javax.swing.JFrame {
         pc.add(new ProductDescription(20, new Money(12), "socks"));
         pc.add(new ProductDescription(30, new Money(9), "shirt"));
         r = new Register(pc);
-        r.makeNewSale();
+        r.makeNewTransaction();
         initComponents();
     }
 
@@ -167,7 +165,7 @@ public class SaleGUI extends javax.swing.JFrame {
         r.enterItem(itemID,qty);
         
         // get the product description for access to attributes
-        SalesLineItem currentLineItem = r.getCurrentSale().getLastLineItem();
+        SalesLineItem currentLineItem = r.getCurrentTransaction().getLastLineItem();
         ProductDescription currentProductDescription = currentLineItem.getProductDescription();
         
         // get the table model for editting of data
@@ -183,7 +181,7 @@ public class SaleGUI extends javax.swing.JFrame {
         Object[] row = {desc, priceString, qtyString, subtotalString};
         model.addRow(row);
         
-        String total = String.format("Total: $%4.2f", r.getCurrentSale().getTotal().getAmount());
+        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount());
         totalLabel.setText(total);
     }//GEN-LAST:event_addItemButtonActionPerformed
 
