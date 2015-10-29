@@ -5,20 +5,23 @@
  */
 package thescrumbags.Classes;
 
-import java.util.*;
-
 /**
  *
  * @author benscandell
  */
 public class Rental extends Transaction {
     private int rentalPeriod;
+    private boolean returned;
     
     private Rental() { super(); }
     public Rental(int rentalPeriod) {
         super();
         this.rentalPeriod=rentalPeriod;
     }
+    
+    public boolean isReturned() { return returned; } 
+    
+    public void completeReturn() { returned=true; }
     
     public int getRentalPeriod() { return rentalPeriod; }
     
