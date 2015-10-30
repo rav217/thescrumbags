@@ -4,6 +4,7 @@ package thescrumbags.Classes;
 //still need implementation of external tax calculator and credit check
 
 //import Java.String;
+import java.math.BigDecimal;
   
 public class Payment{
  
@@ -41,7 +42,7 @@ public class Payment{
  
  public Money calculateAmtPlusTax(){
   double taxRate = .06; //constant tax rate for now
-  double tax = this.amt.getAmount() * taxRate;
+  BigDecimal tax = this.amt.getAmount().multiply(new BigDecimal(taxRate));
   return this.amt.add(tax);
  }
  
