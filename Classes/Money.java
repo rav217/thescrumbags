@@ -7,57 +7,72 @@ package thescrumbags.Classes;
  * Money class
  */
 
+<<<<<<< HEAD
 import java.util.*;
 
+=======
+>>>>>>> 0c14f0f34f8787ba50c4f4aad45b7561fcd05204
 public class Money {
-    private double amount;
+    private static double amount;
     
     public Money() {}
+    
+    public Money(double d) { 
+        setAmount(d);
+    }
     public Money(Money m) {
         copy(m); 
     }
-    public Money(double amount) { this.amount=amount; }
     
-    public void copy(Money m) {
-        this.amount=m.getAmount();
+    public static void copy(Money m) {
+        amount=m.getAmount();
+    }
+    
+    public static void setAmount(double d) { 
+        amount=d;
     }
     
     public double getAmount() { return amount; } 
     
     public Money add(Money m) {
-        this.amount+=m.getAmount();
-        return this;
+        Money toReturn=new Money(amount+m.getAmount());
+        return toReturn;
     }
     
-    public Money add(double n)
-    {
-      this.amount += n;
-      return this;
+    public Money add(double d){
+        Money toReturn=new Money(amount+d);
+        return toReturn;
     }
     
     public Money subtract(Money m) {
-        this.amount-=m.getAmount();
-        return this;
+        Money toReturn=new Money(amount-m.getAmount());
+        return toReturn;
     }
     
-    public Money subtract(double n)
+    public Money subtract(double d)
     {
-      this.amount -= n;
-      return this;
+        Money toReturn=new Money(amount-d);
+        return toReturn;
     }
     
-    public Money times(Money m)
+    public Money times(double d)
     {
-      this.amount *= m.getAmount();
-      return this;
-    }
-    
-    public Money times(double n) {
-        this.amount*=n;
-        return this;
+        Money toReturn=new Money(amount*d);
+        return toReturn;
     }
     
     public boolean equals(Money m) {
+<<<<<<< HEAD
         return this.amount==m.getAmount();
+=======
+        if (amount==m.getAmount()) return true;
+        return false;
+>>>>>>> 0c14f0f34f8787ba50c4f4aad45b7561fcd05204
+    }
+    
+    public int compareTo(Money m) { 
+        if (amount > m.getAmount()) return 10;
+        else if(amount < m.getAmount()) return -10;
+        else return 0;
     }
 }

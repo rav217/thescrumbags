@@ -5,8 +5,11 @@ package thescrumbags.Classes;
 
 //import Java.String;
   
-public class Payment{
- 
+public interface Payment{
+  
+ public boolean verify(Transaction t);   
+    
+ /*
  private Money amt;
  private boolean credit;
  private String cardNum;
@@ -41,11 +44,12 @@ public class Payment{
  
  public Money calculateAmtPlusTax(){
   double taxRate = .06; //constant tax rate for now
-  double tax = this.amt.getAmount() * taxRate;
+  BigDecimal tax = this.amt.getAmount().multiply(new BigDecimal(taxRate));
   return this.amt.add(tax);
  }
  
  public boolean doCreditCheck(){
   return true; //for demo purposes, always returns true
  }
+    */
 }
