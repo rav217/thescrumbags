@@ -68,8 +68,8 @@ public class Register {
         currentTransaction.makeLineItem(desc, quantity);
     }
 
-    public void makeCashPayment(Money cashTendered) {
-        Payment p = new CashPayment(cashTendered);
+    public void makeCashPayment(Money cashGiven) {
+        Payment p = new CashPayment(cashGiven);
         this.currentTransaction.accept(p);
     }
     
