@@ -33,12 +33,14 @@ public class DBHandler {
         System.out.println("");
         
         System.out.println("User " + user + " connecting to system...");
-        try{ //jdbc:mysql://127.0.0.1:3306/?user=ChrisByam
-            conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/test", user, pswd);
+        try{ //jdbc:mysql://localhost:3306/?user=root
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scrumbagsdb", user, pswd);
         } catch (SQLException ex){
             System.out.println("Invalid username or password.");
             System.out.println("");
             return true;
+            
+            
         }
         System.out.println("User " + user + " successfully connected to system.");
         System.out.println("");
@@ -50,7 +52,7 @@ public class DBHandler {
         System.out.println("Searching...");
         String descr = null;
         double price = 0;
-        String query = "select * from productdescription where id = " + id;
+        String query = "select * from products where id = " + id;
         try{
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
@@ -76,11 +78,12 @@ public class DBHandler {
     }
     
     public boolean addItem(int id, double price, String descr){
-        String query = "insert into productdescription values (" + price + ", " + id + ", '" + descr + "')";
+        String query = "insert into products values (" + id + ", " + price + ", '" + descr + "')";
+        System.out.println(query);
         System.out.println("");
         try{
             stmt = conn.createStatement();
-            stmt.executeUpdate(query); //is the error here?
+            stmt.executeUpdate(query);
         } catch (SQLException ex){
             System.out.println("Error adding item to system.");
             System.out.println("");
@@ -92,7 +95,7 @@ public class DBHandler {
     }
     
     public boolean removeItem(int id){
-        String query = "delete from productdescription where id = " + id;
+        String query = "delete from products where id = " + id;
         System.out.println("");
         try{
             stmt = conn.createStatement();
@@ -111,7 +114,7 @@ public class DBHandler {
         String descr = null;
         double price = 0;
         int id = 0;
-        String query = "select * from productdescription";
+        String query = "select * from products";
         System.out.println("ItemID\tDescription\t\t\tPrice");
         System.out.println("-----------------------------------------------");
         try{
@@ -119,8 +122,8 @@ public class DBHandler {
             rs = stmt.executeQuery(query);
             while (rs.next()){
                 id = rs.getInt("id");
-                descr = rs.getString("descr");
                 price = rs.getDouble("price");
+                descr = rs.getString("descr");
                 if (descr.length() > 16)
                     System.out.println(id + "\t" + descr + "\t" + price);
                 else
