@@ -7,58 +7,63 @@ package thescrumbags.Classes;
  * Money class
  */
 
-import java.math.*;
-
 public class Money {
-    private BigDecimal amount;
+    private static double amount;
     
     public Money() {}
+    
+    public Money(double d) { 
+        setAmount(d);
+    }
     public Money(Money m) {
         copy(m); 
     }
-    public Money(BigDecimal amount) { this.amount=amount; }
     
-    public void copy(Money m) {
-        this.amount=m.getAmount();
+    public static void copy(Money m) {
+        amount=m.getAmount();
     }
     
-    public BigDecimal getAmount() { return amount; } 
+    public static void setAmount(double d) { 
+        amount=d;
+    }
+    
+    public double getAmount() { return amount; } 
     
     public Money add(Money m) {
-        this.amount.add(m.getAmount());
-        return this;
+        Money toReturn=new Money(amount+m.getAmount());
+        return toReturn;
     }
     
-    public Money add(BigDecimal n)
-    {
-      this.amount.add(n);
-      return this;
+    public Money add(double d){
+        Money toReturn=new Money(amount+d);
+        return toReturn;
     }
     
     public Money subtract(Money m) {
-        this.amount.subtract(m.getAmount());
-        return this;
+        Money toReturn=new Money(amount-m.getAmount());
+        return toReturn;
     }
     
-    public Money subtract(BigDecimal n)
+    public Money subtract(double d)
     {
-      this.amount.subtract(n);
-      return this;
+        Money toReturn=new Money(amount-d);
+        return toReturn;
     }
     
-    public Money times(Money m)
+    public Money times(double d)
     {
-      this.amount.multiply(m.getAmount());
-      return this;
-    }
-    
-    public Money times(BigDecimal n) {
-        this.amount.multiply(n);
-        return this;
+        Money toReturn=new Money(amount*d);
+        return toReturn;
     }
     
     public boolean equals(Money m) {
-        if (this.amount==m.getAmount()) return true;
+        if (amount==m.getAmount()) return true;
         return false;
+    }
+    
+    public int compareTo(Money m) { 
+        if (amount > m.getAmount()) return 10;
+        else if(amount < m.getAmount()) return -10;
+        else return 0;
     }
 }
