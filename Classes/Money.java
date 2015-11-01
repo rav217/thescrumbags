@@ -7,13 +7,8 @@ package thescrumbags.Classes;
  * Money class
  */
 
-<<<<<<< HEAD
-import java.util.*;
-
-=======
->>>>>>> 0c14f0f34f8787ba50c4f4aad45b7561fcd05204
 public class Money {
-    private static double amount;
+    private double amount;
     
     public Money() {}
     
@@ -25,11 +20,11 @@ public class Money {
     }
     
     public static void copy(Money m) {
-        amount=m.getAmount();
+        this.amount = m.getAmount();
     }
     
     public static void setAmount(double d) { 
-        amount=d;
+        this.amount = d;
     }
     
     public double getAmount() { return amount; } 
@@ -62,12 +57,7 @@ public class Money {
     }
     
     public boolean equals(Money m) {
-<<<<<<< HEAD
         return this.amount==m.getAmount();
-=======
-        if (amount==m.getAmount()) return true;
-        return false;
->>>>>>> 0c14f0f34f8787ba50c4f4aad45b7561fcd05204
     }
     
     public int compareTo(Money m) { 
