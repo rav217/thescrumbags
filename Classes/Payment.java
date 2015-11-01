@@ -4,10 +4,12 @@ package thescrumbags.Classes;
 //still need implementation of external tax calculator and credit check
 
 //import Java.String;
-import java.math.BigDecimal;
   
-public class Payment{
- 
+public interface Payment{
+  
+ public boolean verify(Transaction t);   
+    
+ /*
  private Money amt;
  private boolean credit;
  private String cardNum;
@@ -49,4 +51,5 @@ public class Payment{
  public boolean doCreditCheck(){
   return true; //for demo purposes, always returns true
  }
+    */
 }
