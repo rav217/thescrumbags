@@ -14,16 +14,17 @@ import java.util.Date;
  */
 public class Register {
 
-    protected ProductCatalog catalog;
-    protected Transaction currentTransaction;
-    protected Date date;
-    protected Store location;
-    protected boolean isOpen;
+    private ProductCatalog catalog;
+    private Transaction currentTransaction;
+    private boolean isOpen; 
+    private DBHandler dbHandler;
 
     /**
      * Default constructor
      */
-    public Register() {}
+    public Register() {
+        //TODO: we need to pull the product catalog from the database
+    }
 
     /**
      * Constructor, assigns field values for Register object If no Sale
@@ -42,18 +43,21 @@ public class Register {
     public ProductCatalog getCatalog() {
         return catalog;
     }
-
-    public Store getLocation() {
-        return location;
-    }
-
+    
     /**
      * Creates a new Sale object and stores it in currentSale
      */
-    public void makeNewTransaction() {
-        currentTransaction = new Transaction();
+    public void startNewSale() {
+        this.currentTransaction = new Sale();
     }
     
+    public void startNewRental() {
+        this.currentTransaction = new Rental();
+    }
+    
+    public void startNewReturn() {
+        this.currentTransaction = new Return();
+    }
 
     public void endTransaction() {
         currentTransaction.becomeComplete();
@@ -64,19 +68,17 @@ public class Register {
         currentTransaction.makeLineItem(desc, quantity);
     }
 
-    public void makePayment(Money cashTendered) {
-        currentTransaction.makePayment(cashTendered,false,"");
+    public void makeCashPayment(Money cashTendered) {
+        Payment p = new CashPayment(cashTendered);
+        this.currentTransaction.accept(p);
+    }
+    
+    public void makeCreditPayment(String cardNum) {
+        Payment p = new CreditPayment(cardNum);
+        this.currentTransaction.accept(p);
     }
 
-    public void clearCurrentTransaction() {
+    public void cancelTransaction() {
         endTransaction();
-    }
-
-    public void openRegister() {
-        isOpen = true;
-    }
-
-    public void closeRegister() {
-        isOpen = false;
     }
 }
