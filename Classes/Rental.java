@@ -26,7 +26,7 @@ public class Rental extends Transaction {
     
     public void completeReturn() { returned=true; }
     
-    public Date getRentalPeriod() { return this.returnDate; }
+    public Date setReturnDate() { return this.returnDate; }
     
-    public void setRentalPeriod(Date date) { this.returnDate=date; }
+    public void setReturnDate(Date date) { this.returnDate=date; }
 }
