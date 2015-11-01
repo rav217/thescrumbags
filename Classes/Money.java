@@ -8,22 +8,19 @@ package thescrumbags.Classes;
  */
 
 public class Money {
+    
     private double amount;
     
     public Money() {}
     
     public Money(double d) { 
-        setAmount(d);
+        this.amount = d;
     }
     public Money(Money m) {
-        copy(m); 
+        this.amount = m.getAmount(); 
     }
     
-    public static void copy(Money m) {
-        this.amount = m.getAmount();
-    }
-    
-    public static void setAmount(double d) { 
+    public void setAmount(double d) { 
         this.amount = d;
     }
     
