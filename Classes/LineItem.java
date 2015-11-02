@@ -1,5 +1,7 @@
 package thescrumbags.Classes;
 
+import java.math.BigDecimal;
+
 public class LineItem {
 
     private ProductDescription prod;
@@ -10,8 +12,9 @@ public class LineItem {
     public LineItem(ProductDescription prod, int qty) {
         this.prod = prod;
         this.qty = qty;
-        double subtotalDouble = prod.getPrice().getAmount() * (double) qty;
-        this.subtotal = new Money(subtotalDouble);
+        BigDecimal q=new BigDecimal(qty);
+        BigDecimal bd = prod.getPrice().getAmount().multiply(q);
+        this.subtotal = new Money(bd);
     }
 
     //calculates the subtotal of a LineItem object
