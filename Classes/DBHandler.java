@@ -159,8 +159,9 @@ public class DBHandler {
     }
     
     /*fetches product catalog from db. returns ProductDescription hashmap (aka ProductCatalog.catalog)*/
-    public void initProductCatalog(Register r){
-       //variables to fetch from products table in db & query
+    public void init(Register r){
+        
+       //initialize ProductCatalog
        int id = 0;
        double price = 0;
        String descr = "";
@@ -184,6 +185,8 @@ public class DBHandler {
             System.out.println("Error viewing products in the system.");
             closeConnection();
         }
+       
+       //TODO: initialize EmployeeList
     }
     
     /*public Sale getSale() {}

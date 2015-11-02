@@ -22,19 +22,7 @@ public class Register {
     /**
      * Default constructor: pulls product catalog and employee records from db
      */
-    public Register() {
-        //open new db connection
-        dbHandler = DBHandler.getInstance();
-        dbHandler.openConnection("sql595207", "nT1*rF4!");
-        
-        //fetch ProductCatalog from db conn
-        dbHandler.initProductCatalog(this);
-        
-        //fetch EmployeeList from db conn
-        /*EmployeeList tempEL = new EmployeeLsit();
-        this.
-        db.closeConnection();*/
-    }
+    public Register() { } //default constructor for now
 
     /**
      * Constructor, assigns field values for Register object If no Sale
@@ -45,6 +33,17 @@ public class Register {
     
     public Register(ProductCatalog catalog) {
         this.catalog = catalog;
+    }
+
+    public void initializeData(){
+        //open new db connection
+        dbHandler = DBHandler.getInstance();
+        dbHandler.openConnection("sql595207", "nT1*rF4!");
+        
+        //fetch ProductCatalog and EmployeeList from db
+        dbHandler.init(this);
+        
+        dbHandler.closeConnection();
     }
 
     public Transaction getCurrentTransaction() {
