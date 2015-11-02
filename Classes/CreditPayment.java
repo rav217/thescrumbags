@@ -17,9 +17,10 @@ public class CreditPayment implements Payment {
         this.cardNum = cardNum;
     }
     
+    //use Transaction with credit authorization service
     @Override
     public boolean verify(Transaction t) {
-        if(cardNum.length()==15) return true;
+        if(cardNum.length()==16) return true;
         return false;
     }
     
