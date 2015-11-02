@@ -14,17 +14,19 @@ import java.math.BigDecimal;
  */
 public class SaleReturn extends Transaction {
     private Sale sale;
+    private Reimbursement r;
     private String reason;
     private int saleID;
-    private int itemsReturned;
+    private int itemsReturned=0;
     
     /**
      * saleID is going to be the date with all symbols removed
      * @param saleID the ID number printed on the original receipt
      */
-    public SaleReturn(int saleID) {
+    public SaleReturn(int saleID, String reason) {
         super();
         this.saleID=saleID;
+        this.reason=reason;
         DBHandler dbh=DBHandler.getInstance();
         //use dbh to find corresponding Sale object
         sale=new Sale();
@@ -36,23 +38,28 @@ public class SaleReturn extends Transaction {
     
     public int getSaleID() { return saleID; } 
     
-    public void accept(Reimbursement r) {
-        System.out.println("Give the customer $"+r.getAmount().multiply(BigDecimal.ZERO.subtract(BigDecimal.ONE)));
-        
+    public Money negateTotal() {
+        return getTotal().multiply(new BigDecimal(-1));
     }
     
     @Override
     public void becomeComplete() {
-        itemsReturned=0;
         for(LineItem l: lineItems) {
             itemsReturned+=1;
-        }
-        super.becomeComplete();
-        
+        } 
+        super.becomeComplete();     
     }
     
     @Override
     public void updateInventory() {
         //use dbh, itemsReturned and lineItems to update inventory
+    }
+    
+    @Override
+    public void accept(Reimbursement r) {
+        boolean b=r.verify(this);
+        if (!b) {
+            System.out.println("Error reimbursing customer...");
+        }
     }
 }
