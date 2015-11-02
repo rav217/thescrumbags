@@ -3,49 +3,56 @@ package thescrumbags.Classes;
 /*
  CSE 216
  Robert Voit
- Employee Class
+ Employee Classes
  */
 
-public abstract class Employee{
+public class Employee{
   
   //datafields
-  protected int employeeID;
-  protected String employeeName;
-  protected String employeePassword;
-  protected Boolean isManager;
+  private int employeeID;
+  private String employeeName;
+  private String employeePassword;
+  private Boolean isManager;
   
   public Employee(){
     this.employeeID = 0; //we will have to make a way of checking to see if an employee already exists
     this.employeeName = "unknown name";
     this.employeePassword = "defaultpassword"; //setting the default password
-    isManager = null;
+    isManager = false;
   }
   
   public Employee(int employeeID){
     this.employeeID = employeeID;
     this.employeeName = "unknown name";
     this.employeePassword = "defaultpassword"; //setting the default password
-    isManager = null;
+    isManager = false;
   }
   
-  /**This is the constructor for the Employee object.*/
-  public Employee(int employeeID, String employeeName, String employeePassword){
+   public Employee(int employeeID,String employeeName, String employeePassword){
     this.employeeID = employeeID;
     this.employeeName = employeeName;
     this.employeePassword = employeePassword;
-    isManager = null;
+    this.isManager = false;
+  }
+  
+  /**This is the constructor for the Employee object.*/
+  public Employee(int employeeID, Boolean isManager, String employeeName, String employeePassword){
+    this.employeeID = employeeID;
+    this.employeeName = employeeName;
+    this.employeePassword = employeePassword;
+    this.isManager = isManager;
   }
   
   /**Get statements for the datafields*/
   public String getEmployeeName(){
     return employeeName;
   }
-  
+  /*
   //I may remove this method for privacy sake
   public String getEmployeePassword(){
     return employeePassword;
   }
-  
+  */
   public int getEmployeeID(){
     return employeeID;
   }
@@ -55,7 +62,17 @@ public abstract class Employee{
     return employeePassword.equals(password);
   }
   
-  /**abstract method to be defined by subclass. If the employee is a cashier it will return the char 'c'.
-    * It they are a manager it will return 'm'*/
-  public abstract Boolean isManager();
+  public void printEmployee(){
+      if(isManager == true){
+        System.out.println("[ID:" + employeeID + " , Position: Manager , Name: " + employeeName + " ]");
+      }
+      else{
+          System.out.println("[ID:" + employeeID + " , Position: Cashier , Name: " + employeeName + " ]");
+      }
+  }
+  
+  /**If the employee is a cashier it will return the char true, else return false.*/
+  public Boolean isManager(){
+      return isManager;
+  }
 }
