@@ -27,10 +27,8 @@ public class Register {
         dbHandler = DBHandler.getInstance();
         dbHandler.openConnection("sql595207", "nT1*rF4!");
         
-        //fetch ProductCatalog from db
+        //fetch ProductCatalog from db conn
         dbHandler.initProductCatalog(this);
-        
-        this.catalog = new ProductCatalog(dbHandler.initializePC(tempPC));
         
         //fetch EmployeeList from db conn
         /*EmployeeList tempEL = new EmployeeLsit();

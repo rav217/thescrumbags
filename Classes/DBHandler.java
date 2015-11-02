@@ -160,7 +160,7 @@ public class DBHandler {
     
     /*fetches product catalog from db. returns ProductDescription hashmap (aka ProductCatalog.catalog)*/
     public void initProductCatalog(Register r){
-       //variables to fetch from products table in db
+       //variables to fetch from products table in db & query
        int id = 0;
        double price = 0;
        String descr = "";
