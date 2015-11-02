@@ -18,7 +18,6 @@ public class Transaction {
     protected Date date;
     protected boolean isComplete;
     protected Money total;
-    protected Employee cashier;
 
   //creates a new transaction object, date reflects current date and time, isComplete
     //is set to false at object creation
@@ -40,10 +39,11 @@ public class Transaction {
 
   //creates a new LineItem for the sale given a description and quantity,
     //adds new LineItem to the lineItems ArrayList, total updated with new subtotal
-    public void makeLineItem(ProductDescription desc, int qty) {
+    public LineItem makeLineItem(ProductDescription desc, int qty) {
         LineItem lineItem = new LineItem(desc, qty);
         lineItems.add(lineItem);
         total = total.add(lineItem.getSubtotal());
+        return lineItem;
     }
 
     public void removeLineItem(int index) {

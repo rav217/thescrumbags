@@ -21,6 +21,10 @@ public class EmployeeList{
     employeeList = new ArrayList<Employee>();
   }
   
+  public ArrayList<Employee> getEList() {
+      return employeeList;
+  }
+  
   /**This method is used to populate the arraylist*/
   public void addEmployee(Employee newEmployee){
     employeeList.add(newEmployee);
