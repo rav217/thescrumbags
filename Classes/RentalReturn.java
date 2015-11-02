@@ -6,6 +6,7 @@
 package thescrumbags.Classes;
 
 import java.util.*;
+import java.math.BigDecimal;
 
 /**
  *
@@ -38,7 +39,8 @@ public class RentalReturn extends Transaction {
         GregorianCalendar now=this.date;
         if(now.after(rental.getReturnDate())) {
             daysLate=now.get(Calendar.DAY_OF_YEAR)-rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
-            Money m=new Money(daysLate*.1*rental.getTotal().getAmount());
+            BigDecimal bd=rental.getTotal().getAmount().multiply(new BigDecimal(daysLate/10));
+            Money m=new Money(bd);
             setTotal(m);
         }
     }
