@@ -5,8 +5,6 @@
  */
 package thescrumbags.Classes;
 
-import java.math.BigDecimal;
-
 /**
  * To be used for all cash reimbursements
  * CreditReiumbursement will extend Reimbursement
@@ -22,7 +20,7 @@ public class Reimbursement {
     
     public boolean verify(SaleReturn s) {
         amount=s.negateTotal();
-        System.out.println("Give the customer $"+amount);
+        System.out.println("Give the customer $"+amount); //will show negative number
         return true; //TODO
     }
 }
