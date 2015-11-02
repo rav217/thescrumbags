@@ -1,3 +1,5 @@
+package thescrumbags.Classes;
+
 /**
  * Scrumbags POS
  * CSE 216
@@ -5,56 +7,59 @@
  * Money class
  */
 
-package thescrumbags.Classes;
-
-import java.util.*;
-
 public class Money {
     private double amount;
     
     public Money() {}
+    
+    public Money(double d) { 
+        this.amount=d;
+    }
     public Money(Money m) {
         copy(m); 
     }
-    public Money(double amount) { this.amount=amount; }
     
-    public void copy(Money m) {
-        this.amount=m.amount;
+    public static void copy(Money m) {
+        setAmount(m.getAmount());
     }
     
     public double getAmount() { return amount; } 
     
     public Money add(Money m) {
-        this.amount+=m.getAmount();
-        return this;
+        Money toReturn=new Money(amount+m.getAmount());
+        return toReturn;
     }
     
-    public Money add(double n)
-    {
-      this.amount += n;
-      return this;
+    public Money add(double d){
+        Money toReturn=new Money(amount+d);
+        return toReturn;
     }
     
     public Money subtract(Money m) {
-        this.amount-=m.getAmount();
-        return this;
+        Money toReturn=new Money(amount-m.getAmount());
+        return toReturn;
     }
     
-    public Money subtract(double n)
+    public Money subtract(double d)
     {
-      this.amount -= n;
-      return this;
+        Money toReturn=new Money(amount-d);
+        return toReturn;
     }
     
-    public Money times(Money m)
+    public Money times(double d)
     {
-      this.amount *= m.amount;
-      return this;
+        Money toReturn=new Money(amount*d);
+        return toReturn;
     }
     
-    public Money times(double n) {
-        this.amount*=n;
-        return this;
+    public boolean equals(Money m) {
+        if (amount==m.getAmount()) return true;
+        return false;
     }
     
+    public int compareTo(Money m) { 
+        if (amount > m.getAmount()) return 10;
+        else if(amount < m.getAmount()) return -10;
+        else return 0;
+    }
 }

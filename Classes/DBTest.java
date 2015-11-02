@@ -12,7 +12,7 @@ public class DBTest {
     
     public static void main (String args[]){
         Scanner in = new Scanner(System.in);
-        DBHandler db = new DBHandler();
+        DBHandler db = DBHandler.getInstance();
         boolean next = true; //outer loop conditional
         boolean go = true; //inner loop conditional
         
