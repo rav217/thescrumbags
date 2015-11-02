@@ -8,20 +8,19 @@ package thescrumbags.Classes;
  */
 
 public class Money {
-    
     private double amount;
     
     public Money() {}
     
     public Money(double d) { 
-        this.amount = d;
+        this.amount=d;
     }
     public Money(Money m) {
-        this.amount = m.getAmount(); 
+        copy(m); 
     }
     
-    public void setAmount(double d) { 
-        this.amount = d;
+    public static void copy(Money m) {
+        setAmount(m.getAmount());
     }
     
     public double getAmount() { return amount; } 
@@ -54,7 +53,8 @@ public class Money {
     }
     
     public boolean equals(Money m) {
-        return this.amount==m.getAmount();
+        if (amount==m.getAmount()) return true;
+        return false;
     }
     
     public int compareTo(Money m) { 
