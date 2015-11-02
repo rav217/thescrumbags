@@ -17,7 +17,17 @@ public class DBHandler {
     private Connection conn = null;
     private Statement stmt = null;
     private ResultSet rs = null; 
+    private static DBHandler uniqueInst = null;
     //put other db variables here. default constructor will make them all null
+    
+    public DBHandler() {}
+    
+    public static synchronized DBHandler getInstance() {
+        if (uniqueInst == null) {
+            uniqueInst = new DBHandler();
+        }
+        return uniqueInst;
+    }
     
     //opens connection. returns false on success, true on error
     public boolean openConnection(String user, String pswd){
