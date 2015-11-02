@@ -8,7 +8,8 @@ package thescrumbags.Classes;
 import java.math.BigDecimal;
 
 /**
- *
+ * To be used for all cash reimbursements
+ * CreditReiumbursement will extend Reimbursement
  * @author benscandell
  */
 public class Reimbursement {
