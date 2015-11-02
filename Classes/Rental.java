@@ -34,4 +34,8 @@ public class Rental extends Transaction {
     public Calendar getReturnDate()  {
         return returnDate; 
     }
+    
+    public void updateInventory() {
+        
+    }
 }
