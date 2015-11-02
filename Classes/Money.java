@@ -15,13 +15,6 @@ public class Money {
     public Money(double d) { 
         this.amount=d;
     }
-    public Money(Money m) {
-        copy(m); 
-    }
-    
-    public static void copy(Money m) {
-        setAmount(m.getAmount());
-    }
     
     public double getAmount() { return amount; } 
     
