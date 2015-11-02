@@ -31,4 +31,8 @@ public class Sale extends Transaction {
             System.out.println("Payment was not accepted.");
         }
     }
+    
+    public void updateInventory() { 
+        
+    }
 }
