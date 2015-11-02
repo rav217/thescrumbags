@@ -32,6 +32,7 @@ public class Sale extends Transaction {
         }
     }
     
+    @Override
     public void updateInventory() { 
         
     }
