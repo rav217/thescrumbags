@@ -64,6 +64,10 @@ public class Transaction {
         return this.total;
     }
     
+    public void setTotal(Money m) { 
+        this.total=m;
+    }
+    
     public void accept(Payment p) {}
     
     public void updateInventory() {}
