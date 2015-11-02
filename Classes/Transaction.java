@@ -16,7 +16,7 @@ public class Transaction {
 
     protected ArrayList<LineItem> lineItems = new ArrayList<>();
     //date also functions as transaction ID
-    protected Calendar date;
+    protected GregorianCalendar date;
     protected boolean isComplete;
     protected Money total;
     protected Employee cashier;
