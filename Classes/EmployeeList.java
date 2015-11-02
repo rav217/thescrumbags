@@ -3,7 +3,7 @@ package thescrumbags.Classes;
 /*
  * Robert Voit
  * CSE216
- * Employee List Class
+ * Employee ListClass
  * */
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class EmployeeList{
     employeeList = new ArrayList<Employee>();
   }
   
-  /**This mehtod is used to populate the arraylist*/
+  /**This method is used to populate the arraylist*/
   public void addEmployee(Employee newEmployee){
     employeeList.add(newEmployee);
   }
@@ -49,7 +49,7 @@ public class EmployeeList{
     return employeeList.size();
   }
   
-  /*Returns if the employeeID is in the arraylist or not*/
+  /**Returns if the employeeID is in the arraylist or not*/
   public Boolean isEmployee(int employeeID){ //make loop to find employee using ID
     Boolean result = false;
     Employee e = this.findEmployee(employeeID);
@@ -60,7 +60,7 @@ public class EmployeeList{
   }
   
   /*Helper function for this class*/
-  private Employee findEmployee(int employeeID){
+  public Employee findEmployee(int employeeID){
     Employee result = null;
     for(int i = 0; i < employeeList.size(); i++){
       if(employeeList.get(i).getEmployeeID() == employeeID){
@@ -69,4 +69,21 @@ public class EmployeeList{
     }
     return result;
   }
+  
+  public void printList(){
+      if(employeeList.size() == 0){
+          System.out.println("{");
+          System.out.println("\t The employeeList is empty.");
+          System.out.println("}");
+      }
+      else{
+        System.out.println("{");
+        for(int i = 0; i<employeeList.size(); i++){
+            System.out.print("\t");
+            employeeList.get(i).printEmployee();
+        }
+        System.out.println("}");
+    }
+  }
+  
 }
