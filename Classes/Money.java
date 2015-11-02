@@ -16,13 +16,17 @@ public class Money implements Comparable {
     public Money() {
         BigDecimal zero = new BigDecimal(0);
         this.amount = zero;
-    }
-    public Money(BigDecimal amount) {
-        this.amount = amount; 
+
     }
 
-    public BigDecimal getAmount() { return this.amount; } 
-    
+    public Money(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public java.math.BigDecimal getAmount() {
+        return amount;
+    }
+
     public Money add(Money m) {
         amount=amount.add(m.getAmount());
         return this;
