@@ -8,6 +8,7 @@ package thescrumbags.Classes;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.math.BigDecimal;
 
 //This is the Sale class which stores a list of items being sold, the current date,
 // the total and customer payment. It is able to add new line items to the sale, calculate the total,
@@ -26,7 +27,7 @@ public class Transaction {
     public Transaction() {
         this.date = new GregorianCalendar();
         this.isComplete = false;
-        this.total = new Money(0);
+        this.total = new Money(new BigDecimal(0));
     }
 
     //sets isComplete to true, called at time of sale completion
