@@ -26,6 +26,9 @@ public class Sale extends Transaction {
      */
     @Override
     public void accept(Payment p) {
-        p.verify(this);
+        boolean b=p.verify(this);
+        if(!b) {
+            System.out.println("Payment was not accepted.");
+        }
     }
 }
