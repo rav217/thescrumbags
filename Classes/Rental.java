@@ -5,20 +5,19 @@
  */
 package thescrumbags.Classes;
 
-import java.util.Date;
-import java.util.Calendar;
+import java.util.*;
 /**
  *
  * @author benscandell
  */
 public class Rental extends Transaction {
     
-    private Calendar returnDate;
+    private GregorianCalendar returnDate;
     private boolean returned;
     
     private Rental() { super(); }
     
-    public Rental(Calendar returnDate) {
+    public Rental(GregorianCalendar returnDate) {
         super();
         this.returnDate=returnDate;
     }
@@ -29,10 +28,17 @@ public class Rental extends Transaction {
     
     public Calendar setReturnDate() { return this.returnDate; }
     
-    public void setReturnDate(Calendar date) { this.returnDate=date; }
+    public void setReturnDate(GregorianCalendar date) { this.returnDate=date; }
     
     public Calendar getReturnDate()  {
         return returnDate; 
+    }
+    
+    public void accept(Payment p) {
+        boolean b=p.verify(this);
+        if(!b) {
+            System.out.println("Payment was not accepted.");
+        }
     }
     
     public void updateInventory() {
