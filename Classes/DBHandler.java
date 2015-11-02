@@ -22,7 +22,7 @@ public class DBHandler {
     private static DBHandler uniqueInst = null;
     //put other db variables here. default constructor will make them all null
     
-    public DBHandler() {}
+    private DBHandler() {}
     
     public static synchronized DBHandler getInstance() {
         if (uniqueInst == null) {
