@@ -2,11 +2,13 @@
 class that will interact with the DB. can be adapted as needed
  */
 package thescrumbags.Classes;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 /**
  *
@@ -156,6 +158,35 @@ public class DBHandler {
         System.out.println("Connection closed.");
     }
     
-    //public Sale getSale() {}
-    //public Rental getRental() {}
+    /*fetches product catalog from db. returns ProductDescription hashmap (aka ProductCatalog.catalog)*/
+    public HashMap<Integer, ProductDescription> initializePC(ProductCatalog pc){
+       //variables to fetch from products table in db
+       int id = 0;
+       double price = 0;
+       String descr = "";
+       String query = "select * from products";
+       try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            //while the result set is not empty
+            while (rs.next()){
+                id = rs.getInt("id");
+                price = rs.getDouble("price");
+                descr = rs.getString("descr");
+                BigDecimal bd = BigDecimal.valueOf(price);
+                Money p = new Money(bd);
+                //create new ProductDescription object based on this info
+                ProductDescription pd = new ProductDescription(id, p, descr);
+                //add the product description to ProductCatalog being passed as parameter
+                pc.add(pd);
+            }
+        } catch (SQLException ex){
+            System.out.println("Error viewing products in the system.");
+            closeConnection();
+        }
+       return pc.getCatalog();
+    }
+    
+    /*public Sale getSale() {}
+    public Rental getRental() {}*/
 }   
