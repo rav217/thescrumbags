@@ -5,8 +5,10 @@
  */
 package thescrumbags.Classes;
 
+import java.util.Calendar;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.GregorianCalendar;
+import java.math.BigDecimal;
 
 //This is the Sale class which stores a list of items being sold, the current date,
 // the total and customer payment. It is able to add new line items to the sale, calculate the total,
@@ -15,16 +17,16 @@ public class Transaction {
 
     protected ArrayList<LineItem> lineItems = new ArrayList<>();
     //date also functions as transaction ID
-    protected Date date;
+    protected GregorianCalendar date;
     protected boolean isComplete;
     protected Money total;
 
   //creates a new transaction object, date reflects current date and time, isComplete
     //is set to false at object creation
     public Transaction() {
-        this.date = new Date();
+        this.date = new GregorianCalendar();
         this.isComplete = false;
-        this.total = new Money(0);
+        this.total = new Money(new BigDecimal(0));
     }
 
     //sets isComplete to true, called at time of sale completion
@@ -54,14 +56,26 @@ public class Transaction {
         return this.lineItems.get(index);
     }
 
+    public ArrayList<LineItem> getLineItems() { return lineItems; }
+    
     public LineItem getLastLineItem() {
         return this.lineItems.get(this.lineItems.size() - 1);
     }
 
     //returns the current total for the Sale object
     public Money getTotal() {
-        return this.total;
+        for(LineItem l: lineItems) {
+            total=total.add(l.getSubtotal());
+        }
+        return total;
+    }
+    
+    public void setTotal(Money m) { 
+        this.total=m;
     }
     
     public void accept(Payment p) {}
+    public void accept(Reimbursement r) {}
+    
+    public void updateInventory() {}
 }

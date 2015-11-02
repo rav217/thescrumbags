@@ -43,8 +43,8 @@ public class DBHandler {
         System.out.println("");
         
         System.out.println("User " + user + " connecting to system...");
-        try{ //jdbc:mysql://localhost:3306/?user=root
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/scrumbagsdb", user, pswd);
+        try{ //jdbc:mysql://sql5.freemysqlhosting.net:3306/?user=sql595207
+            conn = DriverManager.getConnection("jdbc:mysql://sql5.freemysqlhosting.net:3306/sql595207", user, pswd);
         } catch (SQLException ex){
             System.out.println("Invalid username or password.");
             System.out.println("");
@@ -155,4 +155,7 @@ public class DBHandler {
         }
         System.out.println("Connection closed.");
     }
+    
+    //public Sale getSale() {}
+    //public Rental getRental() {}
 }   

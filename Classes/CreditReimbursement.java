@@ -9,19 +9,19 @@ package thescrumbags.Classes;
  *
  * @author benscandell
  */
-public class CreditPayment implements Payment {
-
+public class CreditReimbursement extends Reimbursement {
+    
     private String cardNum;
     
-    public CreditPayment(String cardNum) {
-        this.cardNum = cardNum;
+    public CreditReimbursement(String cardNum) { 
+        super();      
+        this.cardNum=cardNum;
     }
     
-    //use Transaction with credit authorization service
+    //use SaleReturn with credit authorization service
     @Override
-    public boolean verify(Transaction t) {
-        if(cardNum.length()==16) return true;
+    public boolean verify(SaleReturn s) {
+        if(cardNum.length()==15) return true;
         return false;
     }
-    
 }

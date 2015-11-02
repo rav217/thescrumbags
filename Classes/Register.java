@@ -6,8 +6,7 @@ package thescrumbags.Classes;
  * CSE 216
  * Register class
  */
-
-import java.util.Date;
+import java.util.*;
 
 /*
  * A class representing a cash register for the point-of-sale system
@@ -44,23 +43,23 @@ public class Register {
     public ProductCatalog getCatalog() {
         return catalog;
     }
-    
+
     /**
      * Creates a new Sale object and stores it in currentSale
      */
     public void makeNewSale() {
         this.currentTransaction = new Sale();
     }
-    
-    public void makeNewRental(Date returnDate) {
+
+    public void makeNewRental(GregorianCalendar returnDate) {
         this.currentTransaction = new Rental(returnDate);
     }
-    
+
     //public void makeNewReturn() {
     //    this.currentTransaction = new Return();
     //}
-
     public void endTransaction() {
+        currentTransaction.updateInventory();
         currentTransaction.becomeComplete();
     }
 
@@ -73,10 +72,31 @@ public class Register {
         Payment p = new CashPayment(cashGiven);
         this.currentTransaction.accept(p);
     }
-    
+
     public void makeCreditPayment(String cardNum) {
         Payment p = new CreditPayment(cardNum);
         this.currentTransaction.accept(p);
+    }
+
+    public void makeNewSaleReturn(int saleID, String reason) {
+        SaleReturn s = new SaleReturn(saleID, reason);
+        this.currentTransaction = s;
+        makeReimbursement();
+    }
+
+    public void makeNewRentalReturn(int rentalID) {
+        RentalReturn r = new RentalReturn(rentalID);
+        this.currentTransaction = r;
+    }
+
+    public void makeReimbursement() {
+        Reimbursement r = new Reimbursement();
+        this.currentTransaction.accept(r);
+    }
+
+    public void makeCreditReimbursement(String cardNum) {
+        CreditReimbursement r = new CreditReimbursement(cardNum);
+        this.currentTransaction.accept(r);
     }
 
     public void cancelTransaction() {

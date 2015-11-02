@@ -20,10 +20,6 @@ public class UserManagementFrame extends javax.swing.JFrame {
      * Creates new form UserManagementFrame
      */
     public UserManagementFrame() {
-        userManager.addCashier("Bobby","");
-        userManager.addCashier("Chris", "");
-        userManager.addManager("TJ", "");
-        userManager.addCashier("Jacob", "");
         initComponents();
         model = (DefaultTableModel) employeeTable.getModel();
         initEmployeeTable();

@@ -106,7 +106,6 @@ public class MenuFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSaleActionPerformed
-        SaleGUI sale = new SaleGUI();
         sale.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_newSaleActionPerformed
