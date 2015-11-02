@@ -7,7 +7,7 @@ package thescrumbags.Classes;
  * Register class
  */
 
-import java.util.Date;
+import java.util.Calendar;
 
 /*
  * A class representing a cash register for the point-of-sale system
@@ -51,7 +51,7 @@ public class Register {
         this.currentTransaction = new Sale();
     }
     
-    public void makeNewRental(Date returnDate) {
+    public void makeNewRental(Calendar returnDate) {
         this.currentTransaction = new Rental(returnDate);
     }
     
@@ -60,6 +60,7 @@ public class Register {
     //}
 
     public void endTransaction() {
+        currentTransaction.updateInventory();
         currentTransaction.becomeComplete();
     }
 
