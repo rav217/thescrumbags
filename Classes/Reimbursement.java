@@ -16,9 +16,13 @@ public class Reimbursement {
     
     private Money amount;
     
-    public Reimbursement() {
-        this.amount=amount.multiply(new BigDecimal(-1));
-    }
+    public Reimbursement() {}
+    
     public Money getAmount() { return amount; } 
     
+    public boolean verify(SaleReturn s) {
+        amount=s.negateTotal();
+        System.out.println("Give the customer $"+amount);
+        return true; //TODO
+    }
 }
