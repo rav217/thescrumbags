@@ -21,6 +21,7 @@ public class RentalReturn extends Transaction {
     public RentalReturn(int rentalID) {
         super();
         this.rentalID = rentalID;
+        DBHandler dbh=DBHandler.getInstance();
     }
 
     public Rental getRental() {
@@ -45,6 +46,7 @@ public class RentalReturn extends Transaction {
         }
     }
 
+    @Override
     public void accept(Payment p) {
         boolean b = p.verify(this);
         if (!b) {
@@ -52,7 +54,9 @@ public class RentalReturn extends Transaction {
         }
     }
 
+    @Override
     public void updateInventory() {
+        //use dbh, itemsReturned and lineItems to update inventory
     }
 
 }
