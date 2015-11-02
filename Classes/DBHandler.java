@@ -155,4 +155,7 @@ public class DBHandler {
         }
         System.out.println("Connection closed.");
     }
+    
+    public Sale getSale() {}
+    public Rental getRental() {}
 }   
