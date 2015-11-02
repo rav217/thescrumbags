@@ -5,8 +5,7 @@
  */
 package thescrumbags.Classes;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 //This is the Sale class which stores a list of items being sold, the current date,
 // the total and customer payment. It is able to add new line items to the sale, calculate the total,
@@ -64,4 +63,6 @@ public class Transaction {
     }
     
     public void accept(Payment p) {}
+    
+    public void updateInventory() {}
 }
