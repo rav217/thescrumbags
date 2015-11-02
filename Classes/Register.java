@@ -58,6 +58,17 @@ public class Register {
     //public void makeNewReturn() {
     //    this.currentTransaction = new Return();
     //}
+    
+    
+    public void makeNewSaleReturn(int saleID, String reason) {
+        SaleReturn s=new SaleReturn(saleID, reason);
+        this.currentTransaction=s;
+    }
+    
+    public void makeNewRentalReturn(int rentalID) {
+        RentalReturn r=new RentalReturn(rentalID);
+        this.currentTransaction=r;
+    }
 
     public void endTransaction() {
         currentTransaction.updateInventory();
