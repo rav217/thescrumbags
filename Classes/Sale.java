@@ -20,10 +20,6 @@ public class Sale extends Transaction {
         this.total = this.total.times(1.0 - discount);
     }
     
-    /**
-     *
-     * @param p
-     */
     @Override
     public void accept(Payment p) {
         boolean b=p.verify(this);
