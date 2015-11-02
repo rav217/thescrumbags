@@ -64,9 +64,6 @@ public class Transaction {
 
     //returns the current total for the Sale object
     public Money getTotal() {
-        for(LineItem l: lineItems) {
-            total=total.add(l.getSubtotal());
-        }
         return total;
     }
     
