@@ -5,7 +5,9 @@
  */
 package thescrumbags.Classes;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 //This is the Sale class which stores a list of items being sold, the current date,
 // the total and customer payment. It is able to add new line items to the sale, calculate the total,
@@ -14,7 +16,7 @@ public class Transaction {
 
     protected ArrayList<LineItem> lineItems = new ArrayList<>();
     //date also functions as transaction ID
-    protected Date date;
+    protected Calendar date;
     protected boolean isComplete;
     protected Money total;
     protected Employee cashier;
@@ -22,7 +24,7 @@ public class Transaction {
   //creates a new transaction object, date reflects current date and time, isComplete
     //is set to false at object creation
     public Transaction() {
-        this.date = new Date();
+        this.date = new GregorianCalendar();
         this.isComplete = false;
         this.total = new Money(0);
     }
