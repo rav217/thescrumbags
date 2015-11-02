@@ -5,25 +5,43 @@
  */
 package thescrumbags.Classes;
 
+import java.util.*;
 /**
  *
  * @author benscandell
  */
 public class Rental extends Transaction {
-    private int rentalPeriod;
+    
+    private GregorianCalendar returnDate;
     private boolean returned;
     
     private Rental() { super(); }
-    public Rental(int rentalPeriod) {
+    
+    public Rental(GregorianCalendar returnDate) {
         super();
-        this.rentalPeriod=rentalPeriod;
+        this.returnDate=returnDate;
     }
     
     public boolean isReturned() { return returned; } 
     
     public void completeReturn() { returned=true; }
     
-    public int getRentalPeriod() { return rentalPeriod; }
+    public void setReturnDate(GregorianCalendar date) { this.returnDate=date; }
     
-    public void setRentalPeriod(int days) { rentalPeriod=days; }
+    public Calendar getReturnDate()  {
+        return returnDate; 
+    }
+    
+    @Override
+    public void accept(Payment p) {
+        boolean b=p.verify(this);
+        if(!b) {
+            System.out.println("Payment was not accepted.");
+        }
+    }
+    
+    @Override
+    public void updateInventory() {
+        
+    }
 }

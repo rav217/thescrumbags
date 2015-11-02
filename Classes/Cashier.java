@@ -8,6 +8,8 @@ package thescrumbags.Classes;
 
 public class Cashier extends Employee{
   
+    private Boolean isManager;
+    
   public Cashier(){
     super();
     isManager = false;

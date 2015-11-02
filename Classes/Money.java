@@ -1,64 +1,72 @@
 package thescrumbags.Classes;
 
 /**
- * Scrumbags POS
- * CSE 216
- * @author Ben Candell
+ * Scrumbags POS CSE 216
+ *
+ * @author Ben Candell 
  * Money class
  */
+import java.math.BigDecimal;
+import java.util.*;
 
-import java.math.*;
+public class Money implements Comparable {
 
-public class Money {
     private BigDecimal amount;
-    
-    public Money() {}
-    public Money(Money m) {
-        copy(m); 
+
+    public Money() {
+        BigDecimal zero = new BigDecimal(0);
+        this.amount = zero;
     }
-    public Money(BigDecimal amount) { this.amount=amount; }
-    
-    public void copy(Money m) {
-        this.amount=m.getAmount();
+
+    public Money(BigDecimal amount) {
+        this.amount = amount;
     }
-    
-    public BigDecimal getAmount() { return amount; } 
-    
+
+    public java.math.BigDecimal getAmount() {
+        return amount;
+    }
+
     public Money add(Money m) {
-        this.amount.add(m.getAmount());
+        amount=amount.add(m.getAmount());
         return this;
     }
-    
-    public Money add(BigDecimal n)
-    {
-      this.amount.add(n);
-      return this;
+
+    public Money add(BigDecimal bd) {
+        amount=amount.add(bd);
+        return this;
     }
-    
+
     public Money subtract(Money m) {
-        this.amount.subtract(m.getAmount());
+        amount=amount.subtract(m.getAmount());
         return this;
     }
-    
-    public Money subtract(BigDecimal n)
-    {
-      this.amount.subtract(n);
-      return this;
-    }
-    
-    public Money times(Money m)
-    {
-      this.amount.multiply(m.getAmount());
-      return this;
-    }
-    
-    public Money times(BigDecimal n) {
-        this.amount.multiply(n);
+
+    public Money subtract(BigDecimal bd) {
+        amount=amount.subtract(bd);
         return this;
     }
-    
-    public boolean equals(Money m) {
-        if (this.amount==m.getAmount()) return true;
-        return false;
+
+    public Money multiply(BigDecimal bd) {
+        amount=amount.multiply(bd);
+        return this;
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Money) {
+            Money money = (Money) o;
+            return amount.equals(money.getAmount());
+        }
+        return true;
+    }
+
+    @Override
+    public int compareTo(Object o) throws ClassCastException  {
+        if (o instanceof Money) {
+            Money money = (Money) o;
+            return amount.compareTo(money.getAmount());
+        }
+        else throw new ClassCastException();
     }
 }

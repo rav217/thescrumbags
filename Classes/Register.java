@@ -6,24 +6,24 @@ package thescrumbags.Classes;
  * CSE 216
  * Register class
  */
-
-import java.util.Date;
+import java.util.*;
 
 /*
  * A class representing a cash register for the point-of-sale system
  */
 public class Register {
 
-    protected ProductCatalog catalog;
-    protected Transaction currentTransaction;
-    protected Date date;
-    protected Store location;
-    protected boolean isOpen;
+    private ProductCatalog catalog;
+    private Transaction currentTransaction;
+    private boolean isOpen;
+    private DBHandler dbHandler;
 
     /**
      * Default constructor
      */
-    public Register() {}
+    public Register() {
+        //TODO: we need to pull the product catalog from the database
+    }
 
     /**
      * Constructor, assigns field values for Register object If no Sale
@@ -43,19 +43,22 @@ public class Register {
         return catalog;
     }
 
-    public Store getLocation() {
-        return location;
-    }
-
     /**
      * Creates a new Sale object and stores it in currentSale
      */
-    public void makeNewTransaction() {
-        currentTransaction = new Transaction();
+    public void makeNewSale() {
+        this.currentTransaction = new Sale();
     }
-    
 
+    public void makeNewRental(GregorianCalendar returnDate) {
+        this.currentTransaction = new Rental(returnDate);
+    }
+
+    //public void makeNewReturn() {
+    //    this.currentTransaction = new Return();
+    //}
     public void endTransaction() {
+        currentTransaction.updateInventory();
         currentTransaction.becomeComplete();
     }
 
@@ -64,19 +67,38 @@ public class Register {
         currentTransaction.makeLineItem(desc, quantity);
     }
 
-    public void makePayment(Money cashTendered) {
-        currentTransaction.makePayment(cashTendered,false,"");
+    public void makeCashPayment(Money cashGiven) {
+        Payment p = new CashPayment(cashGiven);
+        this.currentTransaction.accept(p);
     }
 
-    public void clearCurrentTransaction() {
+    public void makeCreditPayment(String cardNum) {
+        Payment p = new CreditPayment(cardNum);
+        this.currentTransaction.accept(p);
+    }
+
+    public void makeNewSaleReturn(int saleID, String reason) {
+        SaleReturn s = new SaleReturn(saleID, reason);
+        this.currentTransaction = s;
+        makeReimbursement();
+    }
+
+    public void makeNewRentalReturn(int rentalID) {
+        RentalReturn r = new RentalReturn(rentalID);
+        this.currentTransaction = r;
+    }
+
+    public void makeReimbursement() {
+        Reimbursement r = new Reimbursement();
+        this.currentTransaction.accept(r);
+    }
+
+    public void makeCreditReimbursement(String cardNum) {
+        CreditReimbursement r = new CreditReimbursement(cardNum);
+        this.currentTransaction.accept(r);
+    }
+
+    public void cancelTransaction() {
         endTransaction();
-    }
-
-    public void openRegister() {
-        isOpen = true;
-    }
-
-    public void closeRegister() {
-        isOpen = false;
     }
 }
