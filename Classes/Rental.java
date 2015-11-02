@@ -26,14 +26,13 @@ public class Rental extends Transaction {
     
     public void completeReturn() { returned=true; }
     
-    public Calendar setReturnDate() { return this.returnDate; }
-    
     public void setReturnDate(GregorianCalendar date) { this.returnDate=date; }
     
     public Calendar getReturnDate()  {
         return returnDate; 
     }
     
+    @Override
     public void accept(Payment p) {
         boolean b=p.verify(this);
         if(!b) {
@@ -41,6 +40,7 @@ public class Rental extends Transaction {
         }
     }
     
+    @Override
     public void updateInventory() {
         
     }
