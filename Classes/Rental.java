@@ -6,18 +6,19 @@
 package thescrumbags.Classes;
 
 import java.util.Date;
+import java.util.Calendar;
 /**
  *
  * @author benscandell
  */
 public class Rental extends Transaction {
     
-    private Date returnDate;
+    private Calendar returnDate;
     private boolean returned;
     
     private Rental() { super(); }
     
-    public Rental(Date returnDate) {
+    public Rental(Calendar returnDate) {
         super();
         this.returnDate=returnDate;
     }
@@ -26,7 +27,11 @@ public class Rental extends Transaction {
     
     public void completeReturn() { returned=true; }
     
-    public Date setReturnDate() { return this.returnDate; }
+    public Calendar setReturnDate() { return this.returnDate; }
     
-    public void setReturnDate(Date date) { this.returnDate=date; }
+    public void setReturnDate(Calendar date) { this.returnDate=date; }
+    
+    public Calendar getReturnDate()  {
+        return returnDate; 
+    }
 }
