@@ -1,5 +1,7 @@
 package thescrumbags.Classes;
 
+import java.math.BigDecimal;
+
 //This is the Sale class which stores a list of items being sold, the current date,
 // the total and customer payment. It is able to add new line items to the sale, calculate the total,
 // and tender a payment. Implements the java.util.Date class
@@ -16,8 +18,10 @@ public class Sale extends Transaction {
         return this.payment;
     }
     
-    public void calculateDiscount(double discount) {
-        this.total = this.total.times(1.0 - discount);
+    public void calculateDiscount(BigDecimal discount) {
+        BigDecimal one=new BigDecimal(1);
+        BigDecimal bd=one.subtract(discount);
+        total = total.multiply(bd);
     }
     
     @Override
