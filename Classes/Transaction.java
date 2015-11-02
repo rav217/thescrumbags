@@ -55,6 +55,8 @@ public class Transaction {
         return this.lineItems.get(index);
     }
 
+    public ArrayList<LineItem> getLineItems() { return lineItems; }
+    
     public LineItem getLastLineItem() {
         return this.lineItems.get(this.lineItems.size() - 1);
     }
