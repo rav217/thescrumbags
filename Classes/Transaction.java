@@ -62,4 +62,6 @@ public class Transaction {
     public Money getTotal() {
         return this.total;
     }
+    
+    public void accept(Payment p) {}
 }

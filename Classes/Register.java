@@ -47,17 +47,17 @@ public class Register {
     /**
      * Creates a new Sale object and stores it in currentSale
      */
-    public void startNewSale() {
+    public void makeNewSale() {
         this.currentTransaction = new Sale();
     }
     
-    public void startNewRental() {
-        this.currentTransaction = new Rental();
+    public void makeNewRental(Date returnDate) {
+        this.currentTransaction = new Rental(returnDate);
     }
     
-    public void startNewReturn() {
-        this.currentTransaction = new Return();
-    }
+    //public void makeNewReturn() {
+    //    this.currentTransaction = new Return();
+    //}
 
     public void endTransaction() {
         currentTransaction.becomeComplete();

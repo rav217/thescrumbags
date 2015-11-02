@@ -13,6 +13,10 @@ public class CreditPayment implements Payment {
 
     private String cardNum;
     
+    public CreditPayment(String cardNum) {
+        this.cardNum = cardNum;
+    }
+    
     @Override
     public boolean verify(Transaction t) {
         if(cardNum.length()==15) return true;
