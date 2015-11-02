@@ -19,10 +19,21 @@ public class Register {
     private DBHandler dbHandler;
 
     /**
-     * Default constructor
+     * Default constructor: pulls product catalog and employee records from db
      */
     public Register() {
-        //TODO: we need to pull the product catalog from the database
+        //open new db connection
+        dbHandler = DBHandler.getInstance();
+        dbHandler.openConnection("sql595207", "nT1*rF4!");
+        
+        //fetch ProductCatalog from db
+        ProductCatalog tempPC = new ProductCatalog();
+        this.catalog = new ProductCatalog(dbHandler.initializePC(tempPC));
+        
+        //fetch EmployeeList from db
+        /*EmployeeList tempEL = new EmployeeLsit();
+        this.
+        db.closeConnection();*/
     }
 
     /**
@@ -31,6 +42,7 @@ public class Register {
      *
      * @param catalog the Store's product catalog
      */
+    
     public Register(ProductCatalog catalog) {
         this.catalog = catalog;
     }
