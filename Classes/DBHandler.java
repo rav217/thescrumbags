@@ -159,7 +159,7 @@ public class DBHandler {
     }
     
     /*fetches product catalog from db. returns ProductDescription hashmap (aka ProductCatalog.catalog)*/
-    public HashMap<Integer, ProductDescription> initializePC(ProductCatalog pc){
+    public void initProductCatalog(Register r){
        //variables to fetch from products table in db
        int id = 0;
        double price = 0;
@@ -178,13 +178,12 @@ public class DBHandler {
                 //create new ProductDescription object based on this info
                 ProductDescription pd = new ProductDescription(id, p, descr);
                 //add the product description to ProductCatalog being passed as parameter
-                pc.add(pd);
+                r.getCatalog().add(pd);
             }
         } catch (SQLException ex){
             System.out.println("Error viewing products in the system.");
             closeConnection();
         }
-       return pc.getCatalog();
     }
     
     /*public Sale getSale() {}
