@@ -17,6 +17,7 @@ public class Register {
     private Transaction currentTransaction;
     private boolean isOpen;
     private DBHandler dbHandler;
+    private UserManager userManager;
 
     /**
      * Default constructor: pulls product catalog and employee records from db
@@ -74,9 +75,9 @@ public class Register {
         currentTransaction.becomeComplete();
     }
 
-    public void enterItem(int id, int quantity) {
+    public LineItem enterItem(int id, int quantity) {
         ProductDescription desc = catalog.getProductDescription(id);
-        currentTransaction.makeLineItem(desc, quantity);
+        return currentTransaction.makeLineItem(desc, quantity);
     }
 
     public void makeCashPayment(Money cashGiven) {

@@ -28,33 +28,41 @@ public class MenuFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        newSale = new javax.swing.JButton();
+        newRentalButton = new javax.swing.JButton();
+        newReturnButton = new javax.swing.JButton();
+        userManagementButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Krungthep", 0, 24)); // NOI18N
         jLabel1.setText("Main Menu");
 
-        jButton1.setText("New Sale");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        newSale.setText("New Sale");
+        newSale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                newSaleActionPerformed(evt);
             }
         });
 
-        jButton2.setText("New Rental");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        newRentalButton.setText("New Rental");
+        newRentalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                newRentalButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Return");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        newReturnButton.setText("Return");
+        newReturnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                newReturnButtonActionPerformed(evt);
+            }
+        });
+
+        userManagementButton.setText("User Management");
+        userManagementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userManagementButtonActionPerformed(evt);
             }
         });
 
@@ -68,15 +76,17 @@ public class MenuFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(userManagementButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(newSale)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(newRentalButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(newReturnButton)
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, jButton3});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {newRentalButton, newReturnButton, newSale, userManagementButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,28 +95,34 @@ public class MenuFrame extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(newSale)
+                    .addComponent(newRentalButton)
+                    .addComponent(newReturnButton)
+                    .addComponent(userManagementButton))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SaleGUI sale = new SaleGUI();
+    private void newSaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newSaleActionPerformed
         sale.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_newSaleActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void newRentalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRentalButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_newRentalButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void newReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newReturnButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_newReturnButtonActionPerformed
+
+    private void userManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagementButtonActionPerformed
+        UserManagementFrame umFrame = new UserManagementFrame();
+        umFrame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_userManagementButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,9 +160,10 @@ public class MenuFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton newRentalButton;
+    private javax.swing.JButton newReturnButton;
+    private javax.swing.JButton newSale;
+    private javax.swing.JButton userManagementButton;
     // End of variables declaration//GEN-END:variables
 }

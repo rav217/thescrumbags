@@ -16,6 +16,7 @@ public class Money implements Comparable {
     public Money() {
         BigDecimal zero = new BigDecimal(0);
         this.amount = zero;
+
     }
 
     public Money(BigDecimal amount) {

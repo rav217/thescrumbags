@@ -24,7 +24,7 @@ public class SaleGUI extends javax.swing.JFrame {
         pc.add(new ProductDescription(20, new Money(12), "socks"));
         pc.add(new ProductDescription(30, new Money(9), "shirt"));
         r = new Register(pc);
-        r.startNewSale();
+        r.makeNewSale();
         initComponents();
     }
 
@@ -162,10 +162,9 @@ public class SaleGUI extends javax.swing.JFrame {
         Integer qty = Integer.parseInt(quantityTextField.getText());
         
         // add item to the sale
-        r.enterItem(itemID,qty);
         
         // get the product description for access to attributes
-        LineItem currentLineItem = r.getCurrentTransaction().getLastLineItem();
+        LineItem currentLineItem = r.enterItem(itemID,qty);
         ProductDescription currentProductDescription = currentLineItem.getProductDescription();
         
         // get the table model for editting of data
