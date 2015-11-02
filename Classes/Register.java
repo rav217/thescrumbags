@@ -31,7 +31,7 @@ public class Register {
         ProductCatalog tempPC = new ProductCatalog();
         this.catalog = new ProductCatalog(dbHandler.initializePC(tempPC));
         
-        //fetch EmployeeList from db
+        //fetch EmployeeList from db conn
         /*EmployeeList tempEL = new EmployeeLsit();
         this.
         db.closeConnection();*/

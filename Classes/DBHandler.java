@@ -187,6 +187,6 @@ public class DBHandler {
        return pc.getCatalog();
     }
     
-    //public Sale getSale() {}
-    //public Rental getRental() {}
+    /*public Sale getSale() {}
+    public Rental getRental() {}*/
 }   
