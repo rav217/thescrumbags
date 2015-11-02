@@ -36,14 +36,16 @@ public class RentalReturn extends Transaction {
         return rentalID;
     }
 
-    public void checkIfLate() {
+    public boolean checkIfLate() {
         GregorianCalendar now=this.date;
         if(now.after(rental.getReturnDate())) {
             daysLate=now.get(Calendar.DAY_OF_YEAR)-rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
             BigDecimal bd=rental.getTotal().getAmount().multiply(new BigDecimal(daysLate/10));
             Money m=new Money(bd);
             setTotal(m);
+            return true;
         }
+        return false;
     }
 
     @Override
