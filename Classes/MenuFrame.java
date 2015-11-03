@@ -54,10 +54,10 @@ public class MenuFrame extends javax.swing.JFrame {
         saleTotalLabel = new javax.swing.JLabel();
         saleRemoveLabl = new javax.swing.JLabel();
         saleRemoveTextField = new javax.swing.JTextField();
-        itemAddErrorPanel = new javax.swing.JPanel();
+        saleItemAddErrorPanel = new javax.swing.JPanel();
         itemAddErrorLabel = new javax.swing.JLabel();
         itemAddOkButton = new javax.swing.JButton();
-        removeErrorPanel = new javax.swing.JPanel();
+        saleRemoveErrorPanel = new javax.swing.JPanel();
         removeErrorLabel = new javax.swing.JLabel();
         removeErrorOkButton = new javax.swing.JButton();
         rentPanel = new javax.swing.JPanel();
@@ -96,6 +96,12 @@ public class MenuFrame extends javax.swing.JFrame {
         changeAmountLabel = new javax.swing.JLabel();
         cashErrorLabel = new javax.swing.JLabel();
         cashTotalLabel = new javax.swing.JLabel();
+        rentRemoveErrorPanel = new javax.swing.JPanel();
+        rentRemoveErrorLabel = new javax.swing.JLabel();
+        rentRemoveErrorButton = new javax.swing.JButton();
+        rentItemAddErrorPanel = new javax.swing.JPanel();
+        rentItemAddErrorLabel = new javax.swing.JLabel();
+        rentItemAddErrorButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -316,20 +322,20 @@ public class MenuFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout itemAddErrorPanelLayout = new javax.swing.GroupLayout(itemAddErrorPanel);
-        itemAddErrorPanel.setLayout(itemAddErrorPanelLayout);
-        itemAddErrorPanelLayout.setHorizontalGroup(
-            itemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(itemAddErrorPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout saleItemAddErrorPanelLayout = new javax.swing.GroupLayout(saleItemAddErrorPanel);
+        saleItemAddErrorPanel.setLayout(saleItemAddErrorPanelLayout);
+        saleItemAddErrorPanelLayout.setHorizontalGroup(
+            saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saleItemAddErrorPanelLayout.createSequentialGroup()
                 .addContainerGap(171, Short.MAX_VALUE)
-                .addGroup(itemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(itemAddErrorLabel)
                     .addComponent(itemAddOkButton))
                 .addContainerGap(172, Short.MAX_VALUE))
         );
-        itemAddErrorPanelLayout.setVerticalGroup(
-            itemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, itemAddErrorPanelLayout.createSequentialGroup()
+        saleItemAddErrorPanelLayout.setVerticalGroup(
+            saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saleItemAddErrorPanelLayout.createSequentialGroup()
                 .addContainerGap(135, Short.MAX_VALUE)
                 .addComponent(itemAddErrorLabel)
                 .addGap(18, 18, 18)
@@ -337,7 +343,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 .addContainerGap(129, Short.MAX_VALUE))
         );
 
-        getContentPane().add(itemAddErrorPanel, "card7");
+        getContentPane().add(saleItemAddErrorPanel, "card7");
 
         removeErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         removeErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -350,20 +356,20 @@ public class MenuFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout removeErrorPanelLayout = new javax.swing.GroupLayout(removeErrorPanel);
-        removeErrorPanel.setLayout(removeErrorPanelLayout);
-        removeErrorPanelLayout.setHorizontalGroup(
-            removeErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(removeErrorPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout saleRemoveErrorPanelLayout = new javax.swing.GroupLayout(saleRemoveErrorPanel);
+        saleRemoveErrorPanel.setLayout(saleRemoveErrorPanelLayout);
+        saleRemoveErrorPanelLayout.setHorizontalGroup(
+            saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saleRemoveErrorPanelLayout.createSequentialGroup()
                 .addContainerGap(166, Short.MAX_VALUE)
-                .addGroup(removeErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removeErrorOkButton)
                     .addComponent(removeErrorLabel))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
-        removeErrorPanelLayout.setVerticalGroup(
-            removeErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(removeErrorPanelLayout.createSequentialGroup()
+        saleRemoveErrorPanelLayout.setVerticalGroup(
+            saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saleRemoveErrorPanelLayout.createSequentialGroup()
                 .addContainerGap(129, Short.MAX_VALUE)
                 .addComponent(removeErrorLabel)
                 .addGap(18, 18, 18)
@@ -371,7 +377,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 .addContainerGap(135, Short.MAX_VALUE))
         );
 
-        getContentPane().add(removeErrorPanel, "card7");
+        getContentPane().add(saleRemoveErrorPanel, "card7");
 
         rentLabel.setFont(new java.awt.Font("Krungthep", 0, 24)); // NOI18N
         rentLabel.setText("New Rental");
@@ -707,6 +713,74 @@ public class MenuFrame extends javax.swing.JFrame {
 
         getContentPane().add(cashPanel, "card9");
 
+        rentRemoveErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        rentRemoveErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rentRemoveErrorLabel.setText("Error: Invalid index given");
+
+        rentRemoveErrorButton.setText("OK");
+        rentRemoveErrorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentRemoveErrorButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout rentRemoveErrorPanelLayout = new javax.swing.GroupLayout(rentRemoveErrorPanel);
+        rentRemoveErrorPanel.setLayout(rentRemoveErrorPanelLayout);
+        rentRemoveErrorPanelLayout.setHorizontalGroup(
+            rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(166, Short.MAX_VALUE)
+                .addGroup(rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rentRemoveErrorButton)
+                    .addComponent(rentRemoveErrorLabel))
+                .addContainerGap(166, Short.MAX_VALUE))
+        );
+        rentRemoveErrorPanelLayout.setVerticalGroup(
+            rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(129, Short.MAX_VALUE)
+                .addComponent(rentRemoveErrorLabel)
+                .addGap(18, 18, 18)
+                .addComponent(rentRemoveErrorButton)
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(rentRemoveErrorPanel, "card7");
+
+        rentItemAddErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        rentItemAddErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rentItemAddErrorLabel.setText("Error: Item ID not found");
+
+        rentItemAddErrorButton.setText("OK");
+        rentItemAddErrorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentItemAddErrorButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout rentItemAddErrorPanelLayout = new javax.swing.GroupLayout(rentItemAddErrorPanel);
+        rentItemAddErrorPanel.setLayout(rentItemAddErrorPanelLayout);
+        rentItemAddErrorPanelLayout.setHorizontalGroup(
+            rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentItemAddErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(171, Short.MAX_VALUE)
+                .addGroup(rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rentItemAddErrorLabel)
+                    .addComponent(rentItemAddErrorButton))
+                .addContainerGap(172, Short.MAX_VALUE))
+        );
+        rentItemAddErrorPanelLayout.setVerticalGroup(
+            rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentItemAddErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(135, Short.MAX_VALUE)
+                .addComponent(rentItemAddErrorLabel)
+                .addGap(18, 18, 18)
+                .addComponent(rentItemAddErrorButton)
+                .addContainerGap(129, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(rentItemAddErrorPanel, "card7");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -777,14 +851,14 @@ public class MenuFrame extends javax.swing.JFrame {
                 saleQtyTextField.setText("");
             } catch (NullPointerException ex) {
                 salePanel.setVisible(false);
-                itemAddErrorPanel.setVisible(true);
+                saleItemAddErrorPanel.setVisible(true);
             }
         } catch (NumberFormatException ex) {
         }
     }//GEN-LAST:event_saleAddButtonActionPerformed
 
     private void itemAddOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddOkButtonActionPerformed
-        itemAddErrorPanel.setVisible(false);
+        saleItemAddErrorPanel.setVisible(false);
         salePanel.setVisible(true);
     }//GEN-LAST:event_itemAddOkButtonActionPerformed
 
@@ -809,7 +883,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 saleRemoveTextField.setText("");
             } catch (IndexOutOfBoundsException ex) {
                 salePanel.setVisible(false);
-                removeErrorPanel.setVisible(true);
+                saleRemoveErrorPanel.setVisible(true);
             }
         } catch (NumberFormatException ex) {
         }
@@ -817,7 +891,7 @@ public class MenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_saleRemoveButtonActionPerformed
 
     private void removeErrorOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeErrorOkButtonActionPerformed
-        removeErrorPanel.setVisible(false);
+        saleRemoveErrorPanel.setVisible(false);
         salePanel.setVisible(true);
     }//GEN-LAST:event_removeErrorOkButtonActionPerformed
 
@@ -889,7 +963,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 rentQtyTextField.setText("");
             } catch (NullPointerException ex) {
                 rentPanel.setVisible(false);
-                itemAddErrorPanel.setVisible(true);
+                rentItemAddErrorPanel.setVisible(true);
             }
         } catch (NumberFormatException ex) {
         }
@@ -938,7 +1012,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 rentRemoveTextField.setText("");
             } catch (IndexOutOfBoundsException ex) {
                 rentPanel.setVisible(false);
-                removeErrorPanel.setVisible(true);
+                rentRemoveErrorPanel.setVisible(true);
             }
         } catch (NumberFormatException ex) {
         }
@@ -1053,6 +1127,18 @@ public class MenuFrame extends javax.swing.JFrame {
         saleModel.setRowCount(0);
     }//GEN-LAST:event_cashPanelCancelButtonActionPerformed
 
+    private void rentRemoveErrorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentRemoveErrorButtonActionPerformed
+        // change back to rental view
+        rentRemoveErrorPanel.setVisible(false);
+        rentPanel.setVisible(true);
+    }//GEN-LAST:event_rentRemoveErrorButtonActionPerformed
+
+    private void rentItemAddErrorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentItemAddErrorButtonActionPerformed
+        // change back to rental view
+        rentItemAddErrorPanel.setVisible(false);
+        rentPanel.setVisible(true);
+    }//GEN-LAST:event_rentItemAddErrorButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1102,7 +1188,6 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel changeLabel;
     private javax.swing.JButton creditButton;
     private javax.swing.JLabel itemAddErrorLabel;
-    private javax.swing.JPanel itemAddErrorPanel;
     private javax.swing.JButton itemAddOkButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -1112,7 +1197,6 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JPanel menuPanel;
     private javax.swing.JLabel removeErrorLabel;
     private javax.swing.JButton removeErrorOkButton;
-    private javax.swing.JPanel removeErrorPanel;
     private javax.swing.JButton rentAddButton;
     private javax.swing.JButton rentCancelButton;
     private javax.swing.JLabel rentCartLabel;
@@ -1120,6 +1204,9 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JButton rentCheckoutButton;
     private javax.swing.JLabel rentIdLabel;
     private javax.swing.JTextField rentIdTextField;
+    private javax.swing.JButton rentItemAddErrorButton;
+    private javax.swing.JLabel rentItemAddErrorLabel;
+    private javax.swing.JPanel rentItemAddErrorPanel;
     private javax.swing.JLabel rentLabel;
     private javax.swing.JPanel rentPanel;
     private javax.swing.JButton rentPeriodCancelButton;
@@ -1131,6 +1218,9 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel rentQtyLabel;
     private javax.swing.JTextField rentQtyTextField;
     private javax.swing.JButton rentRemoveButton;
+    private javax.swing.JButton rentRemoveErrorButton;
+    private javax.swing.JLabel rentRemoveErrorLabel;
+    private javax.swing.JPanel rentRemoveErrorPanel;
     private javax.swing.JLabel rentRemoveLabel;
     private javax.swing.JTextField rentRemoveTextField;
     private javax.swing.JLabel rentTotalLabel;
@@ -1141,11 +1231,13 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JButton saleCheckoutButton;
     private javax.swing.JLabel saleIdLabel;
     private javax.swing.JTextField saleIdTextField;
+    private javax.swing.JPanel saleItemAddErrorPanel;
     private javax.swing.JLabel saleLabel;
     private javax.swing.JPanel salePanel;
     private javax.swing.JLabel saleQtyLabel;
     private javax.swing.JTextField saleQtyTextField;
     private javax.swing.JButton saleRemoveButton;
+    private javax.swing.JPanel saleRemoveErrorPanel;
     private javax.swing.JLabel saleRemoveLabl;
     private javax.swing.JTextField saleRemoveTextField;
     private javax.swing.JLabel saleTotalLabel;
