@@ -4,8 +4,6 @@
  */
 package thescrumbags.Classes;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Bobby
@@ -92,21 +90,44 @@ public class UserManager {
      * @param employeeId
      * @param password
      */
-    public void login(int employeeId, String password) {
+    public boolean login(int employeeId, String password) {
+        boolean successful = false;
         try {
             if (eList.checkPassword(employeeId, password)) {
                 loggedOnEmployees.addEmployee(eList.findEmployee(employeeId));
+                successful = true;
             }
         } catch (NullPointerException e) {
             System.out.println("Error: employeeID not found.");
         }
+        return successful;
     }
 
-    public void logout(int employeeId) {
+    public boolean managerLogin(int employeeId, String password) {
+        Employee e = this.eList.findEmployee(employeeId);
+        boolean successful = false;
+        
+        try {
+            if (e.isManager()) {
+                if (eList.checkPassword(employeeId, password)) {
+                    loggedOnEmployees.addEmployee(eList.findEmployee(employeeId));
+                    successful = true;
+                }
+            }
+        } catch (NullPointerException ex) {
+            System.out.println("Error: employeeID not found.");
+        }
+        return successful;
+    }
+    
+    public boolean logout(int employeeId) {
+        boolean successful = false;
         try {
             loggedOnEmployees.removeEmployee(employeeId);
+            successful = true;
         } catch (NullPointerException e) {
             System.out.println("Error: employeeID not currently logged on.");
         }
+        return successful;
     }
 }
