@@ -224,23 +224,24 @@ public class DBHandler {
     //add transaction to transaction history in db (transtype, transid, itemid, price, descr, quantity, subtotal)
     //TODO: transid ends up being 0 every time
     public void addTransaction(String type, ArrayList<LineItem> lineItems){
+        //query into db, select greatest transid, make transid that +1
+        int highestID = 1; //if 1st element, transid will be 1
+        String subQuery = "select max(transid) as transid from transactionhistory";
+        try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(subQuery);
+            while (rs.next()) {
+                highestID = rs.getInt("transid");
+                if (highestID == 0) highestID = 1;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error viewing transaction history");
+            closeConnection();
+        }
+        highestID += 1;
         Iterator<LineItem> i = lineItems.iterator();
 	while (i.hasNext()){
             LineItem li = i.next();
-            //query into db, select greatest transid, make transid that +1
-            int highestID = 1; //if 1st element, transid will be 1
-            String subQuery = "select max(transid) as transid from transactionhistory";
-            try{
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(subQuery);
-                while (rs.next()) {
-                    highestID = rs.getInt("transid");
-                    if (highestID == 0) highestID = 1;
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error viewing transaction history");
-                closeConnection();
-            }
             int itemid = li.getProductDescription().getItemID();
             BigDecimal priceBD = li.getProductDescription().getPrice().getAmount();
             double price = priceBD.doubleValue();
@@ -416,6 +417,12 @@ public class DBHandler {
         }
         BigDecimal totalPriceBD = BigDecimal.valueOf(totalPrice);
         Money tp = new Money(totalPriceBD);
+        if (type.equals("S")){
+            //create sale object
+        }
+        else{
+            //create rental object
+        }
         return new Transaction(items, tp);
     }
 }
