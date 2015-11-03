@@ -15,6 +15,7 @@ public class Register {
 
     private ProductCatalog catalog;
     private Transaction currentTransaction;
+    private Payment currentPayment;
     private boolean isOpen;
     private DBHandler dbHandler;
     private UserManager userManager;
@@ -58,6 +59,14 @@ public class Register {
         return currentTransaction;
     }
 
+    public Payment getCurrentPayment() {
+        return uniqueInst.currentPayment;
+    }
+    
+    public void setCurrentPayment(Payment p) {
+        uniqueInst.currentPayment = p;
+    }
+            
     public ProductCatalog getCatalog() {
         return catalog;
     }

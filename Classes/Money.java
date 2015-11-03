@@ -23,32 +23,39 @@ public class Money implements Comparable {
         this.amount = amount;
     }
 
+    public Money (double amount) {
+        this.amount = new BigDecimal(amount);
+    }
+    
     public java.math.BigDecimal getAmount() {
         return amount;
     }
 
     public Money add(Money m) {
-        amount=amount.add(m.getAmount());
-        return this;
+        BigDecimal temp = amount;
+        temp = temp.add(m.getAmount());
+        return new Money(temp);
     }
 
     public Money add(BigDecimal bd) {
-        amount=amount.add(bd);
+        amount = amount.add(bd);
         return this;
     }
 
     public Money subtract(Money m) {
-        amount=amount.subtract(m.getAmount());
-        return this;
+        // this is much safer
+        BigDecimal temp = amount;
+        temp = temp.subtract(m.getAmount());
+        return new Money(temp);
     }
 
     public Money subtract(BigDecimal bd) {
-        amount=amount.subtract(bd);
+        amount = amount.subtract(bd);
         return this;
     }
 
     public Money multiply(BigDecimal bd) {
-        amount=amount.multiply(bd);
+        amount = amount.multiply(bd);
         return this;
 
     }
@@ -68,7 +75,15 @@ public class Money implements Comparable {
     public int compareTo(Object o) throws ClassCastException  {
         if (o instanceof Money) {
             Money money = (Money) o;
-            return amount.compareTo(money.getAmount());
+            if (this.amount.doubleValue() < money.getAmount().doubleValue()) {
+                return -1;
+            }
+            else if (this.amount.doubleValue() == money.getAmount().doubleValue()) {
+                return 0;
+            }
+            else {
+                return 1;
+            }
         }
         else throw new ClassCastException();
     }

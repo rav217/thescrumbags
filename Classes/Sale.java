@@ -7,15 +7,10 @@ import java.math.BigDecimal;
 // and tender a payment. Implements the java.util.Date class
 public class Sale extends Transaction {
 
-    private Payment payment;
   //creates a new sale object, date reflects current date and time, isComplete
     //is set to false at object creation
     public Sale() {
         super();
-    }
-    
-    public Payment getPayment() {
-        return this.payment;
     }
     
     public void calculateDiscount(BigDecimal discount) {
@@ -25,11 +20,8 @@ public class Sale extends Transaction {
     }
     
     @Override
-    public void accept(Payment p) {
-        boolean b=p.verify(this);
-        if(!b) {
-            System.out.println("Payment was not accepted.");
-        }
+    public boolean accept(Payment p) {
+        return p.verify(this);
     }
     
     @Override

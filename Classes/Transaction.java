@@ -79,8 +79,8 @@ public class Transaction {
         this.total=m;
     }
     
-    public void accept(Payment p) {}
-    public void accept(Reimbursement r) {}
+    public boolean accept(Payment p) { return false;}
+    public boolean accept(Reimbursement r) { return false;}
     
     public void updateInventory() {}
 }
