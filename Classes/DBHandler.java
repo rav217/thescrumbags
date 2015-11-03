@@ -34,7 +34,7 @@ public class DBHandler {
         }
         return uniqueInst;
     }
-
+    
     //opens connection. returns false on success, true on error
     public boolean openConnection(String user, String pswd) {
         System.out.println("Loading JDBC driver...");
@@ -62,6 +62,8 @@ public class DBHandler {
         return false;
     }
 
+/*not essential to POS_system functionality at this time...
+    
     //fetches item from db specified by the id. returns false on success, true on failure
     public boolean fetchItem(int id) {
         System.out.println("Searching...");
@@ -150,7 +152,7 @@ public class DBHandler {
         }
         System.out.println("");
     }
-
+*/
     public void closeConnection() {
         try {
             conn.close();
@@ -220,6 +222,7 @@ public class DBHandler {
     }
     
     //add transaction to transaction history in db (transtype, transid, itemid, price, descr, quantity, subtotal)
+    //TODO: transid ends up being 0 every time
     public void addTransaction(String type, ArrayList<LineItem> lineItems){
         Iterator<LineItem> i = lineItems.iterator();
 	while (i.hasNext()){
@@ -231,7 +234,8 @@ public class DBHandler {
                 stmt = conn.createStatement();
                 rs = stmt.executeQuery(subQuery);
                 while (rs.next()) {
-                    highestID = rs.getInt("transid"); 
+                    highestID = rs.getInt("transid");
+                    if (highestID == 0) highestID = 1;
                 }
             } catch (SQLException ex) {
                 System.out.println("Error viewing transaction history");
@@ -244,8 +248,8 @@ public class DBHandler {
             double subtotal = subtotalBD.doubleValue();
             String descr = li.getProductDescription().getDescription();
             int quantity = li.getQuantity();
-            String query = "insert into transactionhistory values ("+type+", "+highestID+", "+itemid+", "+price+", '"
-                    +descr+"', "+quantity+", "+subtotal;
+            String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
+                    +descr+"', "+quantity+", "+subtotal+")";
             try {
                 stmt = conn.createStatement();
                 stmt.executeUpdate(query);
@@ -376,7 +380,41 @@ public class DBHandler {
         }
         return list;
     }
-
-    /*public Sale getSale() {}
-     public Rental getRental() {}*/
+    
+    //find transaction from transaction history (will work for sale or rental)
+    public Transaction findTransaction(String type, int id){
+        //need array list of sli, total price
+        String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;
+        ArrayList<LineItem> items = new ArrayList<>();
+        double totalPrice = 0;
+        try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            while(rs.next()){
+                //info required for ProductDescription object
+                String descr = rs.getString("descr");
+                int itemid = rs.getInt("itemid");
+                double price = rs.getDouble("price");
+                BigDecimal priceBD = BigDecimal.valueOf(price);
+                Money p = new Money(priceBD);
+                ProductDescription pd = new ProductDescription(itemid, p, descr);
+                //info required for LineItem object
+                int quantity = rs.getInt("quantity");
+                double subtotal = rs.getDouble("subtotal");
+                //add to totalPrice
+                totalPrice += subtotal;
+                BigDecimal subtotalBD = BigDecimal.valueOf(subtotal);
+                Money s = new Money(subtotalBD);
+                LineItem li = new LineItem(pd, quantity, s);
+                //add this LineItem to ArrayList
+                items.add(li);
+            }
+        } catch(SQLException ex){
+            System.out.println("Error retrieving transaction from history");
+            closeConnection();
+        }
+        BigDecimal totalPriceBD = BigDecimal.valueOf(totalPrice);
+        Money tp = new Money(totalPriceBD);
+        return new Transaction(items, tp);
+    }
 }

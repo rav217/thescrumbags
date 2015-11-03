@@ -16,6 +16,15 @@ public class LineItem {
         BigDecimal bd = prod.getPrice().getAmount().multiply(q);
         this.subtotal = new Money(bd);
     }
+    
+    //constructor with subtotal
+    public LineItem(ProductDescription prod, int qty, Money subtotal) {
+        this.prod = prod;
+        this.qty = qty;
+        BigDecimal q=new BigDecimal(qty);
+        BigDecimal bd = prod.getPrice().getAmount().multiply(q);
+        this.subtotal = subtotal;
+    }
 
     //calculates the subtotal of a LineItem object
     public Money getSubtotal() {

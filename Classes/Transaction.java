@@ -28,6 +28,12 @@ public class Transaction {
         this.isComplete = false;
         this.total = new Money(new BigDecimal(0));
     }
+    
+    //constructor for DB integration
+    public Transaction(ArrayList<LineItem> li, Money total){
+        this.lineItems = li;
+        this.total = total;
+    }
 
     //sets isComplete to true, called at time of sale completion
     public void becomeComplete() {
