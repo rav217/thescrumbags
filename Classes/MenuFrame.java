@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class MenuFrame extends javax.swing.JFrame {
 
     Register r;
+
     /**
      * Creates new form MenuFrame
      */
@@ -82,6 +83,19 @@ public class MenuFrame extends javax.swing.JFrame {
         rentPeriodSetButton = new javax.swing.JButton();
         rentPeriodCancelButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        cashOrCreditPanel = new javax.swing.JPanel();
+        cashButton = new javax.swing.JButton();
+        creditButton = new javax.swing.JButton();
+        cashPanel = new javax.swing.JPanel();
+        calcChangeButton = new javax.swing.JButton();
+        cashReceivedTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        cashPanelCancelButton = new javax.swing.JButton();
+        changeLabel = new javax.swing.JLabel();
+        cashDoneButton = new javax.swing.JButton();
+        changeAmountLabel = new javax.swing.JLabel();
+        cashErrorLabel = new javax.swing.JLabel();
+        cashTotalLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -568,11 +582,139 @@ public class MenuFrame extends javax.swing.JFrame {
 
         getContentPane().add(rentPeriodPanel, "card7");
 
+        cashButton.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        cashButton.setText("Cash");
+        cashButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashButtonActionPerformed(evt);
+            }
+        });
+
+        creditButton.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        creditButton.setText("Credit");
+
+        javax.swing.GroupLayout cashOrCreditPanelLayout = new javax.swing.GroupLayout(cashOrCreditPanel);
+        cashOrCreditPanel.setLayout(cashOrCreditPanelLayout);
+        cashOrCreditPanelLayout.setHorizontalGroup(
+            cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cashOrCreditPanelLayout.createSequentialGroup()
+                .addContainerGap(151, Short.MAX_VALUE)
+                .addComponent(cashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(creditButton)
+                .addContainerGap(196, Short.MAX_VALUE))
+        );
+
+        cashOrCreditPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cashButton, creditButton});
+
+        cashOrCreditPanelLayout.setVerticalGroup(
+            cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cashOrCreditPanelLayout.createSequentialGroup()
+                .addContainerGap(119, Short.MAX_VALUE)
+                .addGroup(cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(creditButton))
+                .addContainerGap(157, Short.MAX_VALUE))
+        );
+
+        cashOrCreditPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cashButton, creditButton});
+
+        getContentPane().add(cashOrCreditPanel, "card8");
+
+        calcChangeButton.setText("Calculate Change");
+        calcChangeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcChangeButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Enter Cash Received: ");
+
+        cashPanelCancelButton.setText("Cancel");
+        cashPanelCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashPanelCancelButtonActionPerformed(evt);
+            }
+        });
+
+        changeLabel.setText("Change: $");
+
+        cashDoneButton.setText("Done");
+        cashDoneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashDoneButtonActionPerformed(evt);
+            }
+        });
+
+        cashTotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        cashTotalLabel.setText("Total:");
+
+        javax.swing.GroupLayout cashPanelLayout = new javax.swing.GroupLayout(cashPanel);
+        cashPanel.setLayout(cashPanelLayout);
+        cashPanelLayout.setHorizontalGroup(
+            cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cashPanelLayout.createSequentialGroup()
+                .addContainerGap(103, Short.MAX_VALUE)
+                .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cashErrorLabel)
+                    .addComponent(cashTotalLabel)
+                    .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(cashPanelLayout.createSequentialGroup()
+                            .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cashPanelCancelButton)
+                                .addGroup(cashPanelLayout.createSequentialGroup()
+                                    .addComponent(changeLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(changeAmountLabel)))
+                            .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(cashPanelLayout.createSequentialGroup()
+                                    .addGap(125, 125, 125)
+                                    .addComponent(cashDoneButton))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(calcChangeButton))))
+                        .addGroup(cashPanelLayout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cashReceivedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(102, Short.MAX_VALUE))
+        );
+
+        cashPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {changeAmountLabel, changeLabel});
+
+        cashPanelLayout.setVerticalGroup(
+            cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addComponent(cashTotalLabel)
+                .addGap(18, 18, 18)
+                .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cashReceivedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(calcChangeButton)
+                    .addComponent(cashPanelCancelButton))
+                .addGap(14, 14, 14)
+                .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cashDoneButton)
+                    .addComponent(changeLabel)
+                    .addComponent(changeAmountLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cashErrorLabel)
+                .addContainerGap(89, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(cashPanel, "card9");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void startSaleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSaleButtonActionPerformed
         r.makeNewSale();
+        // set the total label to the new total
+        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        saleTotalLabel.setText(total);
         menuPanel.setVisible(false);
         salePanel.setVisible(true);
     }//GEN-LAST:event_startSaleButtonActionPerformed
@@ -580,19 +722,16 @@ public class MenuFrame extends javax.swing.JFrame {
     private void saleCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleCancelButtonActionPerformed
         // cancel transaction
         r.cancelTransaction();
-        
+
         // reset table
         DefaultTableModel model = (DefaultTableModel) saleCartTable.getModel();
         model.setRowCount(0);
-        
-        // reset total
-        saleTotalLabel.setText("Total:");
-        
+
         // clear text fields
         saleIdTextField.setText("");
         saleQtyTextField.setText("");
         saleRemoveTextField.setText("");
-        
+
         // switch back to menu view
         salePanel.setVisible(false);
         menuPanel.setVisible(true);
@@ -609,13 +748,12 @@ public class MenuFrame extends javax.swing.JFrame {
             Integer id = Integer.parseInt(saleIdTextField.getText());
             Integer qty = Integer.parseInt(saleQtyTextField.getText());
 
-
             // get table model from saleCartTable
             DefaultTableModel model = (DefaultTableModel) saleCartTable.getModel();
 
             // create and add line item to sale
             try {
-                LineItem currentLineItem = r.enterItem(id,qty);
+                LineItem currentLineItem = r.enterItem(id, qty);
                 ProductDescription currentProductDescription = currentLineItem.getProductDescription();
 
                 // add line item to table
@@ -625,7 +763,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 String priceString = String.format("$%4.2f", price);
                 String qtyString = qty.toString();
                 double subtotal = currentLineItem.getSubtotal().getAmount().doubleValue();
-                String subtotalString = String.format("$%4.2f",subtotal);
+                String subtotalString = String.format("$%4.2f", subtotal);
 
                 Object[] row = {desc, priceString, qtyString, subtotalString};
                 model.addRow(row);
@@ -633,17 +771,16 @@ public class MenuFrame extends javax.swing.JFrame {
                 // set the total label to the new total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 saleTotalLabel.setText(total);
-                
+
                 // clear text fields
                 saleIdTextField.setText("");
                 saleQtyTextField.setText("");
-            }
-            catch (NullPointerException ex) {
+            } catch (NullPointerException ex) {
                 salePanel.setVisible(false);
                 itemAddErrorPanel.setVisible(true);
             }
+        } catch (NumberFormatException ex) {
         }
-        catch (NumberFormatException ex) {}
     }//GEN-LAST:event_saleAddButtonActionPerformed
 
     private void itemAddOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddOkButtonActionPerformed
@@ -667,16 +804,15 @@ public class MenuFrame extends javax.swing.JFrame {
                 // update total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 saleTotalLabel.setText(total);
-                
+
                 // reset text field
                 saleRemoveTextField.setText("");
-            }
-            catch (IndexOutOfBoundsException ex) {
+            } catch (IndexOutOfBoundsException ex) {
                 salePanel.setVisible(false);
                 removeErrorPanel.setVisible(true);
             }
+        } catch (NumberFormatException ex) {
         }
-        catch (NumberFormatException ex) {}
         // clear line to remove text
     }//GEN-LAST:event_saleRemoveButtonActionPerformed
 
@@ -686,11 +822,36 @@ public class MenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_removeErrorOkButtonActionPerformed
 
     private void saleCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleCheckoutButtonActionPerformed
-        // TODO add your handling code here:
+        // end sale to update inventory and add transaction to database
+        //r.endTransaction();
+
+        // clear text fields
+        saleIdTextField.setText("");
+        saleQtyTextField.setText("");
+        saleRemoveTextField.setText("");
+
+        // reset table
+        DefaultTableModel model = (DefaultTableModel) saleCartTable.getModel();
+        model.setRowCount(0);
+
+        // set total label in cashPanel
+        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        cashTotalLabel.setText(total);
+
+        // prompt for cash or credit
+        cashOrCreditPanel.setVisible(true);
+        salePanel.setVisible(false);
     }//GEN-LAST:event_saleCheckoutButtonActionPerformed
 
     private void rentCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCheckoutButtonActionPerformed
-        // TODO add your handling code here:
+        // clear text fields
+        rentIdTextField.setText("");
+        rentQtyTextField.setText("");
+        rentRemoveTextField.setText("");
+
+        // return to menu view
+        rentPanel.setVisible(false);
+        cashOrCreditPanel.setVisible(true);
     }//GEN-LAST:event_rentCheckoutButtonActionPerformed
 
     private void rentAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentAddButtonActionPerformed
@@ -699,13 +860,12 @@ public class MenuFrame extends javax.swing.JFrame {
             Integer id = Integer.parseInt(rentIdTextField.getText());
             Integer qty = Integer.parseInt(rentQtyTextField.getText());
 
-
             // get table model from saleCartTable
             DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
 
             // create and add line item to sale
             try {
-                LineItem currentLineItem = r.enterItem(id,qty);
+                LineItem currentLineItem = r.enterItem(id, qty);
                 ProductDescription currentProductDescription = currentLineItem.getProductDescription();
 
                 // add line item to table
@@ -715,7 +875,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 String priceString = String.format("$%4.2f", price);
                 String qtyString = qty.toString();
                 double subtotal = currentLineItem.getSubtotal().getAmount().doubleValue();
-                String subtotalString = String.format("$%4.2f",subtotal);
+                String subtotalString = String.format("$%4.2f", subtotal);
 
                 Object[] row = {desc, priceString, qtyString, subtotalString};
                 model.addRow(row);
@@ -723,36 +883,35 @@ public class MenuFrame extends javax.swing.JFrame {
                 // set the total label to the new total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 rentTotalLabel.setText(total);
-                
+
                 // clear text fields
                 rentIdTextField.setText("");
                 rentQtyTextField.setText("");
-            }
-            catch (NullPointerException ex) {
+            } catch (NullPointerException ex) {
                 rentPanel.setVisible(false);
                 itemAddErrorPanel.setVisible(true);
             }
+        } catch (NumberFormatException ex) {
         }
-        catch (NumberFormatException ex) {}                                        
 
     }//GEN-LAST:event_rentAddButtonActionPerformed
 
     private void rentCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCancelButtonActionPerformed
         // cancel transaction
         r.cancelTransaction();
-        
+
         // reset table
         DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
         model.setRowCount(0);
-        
+
         // reset total
         rentTotalLabel.setText("Total:");
-        
+
         // clear text fields
         rentIdTextField.setText("");
         rentQtyTextField.setText("");
         rentRemoveTextField.setText("");
-        
+
         // switch back to menu view
         rentPanel.setVisible(false);
         menuPanel.setVisible(true);
@@ -774,23 +933,22 @@ public class MenuFrame extends javax.swing.JFrame {
                 // update total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 rentTotalLabel.setText(total);
-                
+
                 // reset text field
                 rentRemoveTextField.setText("");
-            }
-            catch (IndexOutOfBoundsException ex) {
+            } catch (IndexOutOfBoundsException ex) {
                 rentPanel.setVisible(false);
                 removeErrorPanel.setVisible(true);
             }
+        } catch (NumberFormatException ex) {
         }
-        catch (NumberFormatException ex) {}
         // clear line to remove text
     }//GEN-LAST:event_rentRemoveButtonActionPerformed
 
     private void rentPeriodCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentPeriodCancelButtonActionPerformed
         // reset spinner
         rentPeriodSpinner.setValue(1);
-        
+
         // switch back to main menu view
         rentPeriodPanel.setVisible(false);
         menuPanel.setVisible(true);
@@ -799,20 +957,101 @@ public class MenuFrame extends javax.swing.JFrame {
     private void rentPeriodSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentPeriodSetButtonActionPerformed
         // get return period from spinner
         Integer numDays = (Integer) rentPeriodSpinner.getValue();
-        
+
         // create new rental transaction
         r.makeNewRental(numDays);
-        
+
         // reset spinner
         rentPeriodSpinner.setValue(1);
-        
+
         // switch to rental view
         rentPeriodPanel.setVisible(false);
         rentPanel.setVisible(true);
-        
+
         // set rental period in rentPanel to rental period provided
         rentPeriodLabel.setText("Rental Period: " + numDays + " days");
     }//GEN-LAST:event_rentPeriodSetButtonActionPerformed
+
+    private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
+        // set total on cash panel
+        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        cashTotalLabel.setText(total);
+
+        // switch to cash payment view
+        cashOrCreditPanel.setVisible(false);
+        cashPanel.setVisible(true);
+    }//GEN-LAST:event_cashButtonActionPerformed
+
+    private void calcChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcChangeButtonActionPerformed
+        try {
+            // get cash received
+            Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
+
+            // create a new payment to verify with transaction
+            r.setCurrentPayment(new CashPayment(cashReceived));
+            System.out.println("cash given: " + ((CashPayment) r.getCurrentPayment()).getCashGiven().getAmount().doubleValue());
+            if (r.getCurrentTransaction().accept(r.getCurrentPayment())) {
+                System.out.println("change: " + ((CashPayment) r.getCurrentPayment()).getChange().getAmount().doubleValue());
+                String changeString = String.format("%4.2f", ((CashPayment) r.getCurrentPayment()).getChange().getAmount());
+                changeAmountLabel.setText(changeString);
+            } else {
+                changeAmountLabel.setText("Insufficient Funds");
+            }
+        } catch (NumberFormatException ex) {
+        }
+    }//GEN-LAST:event_calcChangeButtonActionPerformed
+
+    private void cashDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashDoneButtonActionPerformed
+        // check if current payment is acceptable
+        if (r.getCurrentTransaction().accept(r.getCurrentPayment())) {
+            // end sale
+            r.endTransaction();
+
+            // return to menu view
+            cashPanel.setVisible(false);
+            menuPanel.setVisible(true);
+
+            // reset sale table
+            DefaultTableModel saleModel = (DefaultTableModel) saleCartTable.getModel();
+            saleModel.setRowCount(0);
+
+            // clear cash text fields
+            cashReceivedTextField.setText("");
+            changeAmountLabel.setText("");
+            cashErrorLabel.setText("");
+
+            // reset rent table
+            DefaultTableModel rentModel = (DefaultTableModel) rentCartTable.getModel();
+            rentModel.setRowCount(0);
+
+        } else {
+            cashErrorLabel.setText("Insufficient funds to complete sale");
+        }
+
+    }//GEN-LAST:event_cashDoneButtonActionPerformed
+
+    private void cashPanelCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashPanelCancelButtonActionPerformed
+        // cancel transaction
+        r.cancelTransaction();
+
+        // clear all cashPanel text
+        // return to menu view
+        cashPanel.setVisible(false);
+        menuPanel.setVisible(true);
+
+        // clear text fields
+        cashReceivedTextField.setText("");
+        changeAmountLabel.setText("");
+        cashErrorLabel.setText("");
+
+        // reset rent table
+        DefaultTableModel rentModel = (DefaultTableModel) rentCartTable.getModel();
+        rentModel.setRowCount(0);
+
+        // reset sale table
+        DefaultTableModel saleModel = (DefaultTableModel) saleCartTable.getModel();
+        saleModel.setRowCount(0);
+    }//GEN-LAST:event_cashPanelCancelButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -850,10 +1089,23 @@ public class MenuFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton calcChangeButton;
+    private javax.swing.JButton cashButton;
+    private javax.swing.JButton cashDoneButton;
+    private javax.swing.JLabel cashErrorLabel;
+    private javax.swing.JPanel cashOrCreditPanel;
+    private javax.swing.JPanel cashPanel;
+    private javax.swing.JButton cashPanelCancelButton;
+    private javax.swing.JTextField cashReceivedTextField;
+    private javax.swing.JLabel cashTotalLabel;
+    private javax.swing.JLabel changeAmountLabel;
+    private javax.swing.JLabel changeLabel;
+    private javax.swing.JButton creditButton;
     private javax.swing.JLabel itemAddErrorLabel;
     private javax.swing.JPanel itemAddErrorPanel;
     private javax.swing.JButton itemAddOkButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel menuLabel;

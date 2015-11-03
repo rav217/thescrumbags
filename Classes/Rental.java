@@ -42,8 +42,11 @@ public class Rental extends Transaction {
     }
     
     @Override
-    public Money getTotal() {
-        return total.multiply(new BigDecimal(rentalPeriod));
+    public LineItem makeLineItem(ProductDescription desc, int qty) {
+        LineItem lineItem = new LineItem(desc, qty);
+        lineItems.add(lineItem);
+        total = total.add(lineItem.getSubtotal().multiply(new BigDecimal(rentalPeriod)));
+        return lineItem;
     }
     
     @Override
