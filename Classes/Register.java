@@ -126,7 +126,7 @@ public class Register {
     }
 
     public void cancelTransaction() {
-        endTransaction();
+        this.currentTransaction = null;
     }
     
     public UserManager getUserManager(){
