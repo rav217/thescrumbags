@@ -33,7 +33,10 @@ public class Sale extends Transaction {
     }
     
     @Override
-    public void updateInventory() { 
-        
+    public void updateInventory() { //add transaction to db, update inventory
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        db.addTransaction("S");
+        db.closeConnection();
     }
 }

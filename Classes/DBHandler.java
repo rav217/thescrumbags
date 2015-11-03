@@ -159,12 +159,9 @@ public class DBHandler {
         System.out.println("Connection closed.");
     }
 
-    /*fetches product catalog from db. returns ProductDescription hashmap (aka ProductCatalog.catalog)*/
-    public ProductCatalog init() {
-
-       //initialize ProductCatalog
-        ProductCatalog pc = new ProductCatalog();
-        
+    //initializes SaleProductCatalog
+    public ProductCatalog initSPC() {
+        ProductCatalog spc = new ProductCatalog();
         int id = 0;
         double price = 0;
         String descr = "";
@@ -181,17 +178,46 @@ public class DBHandler {
                 Money p = new Money(bd);
                 //create new ProductDescription object based on this info
                 ProductDescription pd = new ProductDescription(id, p, descr);
-                //add the product description to ProductCatalog being passed as parameter
-                pc.add(pd);
+                //add the product description to SaleProductCatalog
+                spc.add(pd);
             }
         } catch (SQLException ex) {
             System.out.println("Error viewing sale products in the system.");
             closeConnection();
         }
-        return pc;
+        return spc;
     }
-/**
-        //TODO: initialize EmployeeList
+    
+    //initialize RentalProductCatalog
+    public ProductCatalog initRPC(){
+        ProductCatalog rpc = new ProductCatalog();       
+        int id = 0;
+        double price = 0;
+        String descr = "";
+        String query = "select * from rentalproducts";
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            //while the result set is not empty
+            while (rs.next()) {
+                id = rs.getInt("id");
+                price = rs.getDouble("price");
+                descr = rs.getString("descr");
+                BigDecimal bd = BigDecimal.valueOf(price);
+                Money p = new Money(bd);
+                //create new ProductDescription object based on this info
+                ProductDescription pd = new ProductDescription(id, p, descr);
+                //add the product description to RentalProductCatalog
+                rpc.add(pd);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error viewing rental products in the system.");
+            closeConnection();
+        }
+        return rpc;
+    }
+
+    /*    //TODO: initialize EmployeeList
         int empID = 0;
         String name = "";
         String password = "";
@@ -225,7 +251,7 @@ public class DBHandler {
             System.out.println("Error viewing employees in system.");
             closeConnection();
         }
-    }
+    }*/
 
     /*public Sale getSale() {}
      public Rental getRental() {}*/

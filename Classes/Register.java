@@ -43,16 +43,16 @@ public class Register {
         return uniqueInst;
     }
 
-    public void initializeData(){
+    /*public void initializeData(){
         //open new db connection
         dbHandler = DBHandler.getInstance();
         dbHandler.openConnection("sql595207", "nT1*rF4!");
         
         //fetch ProductCatalog and EmployeeList from db
-        this.catalog = dbHandler.init();
-        
+        this.catalog = dbHandler.initSPC();
+        //this.rentalcatalog = dbHandler.initRPC();
         dbHandler.closeConnection();
-    }
+    }*/
 
     public Transaction getCurrentTransaction() {
         return currentTransaction;
@@ -66,10 +66,18 @@ public class Register {
      * Creates a new Sale object and stores it in currentSale
      */
     public void makeNewSale() {
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        this.catalog = db.initSPC();
+        db.closeConnection();
         this.currentTransaction = new Sale();
     }
 
     public void makeNewRental(GregorianCalendar returnDate) {
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        this.catalog = db.initRPC();
+        db.closeConnection();
         this.currentTransaction = new Rental(returnDate);
     }
 
