@@ -22,7 +22,7 @@ public class LineItem {
         return this.subtotal;
     }
 
-    public int getQuantity(){
+    public int getQuantity(){ //recently added by chris
         return this.qty;
     }
     

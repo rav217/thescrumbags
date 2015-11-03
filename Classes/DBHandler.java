@@ -256,7 +256,7 @@ public class DBHandler {
         }
     }
     
-    //iterate through product catalog on db and update qoh
+    //iterate through product catalog on db and update QOH
     public void updateInventory(String table, ArrayList<LineItem> lineItems){
         Iterator<LineItem> i = lineItems.iterator();
 	while (i.hasNext()){

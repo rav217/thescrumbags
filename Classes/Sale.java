@@ -33,7 +33,7 @@ public class Sale extends Transaction {
     }
     
     @Override
-    public void updateInventory() { //add transaction to db, update inventory
+    public void updateInventory() { //add transaction to db, update inventory QOH
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         db.addTransaction("S", lineItems);
