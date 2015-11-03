@@ -19,9 +19,11 @@ public class UserManager {
     private final EmployeeList loggedOnEmployees;
 
     public UserManager() {
-        eList = new EmployeeList();
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        this.eList = db.initializeEmployees();
+        db.closeConnection();
         loggedOnEmployees = new EmployeeList();
-        //this.userID = db.getNextUserID();
     }
 
     public static synchronized UserManager getInstance() {
@@ -75,6 +77,10 @@ public class UserManager {
     public void removeEmployee(int employeeID) {
         if (eList.isEmployee(employeeID) == true) {
             eList.removeEmployee(employeeID);
+            DBHandler db = DBHandler.getInstance();
+            db.openConnection("sql595207", "nT1*rF4!");
+            db.removeEmployee(employeeID);
+            db.closeConnection();
         } else {
             System.out.println("No valid employee ID entered.");
         }

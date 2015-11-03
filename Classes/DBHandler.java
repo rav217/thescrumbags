@@ -327,8 +327,21 @@ public class DBHandler {
         }
     }
     
-    /*    //TODO: initialize EmployeeList
-        int empID = 0;
+    public void removeEmployee(int id){
+        String query = "delete from employees where id = "+id;
+        try{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch(SQLException ex){
+            System.out.println("Error removing employee into database");
+            closeConnection();
+        }
+    }
+    
+    //initialize EmployeeList
+    public EmployeeList initializeEmployees(){
+        EmployeeList list = new EmployeeList();
+        int id = 0;
         String name = "";
         String password = "";
         int isManager = 0;
@@ -354,14 +367,15 @@ public class DBHandler {
                 }
                 //create new Employee object based on this info
                 //add the employee to employee list
-                r.getUserManager().setExistingEmployee(id, man, name, password);
-                System.out.println(name + " added to EmployeeList");
+                Employee e = new Employee(id, man, name, password);
+                list.addEmployee(e);
             }
         } catch (SQLException ex) {
             System.out.println("Error viewing employees in system.");
             closeConnection();
         }
-    }*/
+        return list;
+    }
 
     /*public Sale getSale() {}
      public Rental getRental() {}*/
