@@ -21,7 +21,7 @@ public class UserManager {
     public UserManager() {
         eList = new EmployeeList();
         loggedOnEmployees = new EmployeeList();
-        userID = 0;
+        //this.userID = db.getNextUserID();
     }
 
     public static synchronized UserManager getInstance() {
@@ -39,18 +39,28 @@ public class UserManager {
         return loggedOnEmployees;
     }
 
+    //when cashier added, update db (done)
     public Employee addCashier(String name, String password) {
-        userID++;
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        this.userID = db.getNextUserID(); //add to dbhandler
         //for now I'm going to assume there is valid input for name and password
-        Employee newEmployee = new Employee(userID, false, name, password);
+        Employee newEmployee = new Employee(this.userID, false, name, password);
+        db.addEmployee(newEmployee);
+        db.closeConnection();
         eList.addEmployee(newEmployee);
         return newEmployee;
     }
 
+    //when manager added, update db
     public Employee addManager(String name, String password) {
-        userID++;
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        this.userID = db.getNextUserID();
         //for now I'm going to assume there is valid input for name and password
         Employee newEmployee = new Employee(userID, true, name, password);
+        db.addEmployee(newEmployee);
+        db.closeConnection();
         eList.addEmployee(newEmployee);
         return newEmployee;
     }
@@ -61,6 +71,7 @@ public class UserManager {
         return newEmployee;
     }
 
+    //upon removal, update db
     public void removeEmployee(int employeeID) {
         if (eList.isEmployee(employeeID) == true) {
             eList.removeEmployee(employeeID);

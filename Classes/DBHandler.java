@@ -294,6 +294,39 @@ public class DBHandler {
         }
     }
 
+    public int getNextUserID(){
+        int highestID = 1; //if 1st element, empid will be 1
+        String query = "select max(id) as id from employees";
+        try{
+        stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                highestID = rs.getInt("id"); 
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error viewing employees table");
+            closeConnection();
+        }
+     return highestID + 1;       
+    }
+    
+    public void addEmployee(Employee employee){
+        int id = employee.getEmployeeID();
+        String name = employee.getEmployeeName();
+        String password = employee.getEmployeePassword();
+        boolean isManager = employee.isManager();
+        int man = 1;
+        if (isManager == true) man = 0;
+        String query = "insert into employees values ("+id+", '"+name+"', '"+password+"', "+man+")";
+        try{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch(SQLException ex){
+            System.out.println("Error inserting employee into database");
+            closeConnection();
+        }
+    }
+    
     /*    //TODO: initialize EmployeeList
         int empID = 0;
         String name = "";
