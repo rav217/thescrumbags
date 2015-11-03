@@ -12,6 +12,6 @@ package thescrumbags.Classes;
 public class TestRegister {
     
     public static void main (String[] args){
-    Register test = new Register();
+    Register test = Register.getInstance();
     }
 }

@@ -9,7 +9,7 @@ package thescrumbags.Classes;
 import java.util.*;
 
 /*
- * A class representing a cash register for the point-of-sale system
+ * A singleton class representing a cash register for the point-of-sale system
  */
 public class Register {
 
@@ -18,11 +18,12 @@ public class Register {
     private boolean isOpen;
     private DBHandler dbHandler;
     private UserManager userManager;
+    private static Register uniqueInst;
 
     /**
      * Default constructor: pulls product catalog and employee records from db
      */
-    public Register() { } //default constructor for now
+    private Register() { } //default constructor for now
 
     /**
      * Constructor, assigns field values for Register object If no Sale
@@ -31,8 +32,15 @@ public class Register {
      * @param catalog the Store's product catalog
      */
     
-    public Register(ProductCatalog catalog) {
+    /*public Register(ProductCatalog catalog) {
         this.catalog = catalog;
+    }*/
+    
+    public static synchronized Register getInstance(){
+        if (uniqueInst == null){
+            uniqueInst = new Register();
+        }
+        return uniqueInst;
     }
 
     public void initializeData(){
@@ -41,7 +49,7 @@ public class Register {
         dbHandler.openConnection("sql595207", "nT1*rF4!");
         
         //fetch ProductCatalog and EmployeeList from db
-        dbHandler.init(this);
+        dbHandler.init(Register.getInstance());
         
         dbHandler.closeConnection();
     }
