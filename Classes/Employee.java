@@ -47,12 +47,12 @@ public class Employee{
   public String getEmployeeName(){
     return employeeName;
   }
-  /*
+
   //I may remove this method for privacy sake
   public String getEmployeePassword(){
     return employeePassword;
   }
-  */
+ 
   public int getEmployeeID(){
     return employeeID;
   }

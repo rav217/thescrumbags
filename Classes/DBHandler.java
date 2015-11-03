@@ -294,8 +294,54 @@ public class DBHandler {
         }
     }
 
-    /*    //TODO: initialize EmployeeList
-        int empID = 0;
+    public int getNextUserID(){
+        int highestID = 1; //if 1st element, empid will be 1
+        String query = "select max(id) as id from employees";
+        try{
+        stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                highestID = rs.getInt("id"); 
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error viewing employees table");
+            closeConnection();
+        }
+     return highestID + 1;       
+    }
+    
+    public void addEmployee(Employee employee){
+        int id = employee.getEmployeeID();
+        String name = employee.getEmployeeName();
+        String password = employee.getEmployeePassword();
+        boolean isManager = employee.isManager();
+        int man = 1;
+        if (isManager == true) man = 0;
+        String query = "insert into employees values ("+id+", '"+name+"', '"+password+"', "+man+")";
+        try{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch(SQLException ex){
+            System.out.println("Error inserting employee into database");
+            closeConnection();
+        }
+    }
+    
+    public void removeEmployee(int id){
+        String query = "delete from employees where id = "+id;
+        try{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch(SQLException ex){
+            System.out.println("Error removing employee into database");
+            closeConnection();
+        }
+    }
+    
+    //initialize EmployeeList
+    public EmployeeList initializeEmployees(){
+        EmployeeList list = new EmployeeList();
+        int id = 0;
         String name = "";
         String password = "";
         int isManager = 0;
@@ -321,14 +367,15 @@ public class DBHandler {
                 }
                 //create new Employee object based on this info
                 //add the employee to employee list
-                r.getUserManager().setExistingEmployee(id, man, name, password);
-                System.out.println(name + " added to EmployeeList");
+                Employee e = new Employee(id, man, name, password);
+                list.addEmployee(e);
             }
         } catch (SQLException ex) {
             System.out.println("Error viewing employees in system.");
             closeConnection();
         }
-    }*/
+        return list;
+    }
 
     /*public Sale getSale() {}
      public Rental getRental() {}*/
