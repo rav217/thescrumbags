@@ -22,6 +22,10 @@ public class LineItem {
         return this.subtotal;
     }
 
+    public int getQuantity(){ //recently added by chris
+        return this.qty;
+    }
+    
     public ProductDescription getProductDescription() {
         return this.prod;
     }
