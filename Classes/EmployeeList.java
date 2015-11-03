@@ -48,6 +48,7 @@ public class EmployeeList{
     return e.correctPassword(password);
   }
   
+  
   /**Most likely not needed, but I have it just in case.*/
   public int getEmployeeCount(){
     return employeeList.size();
