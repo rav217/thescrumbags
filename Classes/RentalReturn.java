@@ -14,17 +14,22 @@ import java.math.BigDecimal;
  */
 public class RentalReturn extends Transaction {
 
-    private Rental rental;
+    private Transaction rental;
     private int daysLate;
     private int rentalID;
 
+    //check with ben
     public RentalReturn(int rentalID) {
         super();
         this.rentalID = rentalID;
-        DBHandler dbh=DBHandler.getInstance();
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        this.rental = db.findTransaction("R", rentalID);
+        db.closeConnection();
+        if (this.rental == null) System.out.println("Rental not found in database");
     }
 
-    public Rental getRental() {
+    public Transaction getRental() {
         return rental;
     }
 
@@ -38,7 +43,7 @@ public class RentalReturn extends Transaction {
 
     public boolean checkIfLate() {
         GregorianCalendar now=this.date;
-        if(now.after(rental.getReturnDate())) {
+        if(now.after(rental.getReturnDate())) { //TODO: either fix this or change DBHandler
             daysLate=now.get(Calendar.DAY_OF_YEAR)-rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
             BigDecimal bd=rental.getTotal().getAmount().multiply(new BigDecimal(daysLate/10));
             Money m=new Money(bd);

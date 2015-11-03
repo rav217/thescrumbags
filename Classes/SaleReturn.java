@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * @author benscandell
  */
 public class SaleReturn extends Transaction {
-    private Sale sale;
+    private Transaction sale;
     private Reimbursement r;
     private String reason;
     private int saleID;
@@ -23,16 +23,20 @@ public class SaleReturn extends Transaction {
      * saleID is going to be the date with all symbols removed
      * @param saleID the ID number printed on the original receipt
      */
+    //made serious changes: check w ben
     public SaleReturn(int saleID, String reason) {
         super();
         this.saleID=saleID;
         this.reason=reason;
-        DBHandler dbh=DBHandler.getInstance();
-        //use dbh to find corresponding Sale object
-        sale=new Sale();
+        //add neccessary dbhandler code
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        this.sale = db.findTransaction("S", saleID);
+        db.closeConnection();
+        if (this.sale == null) System.out.println("Sale not found in database");
     }
     
-    public Sale getSale() { return sale; }
+    public Transaction getSale() { return sale; }
     
     public String getReason() { return reason; }
     
