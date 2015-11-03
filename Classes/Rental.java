@@ -14,6 +14,7 @@ public class Rental extends Transaction {
     
     private GregorianCalendar returnDate;
     private boolean returned;
+    private int rentalPeriod;
     
     private Rental() { super(); }
     
@@ -26,7 +27,12 @@ public class Rental extends Transaction {
     
     public void completeReturn() { returned=true; }
     
-    public void setReturnDate(GregorianCalendar date) { this.returnDate=date; }
+    public void setReturnDate(int numDays) { 
+        this.rentalPeriod = numDays;
+        GregorianCalendar returnItemsOn = new GregorianCalendar();
+        returnItemsOn.add(Calendar.DAY_OF_YEAR, numDays);
+        this.returnDate = returnItemsOn;
+    }
     
     public Calendar getReturnDate()  {
         return returnDate; 
