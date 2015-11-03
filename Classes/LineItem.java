@@ -17,6 +17,16 @@ public class LineItem {
         this.subtotal = new Money(bd);
     }
     
+    // constructor for LineItems added by Jacob
+    public LineItem(LineItem li) {
+        copy(li);
+    }
+    
+    public static LineItem copy(LineItem li) {
+        LineItem newLineItem = new LineItem(li.prod, li.qty, li.subtotal);
+        return newLineItem;
+    }
+    
     //constructor with subtotal added by chris
     public LineItem(ProductDescription prod, int qty, Money subtotal) {
         this.prod = prod;
