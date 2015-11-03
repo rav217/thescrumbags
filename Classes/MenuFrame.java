@@ -6,6 +6,7 @@
 package thescrumbags.Classes;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -14,6 +15,10 @@ import javax.swing.table.DefaultTableModel;
 public class MenuFrame extends javax.swing.JFrame {
 
     Register r;
+    UserManager um;
+    DefaultTableModel saleTableModel;
+    DefaultTableModel rentTableModel;
+    DefaultTableModel employeeTableModel;
 
     /**
      * Creates new form MenuFrame
@@ -21,6 +26,10 @@ public class MenuFrame extends javax.swing.JFrame {
     public MenuFrame() {
         initComponents();
         r = Register.getInstance();
+        um = UserManager.getInstance();
+        saleTableModel = ((DefaultTableModel) saleCartTable.getModel());
+        rentTableModel = ((DefaultTableModel) rentCartTable.getModel());
+        employeeTableModel = ((DefaultTableModel) employeeTable.getModel());
     }
 
     /**
@@ -102,6 +111,29 @@ public class MenuFrame extends javax.swing.JFrame {
         rentItemAddErrorPanel = new javax.swing.JPanel();
         rentItemAddErrorLabel = new javax.swing.JLabel();
         rentItemAddErrorButton = new javax.swing.JButton();
+        userManagerPanel = new javax.swing.JPanel();
+        userManagerLabel = new javax.swing.JLabel();
+        addEmployeeButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        employeeTable = new javax.swing.JTable();
+        employeesLabel = new javax.swing.JLabel();
+        passwordTextField = new javax.swing.JTextField();
+        nameTextField = new javax.swing.JTextField();
+        managerCheckBox = new javax.swing.JCheckBox();
+        employeeIDTextField = new javax.swing.JTextField();
+        removeEmployeeButton = new javax.swing.JButton();
+        userNameLabel = new javax.swing.JLabel();
+        passwordLabel = new javax.swing.JLabel();
+        userManagerDoneButton = new javax.swing.JButton();
+        employeeIdLabel = new javax.swing.JLabel();
+        managerLoginPanel = new javax.swing.JPanel();
+        managerNameTextField = new javax.swing.JTextField();
+        managerNameLabel = new javax.swing.JLabel();
+        managerNameLabel1 = new javax.swing.JLabel();
+        managerPasswordField = new javax.swing.JPasswordField();
+        managerCancelButton = new javax.swing.JButton();
+        managerLoginButton = new javax.swing.JButton();
+        managerErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -126,6 +158,11 @@ public class MenuFrame extends javax.swing.JFrame {
         startReturnButton.setText("Start New Return");
 
         userManagementButton.setText("User Management");
+        userManagementButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userManagementButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
@@ -691,7 +728,7 @@ public class MenuFrame extends javax.swing.JFrame {
         cashPanelLayout.setVerticalGroup(
             cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
-                .addContainerGap(82, Short.MAX_VALUE)
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addComponent(cashTotalLabel)
                 .addGap(18, 18, 18)
                 .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -708,7 +745,7 @@ public class MenuFrame extends javax.swing.JFrame {
                     .addComponent(changeAmountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cashErrorLabel)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         getContentPane().add(cashPanel, "card9");
@@ -781,6 +818,222 @@ public class MenuFrame extends javax.swing.JFrame {
 
         getContentPane().add(rentItemAddErrorPanel, "card7");
 
+        userManagerLabel.setFont(new java.awt.Font("Krungthep", 0, 18)); // NOI18N
+        userManagerLabel.setText("User Management");
+
+        addEmployeeButton.setText("Add Employee");
+        addEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEmployeeButtonActionPerformed(evt);
+            }
+        });
+
+        employeeTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Name", "ID Number", "Manager"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(employeeTable);
+
+        employeesLabel.setText("Employees:");
+
+        managerCheckBox.setText("Manager");
+
+        removeEmployeeButton.setText("Remove Employee");
+        removeEmployeeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeEmployeeButtonActionPerformed(evt);
+            }
+        });
+
+        userNameLabel.setText("name");
+
+        passwordLabel.setText("password");
+
+        userManagerDoneButton.setText("Done");
+        userManagerDoneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userManagerDoneButtonActionPerformed(evt);
+            }
+        });
+
+        employeeIdLabel.setText("Employee ID");
+
+        javax.swing.GroupLayout userManagerPanelLayout = new javax.swing.GroupLayout(userManagerPanel);
+        userManagerPanel.setLayout(userManagerPanelLayout);
+        userManagerPanelLayout.setHorizontalGroup(
+            userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userManagerPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userManagerLabel)
+                    .addComponent(employeesLabel)
+                    .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(userManagerPanelLayout.createSequentialGroup()
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(removeEmployeeButton, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(employeeIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(userManagerDoneButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addComponent(employeeIdLabel))
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, userManagerPanelLayout.createSequentialGroup()
+                            .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(userManagerPanelLayout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(userNameLabel)))
+                            .addGap(18, 18, 18)
+                            .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(userManagerPanelLayout.createSequentialGroup()
+                                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(managerCheckBox))
+                                .addGroup(userManagerPanelLayout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(passwordLabel)))
+                            .addGap(18, 18, 18)
+                            .addComponent(addEmployeeButton)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+        );
+
+        userManagerPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {employeeIDTextField, nameTextField, passwordTextField, removeEmployeeButton});
+
+        userManagerPanelLayout.setVerticalGroup(
+            userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userManagerPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(userManagerLabel)
+                .addGap(18, 18, 18)
+                .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userManagerPanelLayout.createSequentialGroup()
+                        .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(managerCheckBox)
+                            .addComponent(addEmployeeButton))
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userManagerPanelLayout.createSequentialGroup()
+                        .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(userNameLabel)
+                            .addComponent(passwordLabel))
+                        .addGap(18, 18, 18)))
+                .addComponent(employeesLabel)
+                .addGap(18, 18, 18)
+                .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(userManagerPanelLayout.createSequentialGroup()
+                        .addComponent(employeeIDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(employeeIdLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeEmployeeButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addComponent(userManagerDoneButton))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        getContentPane().add(userManagerPanel, "card12");
+
+        managerNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managerNameTextFieldActionPerformed(evt);
+            }
+        });
+
+        managerNameLabel.setText("User ID:");
+
+        managerNameLabel1.setText("Password:");
+
+        managerPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managerPasswordFieldActionPerformed(evt);
+            }
+        });
+        managerPasswordField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                managerPasswordFieldPropertyChange(evt);
+            }
+        });
+
+        managerCancelButton.setText("Cancel");
+        managerCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managerCancelButtonActionPerformed(evt);
+            }
+        });
+
+        managerLoginButton.setText("Login");
+        managerLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managerLoginButtonActionPerformed(evt);
+            }
+        });
+
+        managerErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
+        javax.swing.GroupLayout managerLoginPanelLayout = new javax.swing.GroupLayout(managerLoginPanel);
+        managerLoginPanel.setLayout(managerLoginPanelLayout);
+        managerLoginPanelLayout.setHorizontalGroup(
+            managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managerLoginPanelLayout.createSequentialGroup()
+                .addContainerGap(106, Short.MAX_VALUE)
+                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(managerErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(managerLoginPanelLayout.createSequentialGroup()
+                            .addComponent(managerCancelButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(managerLoginButton))
+                        .addGroup(managerLoginPanelLayout.createSequentialGroup()
+                            .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(managerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(managerNameLabel))
+                            .addGap(18, 18, 18)
+                            .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(managerNameLabel1)
+                                .addComponent(managerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(101, Short.MAX_VALUE))
+        );
+
+        managerLoginPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {managerNameTextField, managerPasswordField});
+
+        managerLoginPanelLayout.setVerticalGroup(
+            managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managerLoginPanelLayout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(managerNameLabel)
+                    .addComponent(managerNameLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(managerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(managerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(managerCancelButton)
+                    .addComponent(managerLoginButton))
+                .addGap(18, 18, 18)
+                .addComponent(managerErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(managerLoginPanel, "card13");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -798,8 +1051,7 @@ public class MenuFrame extends javax.swing.JFrame {
         r.cancelTransaction();
 
         // reset table
-        DefaultTableModel model = (DefaultTableModel) saleCartTable.getModel();
-        model.setRowCount(0);
+        saleTableModel.setRowCount(0);
 
         // clear text fields
         saleIdTextField.setText("");
@@ -822,9 +1074,6 @@ public class MenuFrame extends javax.swing.JFrame {
             Integer id = Integer.parseInt(saleIdTextField.getText());
             Integer qty = Integer.parseInt(saleQtyTextField.getText());
 
-            // get table model from saleCartTable
-            DefaultTableModel model = (DefaultTableModel) saleCartTable.getModel();
-
             // create and add line item to sale
             try {
                 LineItem currentLineItem = r.enterItem(id, qty);
@@ -840,7 +1089,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 String subtotalString = String.format("$%4.2f", subtotal);
 
                 Object[] row = {desc, priceString, qtyString, subtotalString};
-                model.addRow(row);
+                saleTableModel.addRow(row);
 
                 // set the total label to the new total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
@@ -867,13 +1116,10 @@ public class MenuFrame extends javax.swing.JFrame {
         try {
             Integer row = Integer.parseInt(saleRemoveTextField.getText()) - 1;
 
-            // get table model from saleCartTable
-            DefaultTableModel model = (DefaultTableModel) saleCartTable.getModel();
-
             try {
                 // remove line from currentTransaction and from table
                 r.getCurrentTransaction().removeLineItem(row);
-                model.removeRow(row);
+                saleTableModel.removeRow(row);
 
                 // update total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
@@ -905,8 +1151,7 @@ public class MenuFrame extends javax.swing.JFrame {
         saleRemoveTextField.setText("");
 
         // reset table
-        DefaultTableModel model = (DefaultTableModel) saleCartTable.getModel();
-        model.setRowCount(0);
+        saleTableModel.setRowCount(0);
 
         // set total label in cashPanel
         String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
@@ -934,9 +1179,6 @@ public class MenuFrame extends javax.swing.JFrame {
             Integer id = Integer.parseInt(rentIdTextField.getText());
             Integer qty = Integer.parseInt(rentQtyTextField.getText());
 
-            // get table model from saleCartTable
-            DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
-
             // create and add line item to sale
             try {
                 LineItem currentLineItem = r.enterItem(id, qty);
@@ -952,7 +1194,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 String subtotalString = String.format("$%4.2f", subtotal);
 
                 Object[] row = {desc, priceString, qtyString, subtotalString};
-                model.addRow(row);
+                rentTableModel.addRow(row);
 
                 // set the total label to the new total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
@@ -996,13 +1238,10 @@ public class MenuFrame extends javax.swing.JFrame {
         try {
             Integer row = Integer.parseInt(rentRemoveTextField.getText()) - 1;
 
-            // get table model from saleCartTable
-            DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
-
             try {
                 // remove line from currentTransaction and from table
                 r.getCurrentTransaction().removeLineItem(row);
-                model.removeRow(row);
+                rentTableModel.removeRow(row);
 
                 // update total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
@@ -1054,6 +1293,9 @@ public class MenuFrame extends javax.swing.JFrame {
         // switch to cash payment view
         cashOrCreditPanel.setVisible(false);
         cashPanel.setVisible(true);
+
+        // disable done button on cashPanel
+        cashDoneButton.setEnabled(false);
     }//GEN-LAST:event_cashButtonActionPerformed
 
     private void calcChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcChangeButtonActionPerformed
@@ -1068,6 +1310,9 @@ public class MenuFrame extends javax.swing.JFrame {
                 System.out.println("change: " + ((CashPayment) r.getCurrentPayment()).getChange().getAmount().doubleValue());
                 String changeString = String.format("%4.2f", ((CashPayment) r.getCurrentPayment()).getChange().getAmount());
                 changeAmountLabel.setText(changeString);
+
+                // allow done button to be pressed
+                cashDoneButton.setEnabled(true);
             } else {
                 changeAmountLabel.setText("Insufficient Funds");
             }
@@ -1076,31 +1321,23 @@ public class MenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_calcChangeButtonActionPerformed
 
     private void cashDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashDoneButtonActionPerformed
-        // check if current payment is acceptable
-        if (r.getCurrentTransaction().accept(r.getCurrentPayment())) {
-            // end sale
-            r.endTransaction();
+        // end sale
+        r.endTransaction();
 
-            // return to menu view
-            cashPanel.setVisible(false);
-            menuPanel.setVisible(true);
+        // return to menu view
+        cashPanel.setVisible(false);
+        menuPanel.setVisible(true);
 
-            // reset sale table
-            DefaultTableModel saleModel = (DefaultTableModel) saleCartTable.getModel();
-            saleModel.setRowCount(0);
+        // reset sale table
+        saleTableModel.setRowCount(0);
 
-            // clear cash text fields
-            cashReceivedTextField.setText("");
-            changeAmountLabel.setText("");
-            cashErrorLabel.setText("");
+        // clear cash text fields
+        cashReceivedTextField.setText("");
+        changeAmountLabel.setText("");
+        cashErrorLabel.setText("");
 
-            // reset rent table
-            DefaultTableModel rentModel = (DefaultTableModel) rentCartTable.getModel();
-            rentModel.setRowCount(0);
-
-        } else {
-            cashErrorLabel.setText("Insufficient funds to complete sale");
-        }
+        // reset rent table
+        rentTableModel.setRowCount(0);
 
     }//GEN-LAST:event_cashDoneButtonActionPerformed
 
@@ -1118,13 +1355,10 @@ public class MenuFrame extends javax.swing.JFrame {
         changeAmountLabel.setText("");
         cashErrorLabel.setText("");
 
-        // reset rent table
-        DefaultTableModel rentModel = (DefaultTableModel) rentCartTable.getModel();
-        rentModel.setRowCount(0);
+        // reset rent and sale tables
+        rentTableModel.setRowCount(0);
+        saleTableModel.setRowCount(0);
 
-        // reset sale table
-        DefaultTableModel saleModel = (DefaultTableModel) saleCartTable.getModel();
-        saleModel.setRowCount(0);
     }//GEN-LAST:event_cashPanelCancelButtonActionPerformed
 
     private void rentRemoveErrorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentRemoveErrorButtonActionPerformed
@@ -1138,6 +1372,134 @@ public class MenuFrame extends javax.swing.JFrame {
         rentItemAddErrorPanel.setVisible(false);
         rentPanel.setVisible(true);
     }//GEN-LAST:event_rentItemAddErrorButtonActionPerformed
+
+    public void initEmployeeTable() {
+        for (Employee employee : um.getEmployeeList().getEList()) {
+            Object[] row = {employee.getEmployeeName(), employee.getEmployeeID(), employee.isManager()};
+            employeeTableModel.addRow(row);
+        }
+    }
+
+    public void addEmployeeToTable(Employee e) {
+        Object[] row = {e.getEmployeeName(), e.getEmployeeID(), e.isManager()};
+        employeeTableModel.addRow(row);
+    }
+
+    public int getRowByID(TableModel model, int id) {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (id == (int) model.getValueAt(i, 1)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void addEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeButtonActionPerformed
+
+        String name = nameTextField.getText();
+        String password = passwordTextField.getText();
+        Boolean isManager = managerCheckBox.isSelected();
+
+        Employee newEmployee;
+
+        if (isManager) {
+            newEmployee = um.addManager(name, password);
+        } else {
+            newEmployee = um.addCashier(name, password);
+        }
+        addEmployeeToTable(newEmployee);
+
+    }//GEN-LAST:event_addEmployeeButtonActionPerformed
+
+    private void removeEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmployeeButtonActionPerformed
+        int employeeToRemove = Integer.parseInt(employeeIDTextField.getText());
+        int rowIndex = getRowByID(employeeTable.getModel(), employeeToRemove);
+
+        try {
+            um.removeEmployee(employeeToRemove);
+            ((DefaultTableModel) employeeTable.getModel()).removeRow(rowIndex);
+        } catch (ArrayIndexOutOfBoundsException ex) { //TODO: make popup happen
+
+        }
+
+    }//GEN-LAST:event_removeEmployeeButtonActionPerformed
+
+    private void userManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagementButtonActionPerformed
+        // change to user management view
+        menuPanel.setVisible(false);
+        managerLoginPanel.setVisible(true);
+
+        // disable login button on manager login panel
+        managerLoginButton.setEnabled(false);
+    }//GEN-LAST:event_userManagementButtonActionPerformed
+
+    private void userManagerDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagerDoneButtonActionPerformed
+        // switch back to menu view
+        userManagerPanel.setVisible(false);
+        menuPanel.setVisible(true);
+
+        // clear employee table for future calls
+        employeeTableModel.setRowCount(0);
+    }//GEN-LAST:event_userManagerDoneButtonActionPerformed
+
+    private void managerNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managerNameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_managerNameTextFieldActionPerformed
+
+    private void managerPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managerPasswordFieldActionPerformed
+        // activate manager login button
+        managerLoginButton.setEnabled(true);
+        managerLoginButton.requestFocus();
+    }//GEN-LAST:event_managerPasswordFieldActionPerformed
+
+    private void managerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managerCancelButtonActionPerformed
+        // clear managerLoginTable fields
+        managerNameTextField.setText("");
+        managerPasswordField.setText("");
+        
+        // return to menu view
+        managerLoginPanel.setVisible(false);
+        menuPanel.setVisible(true);
+    }//GEN-LAST:event_managerCancelButtonActionPerformed
+
+    private void managerLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_managerLoginButtonActionPerformed
+        //get name and password
+        try {
+            Integer employeeId = Integer.parseInt(managerNameTextField.getText());
+            String password = new String(managerPasswordField.getPassword());
+
+            // check login information
+            boolean isManager = um.managerLogin(employeeId, password);
+            boolean isEmployee = um.login(employeeId, password);
+            
+            if (isManager) {
+                // switch to user manager view
+                managerLoginPanel.setVisible(false);
+                userManagerPanel.setVisible(true);
+                
+                // initialize employees in userManagerPanel table
+                initEmployeeTable();
+            }
+            else if (isEmployee){
+                managerErrorLabel.setText("User " +employeeId+ " is not a manager. Access Denied.");
+            }
+            else {
+                managerErrorLabel.setText("Invalid ID or password entered.");
+            }
+            // clear fields for next time
+            managerNameTextField.setText("");
+            managerPasswordField.setText("");
+        
+            // disable login button
+            managerLoginButton.setEnabled(false);
+        } catch (NumberFormatException ex) {}
+        
+    }//GEN-LAST:event_managerLoginButtonActionPerformed
+
+    private void managerPasswordFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_managerPasswordFieldPropertyChange
+        // enable the login button
+        managerLoginButton.setEnabled(true);
+    }//GEN-LAST:event_managerPasswordFieldPropertyChange
 
     /**
      * @param args the command line arguments
@@ -1175,6 +1537,7 @@ public class MenuFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addEmployeeButton;
     private javax.swing.JButton calcChangeButton;
     private javax.swing.JButton cashButton;
     private javax.swing.JButton cashDoneButton;
@@ -1187,14 +1550,32 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel changeAmountLabel;
     private javax.swing.JLabel changeLabel;
     private javax.swing.JButton creditButton;
+    private javax.swing.JTextField employeeIDTextField;
+    private javax.swing.JLabel employeeIdLabel;
+    private javax.swing.JTable employeeTable;
+    private javax.swing.JLabel employeesLabel;
     private javax.swing.JLabel itemAddErrorLabel;
     private javax.swing.JButton itemAddOkButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton managerCancelButton;
+    private javax.swing.JCheckBox managerCheckBox;
+    private javax.swing.JLabel managerErrorLabel;
+    private javax.swing.JButton managerLoginButton;
+    private javax.swing.JPanel managerLoginPanel;
+    private javax.swing.JLabel managerNameLabel;
+    private javax.swing.JLabel managerNameLabel1;
+    private javax.swing.JTextField managerNameTextField;
+    private javax.swing.JPasswordField managerPasswordField;
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
+    private javax.swing.JTextField nameTextField;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JTextField passwordTextField;
+    private javax.swing.JButton removeEmployeeButton;
     private javax.swing.JLabel removeErrorLabel;
     private javax.swing.JButton removeErrorOkButton;
     private javax.swing.JButton rentAddButton;
@@ -1245,5 +1626,9 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JButton startReturnButton;
     private javax.swing.JButton startSaleButton;
     private javax.swing.JButton userManagementButton;
+    private javax.swing.JButton userManagerDoneButton;
+    private javax.swing.JLabel userManagerLabel;
+    private javax.swing.JPanel userManagerPanel;
+    private javax.swing.JLabel userNameLabel;
     // End of variables declaration//GEN-END:variables
 }
