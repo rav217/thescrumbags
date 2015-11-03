@@ -59,7 +59,9 @@ public class Money implements Comparable {
             Money money = (Money) o;
             return amount.equals(money.getAmount());
         }
-        return true;
+        else{
+            return false;
+        }
     }
 
     @Override
