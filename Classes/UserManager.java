@@ -8,7 +8,14 @@ package thescrumbags.Classes;
  *
  * @author Bobby
  */
-//add editing of information
+
+/**This class is the main class for handling the user management use case. It uses
+ * our database to dynamically add and remove employees. It also uses two different
+ * employeeLists to keep a local copy of the current users that are logged on and
+ * all the other employees that are registered in the database. It is also singleton
+ * and can have no more than one instance.
+ * @author Bobby
+ */
 public class UserManager {
 
     private static UserManager uniqueInstance = null;
@@ -16,6 +23,10 @@ public class UserManager {
     private int userID;
     private final EmployeeList loggedOnEmployees;
 
+    /**The constructor for this class. It initializes the two employeeLists. 
+     * It loads in the eList from the database and makes a new instance of employeeList
+     * for the logged on employees.
+     */
     public UserManager() {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
@@ -24,22 +35,32 @@ public class UserManager {
         loggedOnEmployees = new EmployeeList();
     }
 
+    /**Singleton getInstance class.*/
     public static synchronized UserManager getInstance() {
         if (uniqueInstance == null) {
             uniqueInstance = new UserManager();
         }
         return uniqueInstance;
     }
-
+    
+    /** Returns the eList. */
     public EmployeeList getEmployeeList() {
         return eList;
     }
-
+    
+    /**Returns the list of currently logged on employees.*/
     public EmployeeList getLoggedOnList() {
         return loggedOnEmployees;
     }
 
-    //when cashier added, update db (done)
+    /**Method for adding a cashier to the database/ employeeList. Every time the
+     * method is called it opens the database, makes a new employee with the given
+     * arguments, adds it to the database, closes the database connection, adds it
+     * to the employeeList, and also returns it.
+     * @param name
+     * @param password
+     * @return 
+     */
     public Employee addCashier(String name, String password) {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
@@ -52,7 +73,12 @@ public class UserManager {
         return newEmployee;
     }
 
-    //when manager added, update db
+    /**Same as cashier method except with the boolean value for isManager set to
+     * true.
+     * @param name
+     * @param password
+     * @return 
+     */
     public Employee addManager(String name, String password) {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
@@ -65,13 +91,26 @@ public class UserManager {
         return newEmployee;
     }
     
+    /**This method is used to add an employee with already given data to the eList.
+     * It is used by the database handler when loading in employees to populate the
+     * local eList.
+     * @param employeeID
+     * @param isManager
+     * @param employeeName
+     * @param employeePassword
+     * @return 
+     */
     public Employee setExistingEmployee(int employeeID, Boolean isManager, String employeeName, String employeePassword){
         Employee newEmployee = new Employee(employeeID, isManager, employeeName, employeePassword);
         eList.addEmployee(newEmployee);
         return newEmployee;
     }
 
-    //upon removal, update db
+    /**This method takes in an int for employeeID and uses it to remove that
+     * specific employee from the database and the eList. If the ID doesn't exist
+     * a message is printed and nothing else happens.
+     * @param employeeID 
+     */
     public void removeEmployee(int employeeID) {
         if (eList.isEmployee(employeeID) == true) {
             eList.removeEmployee(employeeID);
@@ -86,7 +125,7 @@ public class UserManager {
 
     /**
      * Log employee into system. It can be looped in a main method if the login
-     * information is incorrect.
+     * information is incorrect. Returns true if login is successful.
      * @param employeeId
      * @param password
      */
@@ -102,7 +141,12 @@ public class UserManager {
         }
         return successful;
     }
-
+    /**Same as Login method except it will only take managers.
+     * 
+     * @param employeeId
+     * @param password
+     * @return 
+     */
     public boolean managerLogin(int employeeId, String password) {
         Employee e = this.eList.findEmployee(employeeId);
         boolean successful = false;
@@ -120,6 +164,12 @@ public class UserManager {
         return successful;
     }
     
+    /**Takes in an employeeID and logs that employee out of the system.
+     * If employee is not in the loggedOnList it catches the error and prints
+     * out that no valid ID was entered.
+     * @param employeeId
+     * @return 
+     */
     public boolean logout(int employeeId) {
         boolean successful = false;
         try {
