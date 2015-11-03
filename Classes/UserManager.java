@@ -54,6 +54,12 @@ public class UserManager {
         eList.addEmployee(newEmployee);
         return newEmployee;
     }
+    
+    public Employee setExistingEmployee(int employeeID, Boolean isManager, String employeeName, String employeePassword){
+        Employee newEmployee = new Employee(employeeID, isManager, employeeName, employeePassword);
+        eList.addEmployee(newEmployee);
+        return newEmployee;
+    }
 
     public void removeEmployee(int employeeID) {
         if (eList.isEmployee(employeeID) == true) {

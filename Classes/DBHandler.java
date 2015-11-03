@@ -184,9 +184,41 @@ public class DBHandler {
         } catch (SQLException ex){
             System.out.println("Error viewing products in the system.");
             closeConnection();
+            return;
         }
        
        //TODO: initialize EmployeeList
+       int empID = 0;
+       String name = "";
+       String password = "";
+       int isManager = 0;
+       String query2 = "select * from employees";
+       try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query2);
+            //while the result set is not empty
+            while (rs.next()){
+                id = rs.getInt("id");
+                name = rs.getString("name");
+                password = rs.getString("password");
+                isManager = rs.getInt("ismanager");
+                boolean man = true;
+                //switch int to bool value for simplifying integration
+                switch (isManager){
+                    case 0: man = true;
+                            break;
+                    case 1: man = false;
+                            break;
+                }
+                //create new Employee object based on this info
+                //add the employee to employee list
+                r.getUserManager().setExistingEmployee(id, man, name, password);
+                System.out.println(name + " added to EmployeeList");
+            }
+        } catch (SQLException ex){
+            System.out.println("Error viewing employees in system.");
+            closeConnection();
+        }
     }
     
     /*public Sale getSale() {}
