@@ -54,11 +54,8 @@ public class Rental extends Transaction {
     }
     
     @Override
-    public void accept(Payment p) {
-        boolean b=p.verify(this);
-        if(!b) {
-            System.out.println("Payment was not accepted.");
-        }
+    public boolean accept(Payment p) {
+        return p.verify(this);
     }
     
     @Override
