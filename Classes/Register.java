@@ -103,6 +103,11 @@ public class Register {
         ProductDescription desc = catalog.getProductDescription(id);
         return currentTransaction.makeLineItem(desc, quantity);
     }
+    
+    // enterItem for LineItems added by Jacob 
+    public LineItem enterItem(LineItem li) {
+        return currentTransaction.makeLineItem(li.getProductDescription(), li.getQuantity());
+    }
 
     public void makeCashPayment(Money cashGiven) {
         Payment p = new CashPayment(cashGiven);
@@ -117,7 +122,7 @@ public class Register {
     public void makeNewSaleReturn(int saleID, String reason) {
         SaleReturn s = new SaleReturn(saleID, reason);
         this.currentTransaction = s;
-        makeReimbursement();
+        System.out.println(this.currentTransaction);
     }
 
     public void makeNewRentalReturn(int rentalID) {
