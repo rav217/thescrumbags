@@ -9,7 +9,9 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  *
@@ -215,6 +217,81 @@ public class DBHandler {
             closeConnection();
         }
         return rpc;
+    }
+    
+    //add transaction to transaction history in db (transtype, transid, itemid, price, descr, quantity, subtotal)
+    public void addTransaction(String type, ArrayList<LineItem> lineItems){
+        Iterator<LineItem> i = lineItems.iterator();
+	while (i.hasNext()){
+            LineItem li = i.next();
+            //query into db, select greatest transid, make transid that +1
+            int highestID = 1; //if 1st element, transid will be 1
+            String subQuery = "select max(transid) as transid from transactionhistory";
+            try{
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(subQuery);
+                while (rs.next()) {
+                    highestID = rs.getInt("transid"); 
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error viewing transaction history");
+                closeConnection();
+            }
+            int itemid = li.getProductDescription().getItemID();
+            BigDecimal priceBD = li.getProductDescription().getPrice().getAmount();
+            double price = priceBD.doubleValue();
+            BigDecimal subtotalBD = li.getSubtotal().getAmount();
+            double subtotal = subtotalBD.doubleValue();
+            String descr = li.getProductDescription().getDescription();
+            int quantity = li.getQuantity();
+            String query = "insert into transactionhistory values ("+type+", "+highestID+", "+itemid+", "+price+", '"
+                    +descr+"', "+quantity+", "+subtotal;
+            try {
+                stmt = conn.createStatement();
+                stmt.executeUpdate(query);
+            } catch (SQLException ex) {
+                System.out.println("Error adding transaction to transaction history.");
+                closeConnection();
+            }
+        }
+    }
+    
+    //iterate through product catalog on db and update qoh
+    public void updateInventory(String table, ArrayList<LineItem> lineItems){
+        Iterator<LineItem> i = lineItems.iterator();
+	while (i.hasNext()){
+            LineItem li = i.next();
+            //retrieve itemid and quantity from from lineitem
+            int id = li.getProductDescription().getItemID();
+            int q = li.getQuantity();
+            int curQ = 0;
+            //get current qoh for that item id in appropriate table in db
+            String query = "select qoh from "+table+" where id = "+id;
+            try{
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(query);
+                while (rs.next()){
+                    curQ = rs.getInt("qoh");
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error viewing product");
+                closeConnection();
+            }
+            //calculate new qoh and execute an update on db
+            int newQ = curQ-q;
+            if (newQ < 0){
+                System.out.println("Quantity requested exceeds QOH");
+                return;
+            }
+            String exQuery = "update "+table+" saleproducts set qoh = "+newQ+" where id = "+id;
+            try{
+                stmt = conn.createStatement();
+                stmt.executeUpdate(exQuery);
+            } catch (SQLException ex) {
+                System.out.println("Error updating QOH");
+                closeConnection();
+            }
+        }
     }
 
     /*    //TODO: initialize EmployeeList
