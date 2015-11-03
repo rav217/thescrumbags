@@ -19,6 +19,8 @@ public class MenuFrame extends javax.swing.JFrame {
     DefaultTableModel saleTableModel;
     DefaultTableModel rentTableModel;
     DefaultTableModel employeeTableModel;
+    DefaultTableModel previousSaleTableModel;
+    DefaultTableModel saleReturnCartTableModel;
 
     /**
      * Creates new form MenuFrame
@@ -27,9 +29,13 @@ public class MenuFrame extends javax.swing.JFrame {
         initComponents();
         r = Register.getInstance();
         um = UserManager.getInstance();
+        
+        // get table models and store to manipulate internal data easier
         saleTableModel = ((DefaultTableModel) saleCartTable.getModel());
         rentTableModel = ((DefaultTableModel) rentCartTable.getModel());
         employeeTableModel = ((DefaultTableModel) employeeTable.getModel());
+        previousSaleTableModel = ((DefaultTableModel) previousSaleTable.getModel());
+        saleReturnCartTableModel = ((DefaultTableModel) saleReturnCartTable.getModel());
     }
 
     /**
@@ -92,6 +98,12 @@ public class MenuFrame extends javax.swing.JFrame {
         rentPeriodSetButton = new javax.swing.JButton();
         rentPeriodCancelButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        rentRemoveErrorPanel = new javax.swing.JPanel();
+        rentRemoveErrorLabel = new javax.swing.JLabel();
+        rentRemoveErrorButton = new javax.swing.JButton();
+        rentItemAddErrorPanel = new javax.swing.JPanel();
+        rentItemAddErrorLabel = new javax.swing.JLabel();
+        rentItemAddErrorButton = new javax.swing.JButton();
         cashOrCreditPanel = new javax.swing.JPanel();
         cashButton = new javax.swing.JButton();
         creditButton = new javax.swing.JButton();
@@ -105,12 +117,14 @@ public class MenuFrame extends javax.swing.JFrame {
         changeAmountLabel = new javax.swing.JLabel();
         cashErrorLabel = new javax.swing.JLabel();
         cashTotalLabel = new javax.swing.JLabel();
-        rentRemoveErrorPanel = new javax.swing.JPanel();
-        rentRemoveErrorLabel = new javax.swing.JLabel();
-        rentRemoveErrorButton = new javax.swing.JButton();
-        rentItemAddErrorPanel = new javax.swing.JPanel();
-        rentItemAddErrorLabel = new javax.swing.JLabel();
-        rentItemAddErrorButton = new javax.swing.JButton();
+        managerLoginPanel = new javax.swing.JPanel();
+        managerNameTextField = new javax.swing.JTextField();
+        managerNameLabel = new javax.swing.JLabel();
+        managerNameLabel1 = new javax.swing.JLabel();
+        managerPasswordField = new javax.swing.JPasswordField();
+        managerCancelButton = new javax.swing.JButton();
+        managerLoginButton = new javax.swing.JButton();
+        managerErrorLabel = new javax.swing.JLabel();
         userManagerPanel = new javax.swing.JPanel();
         userManagerLabel = new javax.swing.JLabel();
         addEmployeeButton = new javax.swing.JButton();
@@ -126,14 +140,27 @@ public class MenuFrame extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
         userManagerDoneButton = new javax.swing.JButton();
         employeeIdLabel = new javax.swing.JLabel();
-        managerLoginPanel = new javax.swing.JPanel();
-        managerNameTextField = new javax.swing.JTextField();
-        managerNameLabel = new javax.swing.JLabel();
-        managerNameLabel1 = new javax.swing.JLabel();
-        managerPasswordField = new javax.swing.JPasswordField();
-        managerCancelButton = new javax.swing.JButton();
-        managerLoginButton = new javax.swing.JButton();
-        managerErrorLabel = new javax.swing.JLabel();
+        saleReturnPanel = new javax.swing.JPanel();
+        saleReturnLabel = new javax.swing.JLabel();
+        saleReturnCheckoutButton = new javax.swing.JButton();
+        saleReutrnCancelButton = new javax.swing.JButton();
+        saleReturnTotalLabel = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        previousSaleTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        saleReturnCartTable = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        saleReturnReturnButton = new javax.swing.JButton();
+        saleReturnRemoveButton = new javax.swing.JButton();
+        saleReturnIdPanel = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        saleReturnIdTextField = new javax.swing.JTextField();
+        saleReturnCancelButton = new javax.swing.JButton();
+        saleReturnOkButton = new javax.swing.JButton();
+        saleReturnErrorLabel = new javax.swing.JLabel();
+        saleReturnReasonLabel = new javax.swing.JLabel();
+        saleReturnReasonTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -156,6 +183,11 @@ public class MenuFrame extends javax.swing.JFrame {
         });
 
         startReturnButton.setText("Start New Return");
+        startReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startReturnButtonActionPerformed(evt);
+            }
+        });
 
         userManagementButton.setText("User Management");
         userManagementButton.addActionListener(new java.awt.event.ActionListener() {
@@ -169,18 +201,16 @@ public class MenuFrame extends javax.swing.JFrame {
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap(240, Short.MAX_VALUE)
-                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(userManagementButton)
-                    .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(startReturnButton)
-                        .addComponent(startRentalButton)
-                        .addComponent(startSaleButton)))
-                .addContainerGap(229, Short.MAX_VALUE))
-            .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(menuLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE)
+                .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(menuLabel)
+                    .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(userManagementButton)
+                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(startReturnButton)
+                            .addComponent(startRentalButton)
+                            .addComponent(startSaleButton))))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         menuPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {startRentalButton, startReturnButton, startSaleButton, userManagementButton});
@@ -188,9 +218,9 @@ public class MenuFrame extends javax.swing.JFrame {
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(42, 42, 42)
                 .addComponent(menuLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
                 .addComponent(startSaleButton)
                 .addGap(35, 35, 35)
                 .addComponent(startRentalButton)
@@ -198,7 +228,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 .addComponent(startReturnButton)
                 .addGap(35, 35, 35)
                 .addComponent(userManagementButton)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         getContentPane().add(menuPanel, "card2");
@@ -217,9 +247,16 @@ public class MenuFrame extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(saleCartTable);
@@ -298,7 +335,7 @@ public class MenuFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(salePanelLayout.createSequentialGroup()
                         .addComponent(saleTotalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                         .addComponent(saleCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saleCheckoutButton)))
@@ -364,20 +401,20 @@ public class MenuFrame extends javax.swing.JFrame {
         saleItemAddErrorPanelLayout.setHorizontalGroup(
             saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
+                .addContainerGap(195, Short.MAX_VALUE)
                 .addGroup(saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(itemAddErrorLabel)
                     .addComponent(itemAddOkButton))
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         saleItemAddErrorPanelLayout.setVerticalGroup(
             saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saleItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
+                .addContainerGap(175, Short.MAX_VALUE)
                 .addComponent(itemAddErrorLabel)
                 .addGap(18, 18, 18)
                 .addComponent(itemAddOkButton)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         getContentPane().add(saleItemAddErrorPanel, "card7");
@@ -398,20 +435,20 @@ public class MenuFrame extends javax.swing.JFrame {
         saleRemoveErrorPanelLayout.setHorizontalGroup(
             saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
+                .addContainerGap(189, Short.MAX_VALUE)
                 .addGroup(saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(removeErrorOkButton)
                     .addComponent(removeErrorLabel))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
         );
         saleRemoveErrorPanelLayout.setVerticalGroup(
             saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
+                .addContainerGap(169, Short.MAX_VALUE)
                 .addComponent(removeErrorLabel)
                 .addGap(18, 18, 18)
                 .addComponent(removeErrorOkButton)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         getContentPane().add(saleRemoveErrorPanel, "card7");
@@ -430,9 +467,16 @@ public class MenuFrame extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane3.setViewportView(rentCartTable);
@@ -510,7 +554,7 @@ public class MenuFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(rentPanelLayout.createSequentialGroup()
                         .addComponent(rentTotalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                         .addComponent(rentCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rentCheckoutButton))
@@ -570,7 +614,7 @@ public class MenuFrame extends javax.swing.JFrame {
         rentPeriodPanelLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         rentPeriodPanelLabel.setText("Rental Period:");
 
-        rentPeriodSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, Integer.valueOf(14), Integer.valueOf(1)));
+        rentPeriodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 14, 1));
 
         rentPeriodSetButton.setText("Set");
         rentPeriodSetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -593,7 +637,7 @@ public class MenuFrame extends javax.swing.JFrame {
         rentPeriodPanelLayout.setHorizontalGroup(
             rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentPeriodPanelLayout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
+                .addContainerGap(190, Short.MAX_VALUE)
                 .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(rentPeriodPanelLayout.createSequentialGroup()
                         .addComponent(rentPeriodCancelButton)
@@ -606,12 +650,12 @@ public class MenuFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addGap(5, 5, 5)))
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
         rentPeriodPanelLayout.setVerticalGroup(
             rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentPeriodPanelLayout.createSequentialGroup()
-                .addContainerGap(65, Short.MAX_VALUE)
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rentPeriodPanelLabel)
                     .addComponent(rentPeriodSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -620,10 +664,78 @@ public class MenuFrame extends javax.swing.JFrame {
                 .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rentPeriodSetButton)
                     .addComponent(rentPeriodCancelButton))
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
 
         getContentPane().add(rentPeriodPanel, "card7");
+
+        rentRemoveErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        rentRemoveErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rentRemoveErrorLabel.setText("Error: Invalid index given");
+
+        rentRemoveErrorButton.setText("OK");
+        rentRemoveErrorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentRemoveErrorButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout rentRemoveErrorPanelLayout = new javax.swing.GroupLayout(rentRemoveErrorPanel);
+        rentRemoveErrorPanel.setLayout(rentRemoveErrorPanelLayout);
+        rentRemoveErrorPanelLayout.setHorizontalGroup(
+            rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(189, Short.MAX_VALUE)
+                .addGroup(rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rentRemoveErrorButton)
+                    .addComponent(rentRemoveErrorLabel))
+                .addContainerGap(190, Short.MAX_VALUE))
+        );
+        rentRemoveErrorPanelLayout.setVerticalGroup(
+            rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(169, Short.MAX_VALUE)
+                .addComponent(rentRemoveErrorLabel)
+                .addGap(18, 18, 18)
+                .addComponent(rentRemoveErrorButton)
+                .addContainerGap(175, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(rentRemoveErrorPanel, "card7");
+
+        rentItemAddErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        rentItemAddErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        rentItemAddErrorLabel.setText("Error: Item ID not found");
+
+        rentItemAddErrorButton.setText("OK");
+        rentItemAddErrorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentItemAddErrorButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout rentItemAddErrorPanelLayout = new javax.swing.GroupLayout(rentItemAddErrorPanel);
+        rentItemAddErrorPanel.setLayout(rentItemAddErrorPanelLayout);
+        rentItemAddErrorPanelLayout.setHorizontalGroup(
+            rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentItemAddErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(195, Short.MAX_VALUE)
+                .addGroup(rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rentItemAddErrorLabel)
+                    .addComponent(rentItemAddErrorButton))
+                .addContainerGap(195, Short.MAX_VALUE))
+        );
+        rentItemAddErrorPanelLayout.setVerticalGroup(
+            rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentItemAddErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(175, Short.MAX_VALUE)
+                .addComponent(rentItemAddErrorLabel)
+                .addGap(18, 18, 18)
+                .addComponent(rentItemAddErrorButton)
+                .addContainerGap(169, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(rentItemAddErrorPanel, "card7");
 
         cashButton.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         cashButton.setText("Cash");
@@ -641,11 +753,11 @@ public class MenuFrame extends javax.swing.JFrame {
         cashOrCreditPanelLayout.setHorizontalGroup(
             cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cashOrCreditPanelLayout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
+                .addContainerGap(167, Short.MAX_VALUE)
                 .addComponent(cashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(creditButton)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         cashOrCreditPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cashButton, creditButton});
@@ -653,11 +765,11 @@ public class MenuFrame extends javax.swing.JFrame {
         cashOrCreditPanelLayout.setVerticalGroup(
             cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cashOrCreditPanelLayout.createSequentialGroup()
-                .addContainerGap(119, Short.MAX_VALUE)
+                .addContainerGap(156, Short.MAX_VALUE)
                 .addGroup(cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(creditButton))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(193, Short.MAX_VALUE))
         );
 
         cashOrCreditPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cashButton, creditButton});
@@ -697,7 +809,7 @@ public class MenuFrame extends javax.swing.JFrame {
         cashPanelLayout.setHorizontalGroup(
             cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cashPanelLayout.createSequentialGroup()
-                .addContainerGap(103, Short.MAX_VALUE)
+                .addContainerGap(166, Short.MAX_VALUE)
                 .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cashErrorLabel)
                     .addComponent(cashTotalLabel)
@@ -720,7 +832,7 @@ public class MenuFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cashReceivedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         cashPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {changeAmountLabel, changeLabel});
@@ -728,7 +840,7 @@ public class MenuFrame extends javax.swing.JFrame {
         cashPanelLayout.setVerticalGroup(
             cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
-                .addContainerGap(74, Short.MAX_VALUE)
+                .addContainerGap(114, Short.MAX_VALUE)
                 .addComponent(cashTotalLabel)
                 .addGap(18, 18, 18)
                 .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -745,78 +857,94 @@ public class MenuFrame extends javax.swing.JFrame {
                     .addComponent(changeAmountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cashErrorLabel)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         getContentPane().add(cashPanel, "card9");
 
-        rentRemoveErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        rentRemoveErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        rentRemoveErrorLabel.setText("Error: Invalid index given");
-
-        rentRemoveErrorButton.setText("OK");
-        rentRemoveErrorButton.addActionListener(new java.awt.event.ActionListener() {
+        managerNameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rentRemoveErrorButtonActionPerformed(evt);
+                managerNameTextFieldActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout rentRemoveErrorPanelLayout = new javax.swing.GroupLayout(rentRemoveErrorPanel);
-        rentRemoveErrorPanel.setLayout(rentRemoveErrorPanelLayout);
-        rentRemoveErrorPanelLayout.setHorizontalGroup(
-            rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
-                .addGroup(rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rentRemoveErrorButton)
-                    .addComponent(rentRemoveErrorLabel))
-                .addContainerGap(166, Short.MAX_VALUE))
-        );
-        rentRemoveErrorPanelLayout.setVerticalGroup(
-            rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
-                .addComponent(rentRemoveErrorLabel)
-                .addGap(18, 18, 18)
-                .addComponent(rentRemoveErrorButton)
-                .addContainerGap(135, Short.MAX_VALUE))
-        );
+        managerNameLabel.setText("User ID:");
 
-        getContentPane().add(rentRemoveErrorPanel, "card7");
+        managerNameLabel1.setText("Password:");
 
-        rentItemAddErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        rentItemAddErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        rentItemAddErrorLabel.setText("Error: Item ID not found");
-
-        rentItemAddErrorButton.setText("OK");
-        rentItemAddErrorButton.addActionListener(new java.awt.event.ActionListener() {
+        managerPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rentItemAddErrorButtonActionPerformed(evt);
+                managerPasswordFieldActionPerformed(evt);
+            }
+        });
+        managerPasswordField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                managerPasswordFieldPropertyChange(evt);
             }
         });
 
-        javax.swing.GroupLayout rentItemAddErrorPanelLayout = new javax.swing.GroupLayout(rentItemAddErrorPanel);
-        rentItemAddErrorPanel.setLayout(rentItemAddErrorPanelLayout);
-        rentItemAddErrorPanelLayout.setHorizontalGroup(
-            rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rentItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
-                .addGroup(rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rentItemAddErrorLabel)
-                    .addComponent(rentItemAddErrorButton))
-                .addContainerGap(172, Short.MAX_VALUE))
-        );
-        rentItemAddErrorPanelLayout.setVerticalGroup(
-            rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(135, Short.MAX_VALUE)
-                .addComponent(rentItemAddErrorLabel)
-                .addGap(18, 18, 18)
-                .addComponent(rentItemAddErrorButton)
-                .addContainerGap(129, Short.MAX_VALUE))
+        managerCancelButton.setText("Cancel");
+        managerCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managerCancelButtonActionPerformed(evt);
+            }
+        });
+
+        managerLoginButton.setText("Login");
+        managerLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                managerLoginButtonActionPerformed(evt);
+            }
+        });
+
+        managerErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
+        javax.swing.GroupLayout managerLoginPanelLayout = new javax.swing.GroupLayout(managerLoginPanel);
+        managerLoginPanel.setLayout(managerLoginPanelLayout);
+        managerLoginPanelLayout.setHorizontalGroup(
+            managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managerLoginPanelLayout.createSequentialGroup()
+                .addContainerGap(188, Short.MAX_VALUE)
+                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(managerErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, managerLoginPanelLayout.createSequentialGroup()
+                        .addComponent(managerCancelButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(managerLoginButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, managerLoginPanelLayout.createSequentialGroup()
+                        .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(managerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(managerNameLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(managerNameLabel1)
+                            .addComponent(managerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
-        getContentPane().add(rentItemAddErrorPanel, "card7");
+        managerLoginPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {managerNameTextField, managerPasswordField});
+
+        managerLoginPanelLayout.setVerticalGroup(
+            managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(managerLoginPanelLayout.createSequentialGroup()
+                .addContainerGap(138, Short.MAX_VALUE)
+                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(managerNameLabel)
+                    .addComponent(managerNameLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(managerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(managerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(managerCancelButton)
+                    .addComponent(managerLoginButton))
+                .addGap(18, 18, 18)
+                .addComponent(managerErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(managerLoginPanel, "card13");
 
         userManagerLabel.setFont(new java.awt.Font("Krungthep", 0, 18)); // NOI18N
         userManagerLabel.setText("User Management");
@@ -941,7 +1069,7 @@ public class MenuFrame extends javax.swing.JFrame {
                         .addComponent(employeeIdLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeEmployeeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                         .addComponent(userManagerDoneButton))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -949,90 +1077,244 @@ public class MenuFrame extends javax.swing.JFrame {
 
         getContentPane().add(userManagerPanel, "card12");
 
-        managerNameTextField.addActionListener(new java.awt.event.ActionListener() {
+        saleReturnLabel.setFont(new java.awt.Font("Krungthep", 0, 24)); // NOI18N
+        saleReturnLabel.setText("New Sale Return");
+
+        saleReturnCheckoutButton.setText("Checkout");
+        saleReturnCheckoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                managerNameTextFieldActionPerformed(evt);
+                saleReturnCheckoutButtonActionPerformed(evt);
             }
         });
 
-        managerNameLabel.setText("User ID:");
-
-        managerNameLabel1.setText("Password:");
-
-        managerPasswordField.addActionListener(new java.awt.event.ActionListener() {
+        saleReutrnCancelButton.setText("Cancel");
+        saleReutrnCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                managerPasswordFieldActionPerformed(evt);
-            }
-        });
-        managerPasswordField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                managerPasswordFieldPropertyChange(evt);
+                saleReutrnCancelButtonActionPerformed(evt);
             }
         });
 
-        managerCancelButton.setText("Cancel");
-        managerCancelButton.addActionListener(new java.awt.event.ActionListener() {
+        saleReturnTotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        saleReturnTotalLabel.setText("Total:");
+
+        previousSaleTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Description", "Unit Price", "Quantity ", "Subtotal"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        previousSaleTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(previousSaleTable);
+
+        jLabel3.setText("Previous Sale:");
+
+        saleReturnCartTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Description", "Unit Price", "Quantity ", "Subtotal"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(saleReturnCartTable);
+
+        jLabel4.setText("Items to return:");
+
+        saleReturnReturnButton.setText("Return Item");
+        saleReturnReturnButton.setToolTipText("");
+        saleReturnReturnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                managerCancelButtonActionPerformed(evt);
+                saleReturnReturnButtonActionPerformed(evt);
             }
         });
 
-        managerLoginButton.setText("Login");
-        managerLoginButton.addActionListener(new java.awt.event.ActionListener() {
+        saleReturnRemoveButton.setText("Remove Item");
+        saleReturnRemoveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                managerLoginButtonActionPerformed(evt);
+                saleReturnRemoveButtonActionPerformed(evt);
             }
         });
 
-        managerErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-
-        javax.swing.GroupLayout managerLoginPanelLayout = new javax.swing.GroupLayout(managerLoginPanel);
-        managerLoginPanel.setLayout(managerLoginPanelLayout);
-        managerLoginPanelLayout.setHorizontalGroup(
-            managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(managerLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(106, Short.MAX_VALUE)
-                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(managerErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(managerLoginPanelLayout.createSequentialGroup()
-                            .addComponent(managerCancelButton)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(managerLoginButton))
-                        .addGroup(managerLoginPanelLayout.createSequentialGroup()
-                            .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(managerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(managerNameLabel))
-                            .addGap(18, 18, 18)
-                            .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(managerNameLabel1)
-                                .addComponent(managerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(101, Short.MAX_VALUE))
+        javax.swing.GroupLayout saleReturnPanelLayout = new javax.swing.GroupLayout(saleReturnPanel);
+        saleReturnPanel.setLayout(saleReturnPanelLayout);
+        saleReturnPanelLayout.setHorizontalGroup(
+            saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                        .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(saleReturnReturnButton)
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)))
+                        .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(saleReturnRemoveButton)))
+                    .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                                .addComponent(saleReturnTotalLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(saleReutrnCancelButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(saleReturnCheckoutButton))
+                            .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                                .addComponent(saleReturnLabel)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
 
-        managerLoginPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {managerNameTextField, managerPasswordField});
+        saleReturnPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane4, jScrollPane5});
 
-        managerLoginPanelLayout.setVerticalGroup(
-            managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(managerLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(managerNameLabel)
-                    .addComponent(managerNameLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(managerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(managerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(managerCancelButton)
-                    .addComponent(managerLoginButton))
-                .addGap(18, 18, 18)
-                .addComponent(managerErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+        saleReturnPanelLayout.setVerticalGroup(
+            saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saleReturnPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(saleReturnLabel)
+                .addGap(27, 27, 27)
+                .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(4, 4, 4)
+                .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saleReturnReturnButton)
+                        .addGap(0, 51, Short.MAX_VALUE))
+                    .addGroup(saleReturnPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saleReturnRemoveButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(saleReturnCheckoutButton)
+                            .addComponent(saleReutrnCancelButton)
+                            .addComponent(saleReturnTotalLabel))))
+                .addContainerGap())
         );
 
-        getContentPane().add(managerLoginPanel, "card13");
+        getContentPane().add(saleReturnPanel, "card3");
+
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Enter the sale ID:");
+
+        saleReturnIdTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saleReturnIdTextFieldActionPerformed(evt);
+            }
+        });
+
+        saleReturnCancelButton.setText("Cancel");
+        saleReturnCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saleReturnCancelButtonActionPerformed(evt);
+            }
+        });
+
+        saleReturnOkButton.setText("OK");
+        saleReturnOkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saleReturnOkButtonActionPerformed(evt);
+            }
+        });
+
+        saleReturnErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
+        saleReturnReasonLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        saleReturnReasonLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        saleReturnReasonLabel.setText("Enter reason for return:");
+
+        saleReturnReasonTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saleReturnReasonTextFieldActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout saleReturnIdPanelLayout = new javax.swing.GroupLayout(saleReturnIdPanel);
+        saleReturnIdPanel.setLayout(saleReturnIdPanelLayout);
+        saleReturnIdPanelLayout.setHorizontalGroup(
+            saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saleReturnIdPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addComponent(saleReturnIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(saleReturnReasonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(saleReturnReasonLabel)
+                        .addGroup(saleReturnIdPanelLayout.createSequentialGroup()
+                            .addComponent(saleReturnCancelButton)
+                            .addGap(85, 85, 85)
+                            .addComponent(saleReturnOkButton)))
+                    .addComponent(saleReturnErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        saleReturnIdPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel5, saleReturnErrorLabel, saleReturnReasonLabel});
+
+        saleReturnIdPanelLayout.setVerticalGroup(
+            saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(saleReturnIdPanelLayout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(saleReturnIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(saleReturnReasonLabel)
+                .addGap(18, 18, 18)
+                .addComponent(saleReturnReasonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(saleReturnCancelButton)
+                    .addComponent(saleReturnOkButton))
+                .addGap(18, 18, 18)
+                .addComponent(saleReturnErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(93, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(saleReturnIdPanel, "card15");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1076,19 +1358,7 @@ public class MenuFrame extends javax.swing.JFrame {
 
             // create and add line item to sale
             try {
-                LineItem currentLineItem = r.enterItem(id, qty);
-                ProductDescription currentProductDescription = currentLineItem.getProductDescription();
-
-                // add line item to table
-                String desc = currentProductDescription.getDescription();
-
-                double price = currentProductDescription.getPrice().getAmount().doubleValue();
-                String priceString = String.format("$%4.2f", price);
-                String qtyString = qty.toString();
-                double subtotal = currentLineItem.getSubtotal().getAmount().doubleValue();
-                String subtotalString = String.format("$%4.2f", subtotal);
-
-                Object[] row = {desc, priceString, qtyString, subtotalString};
+                Object[] row = makeRow(r.enterItem(id, qty));
                 saleTableModel.addRow(row);
 
                 // set the total label to the new total
@@ -1181,19 +1451,7 @@ public class MenuFrame extends javax.swing.JFrame {
 
             // create and add line item to sale
             try {
-                LineItem currentLineItem = r.enterItem(id, qty);
-                ProductDescription currentProductDescription = currentLineItem.getProductDescription();
-
-                // add line item to table
-                String desc = currentProductDescription.getDescription();
-
-                double price = currentProductDescription.getPrice().getAmount().doubleValue();
-                String priceString = String.format("$%4.2f", price);
-                String qtyString = qty.toString();
-                double subtotal = currentLineItem.getSubtotal().getAmount().doubleValue();
-                String subtotalString = String.format("$%4.2f", subtotal);
-
-                Object[] row = {desc, priceString, qtyString, subtotalString};
+                Object[] row = makeRow(r.enterItem(id, qty));
                 rentTableModel.addRow(row);
 
                 // set the total label to the new total
@@ -1403,11 +1661,20 @@ public class MenuFrame extends javax.swing.JFrame {
         Employee newEmployee;
 
         if (isManager) {
+            System.out.println("adding manager");
             newEmployee = um.addManager(name, password);
         } else {
+            System.out.println("adding cashier");
             newEmployee = um.addCashier(name, password);
         }
         addEmployeeToTable(newEmployee);
+        
+        // clear text fields
+        nameTextField.setText("");
+        passwordTextField.setText("");
+        employeeIDTextField.setText("");
+        
+    
 
     }//GEN-LAST:event_addEmployeeButtonActionPerformed
 
@@ -1421,7 +1688,11 @@ public class MenuFrame extends javax.swing.JFrame {
         } catch (ArrayIndexOutOfBoundsException ex) { //TODO: make popup happen
 
         }
-
+        
+        // clear text fields
+        nameTextField.setText("");
+        passwordTextField.setText("");
+        employeeIDTextField.setText("");
     }//GEN-LAST:event_removeEmployeeButtonActionPerformed
 
     private void userManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagementButtonActionPerformed
@@ -1501,6 +1772,154 @@ public class MenuFrame extends javax.swing.JFrame {
         managerLoginButton.setEnabled(true);
     }//GEN-LAST:event_managerPasswordFieldPropertyChange
 
+    private void saleReturnCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCheckoutButtonActionPerformed
+        // update inventory in database
+        r.endTransaction();
+        
+        // clear tables
+        previousSaleTableModel.setRowCount(0);
+        saleReturnCartTableModel.setRowCount(0);
+        
+        // return to menu panel
+        saleReturnPanel.setVisible(false);
+        menuPanel.setVisible(true);
+    }//GEN-LAST:event_saleReturnCheckoutButtonActionPerformed
+
+    private void saleReutrnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReutrnCancelButtonActionPerformed
+        // clear tables and total
+        previousSaleTableModel.setRowCount(0);
+        saleReturnCartTableModel.setRowCount(0);
+        saleReturnTotalLabel.setText("Total: ");
+        
+        // return to menu view
+        saleReturnPanel.setVisible(false);
+        menuPanel.setVisible(true);
+        
+    }//GEN-LAST:event_saleReutrnCancelButtonActionPerformed
+
+    private void startReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startReturnButtonActionPerformed
+
+        //NOTE: this is handling the sale return use case only!!!
+
+        // switch to return view
+        menuPanel.setVisible(false);
+        saleReturnIdPanel.setVisible(true);
+    }//GEN-LAST:event_startReturnButtonActionPerformed
+
+    private void saleReturnIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnIdTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saleReturnIdTextFieldActionPerformed
+
+    private void saleReturnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCancelButtonActionPerformed
+        // clear saleReturnIdLabel's textfield
+        saleReturnIdTextField.setText("");
+        
+        // switch back to menu view
+        saleReturnIdPanel.setVisible(false);
+        menuPanel.setVisible(true);
+    }//GEN-LAST:event_saleReturnCancelButtonActionPerformed
+
+    // requires that current transaction be a saleReturn and that the sale was already found
+    public void initPreviousSaleTable() {
+        SaleReturn t = ((SaleReturn) r.getCurrentTransaction());
+        for (int i = 0; i < t.getSale().getLineItemsLength(); i++) {
+            Object[] row = makeRow(t.getSale().getLineItem(i));
+            previousSaleTableModel.addRow(row);
+        }
+    }
+    
+    private void saleReturnOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnOkButtonActionPerformed
+        // catch occurs when a non int is passed to the text field
+        try {
+            // get sale ID from field and test it
+            Integer saleID = Integer.parseInt(saleReturnIdTextField.getText());
+            String reason = saleReturnReasonTextField.getText();
+            
+            // create new return with saleID
+            r.makeNewSaleReturn(saleID, reason);
+            
+            // check that sale was found
+            if (((SaleReturn)r.getCurrentTransaction()).getSale() != null) {
+                initPreviousSaleTable();
+            }
+            
+        } catch (NumberFormatException ex) {
+            saleReturnErrorLabel.setText("Invalid sale ID entered.");
+        }
+        
+        // clear saleReturnIdLabel's textfield
+        saleReturnIdTextField.setText("");
+        saleReturnReasonTextField.setText("");
+        
+        // switch to saleReturn view
+        saleReturnIdPanel.setVisible(false);
+        saleReturnPanel.setVisible(true);
+    }//GEN-LAST:event_saleReturnOkButtonActionPerformed
+
+    private void saleReturnReasonTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnReasonTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saleReturnReasonTextFieldActionPerformed
+
+    private void saleReturnReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnReturnButtonActionPerformed
+        // get the current transaction's sale object
+        Transaction t = ((SaleReturn) r.getCurrentTransaction()).getSale();
+        
+        // get selected row and make into LineItem
+        int returnRow = previousSaleTable.getSelectedRow();
+        LineItem line = t.getLineItem(returnRow);
+        
+        // add row to r.currentTransaction and returnCartTable
+        r.enterItem(line);
+        saleReturnCartTableModel.addRow(makeRow(line));
+        
+        // remove line from sale and from Return's sale object so it cannot be accessed again
+        previousSaleTableModel.removeRow(returnRow);
+        t.removeLineItem(returnRow);
+        
+        // set total value
+        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        saleReturnTotalLabel.setText(total);
+    }//GEN-LAST:event_saleReturnReturnButtonActionPerformed
+
+    private void saleReturnRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnRemoveButtonActionPerformed
+        // get the current transaction's sale object
+        Transaction t = r.getCurrentTransaction();
+        
+        // get selected row and make into LineItem
+        int returnRow = saleReturnCartTable.getSelectedRow();
+        LineItem line = t.getLineItem(returnRow);
+        
+        // remove row from r.currentTransaction and returnCartTable
+        r.getCurrentTransaction().removeLineItem(returnRow);
+        saleReturnCartTableModel.addRow(makeRow(line));
+        
+        // remove line from sale and from Return's sale object so it cannot be accessed again
+        previousSaleTableModel.addRow(makeRow(line));
+        t.removeLineItem(returnRow);
+        
+        // set total value
+        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        saleReturnTotalLabel.setText(total);
+    }//GEN-LAST:event_saleReturnRemoveButtonActionPerformed
+    
+    public Object[] makeRow(LineItem l){
+        // get current line item and its product description
+        ProductDescription productDescription = l.getProductDescription();
+
+        // add line item to table
+        String desc = productDescription.getDescription();
+
+        double price = productDescription.getPrice().getAmount().doubleValue();
+        String priceString = String.format("$%4.2f", price);
+
+        String qtyString = String.format("%d", l.getQuantity());
+
+        double subtotal = l.getSubtotal().getAmount().doubleValue();
+        String subtotalString = String.format("$%4.2f", subtotal);
+
+        Object[] row = {desc, priceString, qtyString, subtotalString};
+        return row;
+    }
     /**
      * @param args the command line arguments
      */
@@ -1558,9 +1977,14 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JButton itemAddOkButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton managerCancelButton;
     private javax.swing.JCheckBox managerCheckBox;
     private javax.swing.JLabel managerErrorLabel;
@@ -1575,6 +1999,7 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JTextField nameTextField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JTextField passwordTextField;
+    private javax.swing.JTable previousSaleTable;
     private javax.swing.JButton removeEmployeeButton;
     private javax.swing.JLabel removeErrorLabel;
     private javax.swing.JButton removeErrorOkButton;
@@ -1621,6 +2046,21 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JPanel saleRemoveErrorPanel;
     private javax.swing.JLabel saleRemoveLabl;
     private javax.swing.JTextField saleRemoveTextField;
+    private javax.swing.JButton saleReturnCancelButton;
+    private javax.swing.JTable saleReturnCartTable;
+    private javax.swing.JButton saleReturnCheckoutButton;
+    private javax.swing.JLabel saleReturnErrorLabel;
+    private javax.swing.JPanel saleReturnIdPanel;
+    private javax.swing.JTextField saleReturnIdTextField;
+    private javax.swing.JLabel saleReturnLabel;
+    private javax.swing.JButton saleReturnOkButton;
+    private javax.swing.JPanel saleReturnPanel;
+    private javax.swing.JLabel saleReturnReasonLabel;
+    private javax.swing.JTextField saleReturnReasonTextField;
+    private javax.swing.JButton saleReturnRemoveButton;
+    private javax.swing.JButton saleReturnReturnButton;
+    private javax.swing.JLabel saleReturnTotalLabel;
+    private javax.swing.JButton saleReutrnCancelButton;
     private javax.swing.JLabel saleTotalLabel;
     private javax.swing.JButton startRentalButton;
     private javax.swing.JButton startReturnButton;
