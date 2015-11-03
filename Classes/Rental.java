@@ -56,6 +56,7 @@ public class Rental extends Transaction {
     @Override
     public boolean accept(Payment p) {
         return p.verify(this);
+        
     }
     
     @Override
