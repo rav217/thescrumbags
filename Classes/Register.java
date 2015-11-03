@@ -73,12 +73,12 @@ public class Register {
         this.currentTransaction = new Sale();
     }
 
-    public void makeNewRental(GregorianCalendar returnDate) {
+    public void makeNewRental(int numDays) {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         this.catalog = db.initRPC();
         db.closeConnection();
-        this.currentTransaction = new Rental(returnDate);
+        this.currentTransaction = new Rental(numDays);
     }
 
     //public void makeNewReturn() {
@@ -126,7 +126,7 @@ public class Register {
     }
 
     public void cancelTransaction() {
-        endTransaction();
+        this.currentTransaction = null;
     }
     
     public UserManager getUserManager(){

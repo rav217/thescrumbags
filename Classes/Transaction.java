@@ -49,6 +49,8 @@ public class Transaction {
     }
 
     public void removeLineItem(int index) {
+        LineItem lineItem = lineItems.get(index);
+        total = total.subtract(lineItem.getSubtotal());
         this.lineItems.remove(index);
     }
     

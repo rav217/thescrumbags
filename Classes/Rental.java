@@ -5,6 +5,7 @@
  */
 package thescrumbags.Classes;
 
+import java.math.BigDecimal;
 import java.util.*;
 /**
  *
@@ -14,22 +15,35 @@ public class Rental extends Transaction {
     
     private GregorianCalendar returnDate;
     private boolean returned;
+    private int rentalPeriod;
     
     private Rental() { super(); }
     
-    public Rental(GregorianCalendar returnDate) {
+    public Rental(int rentalPeriod) {
         super();
-        this.returnDate=returnDate;
+        this.rentalPeriod = rentalPeriod;
+        this.returnDate = new GregorianCalendar();
+        this.returnDate.add(Calendar.DAY_OF_YEAR, rentalPeriod);
     }
     
     public boolean isReturned() { return returned; } 
     
     public void completeReturn() { returned=true; }
     
-    public void setReturnDate(GregorianCalendar date) { this.returnDate=date; }
+    public void setReturnDate(int numDays) { 
+        this.rentalPeriod = numDays;
+        GregorianCalendar returnItemsOn = new GregorianCalendar();
+        returnItemsOn.add(Calendar.DAY_OF_YEAR, numDays);
+        this.returnDate = returnItemsOn;
+    }
     
     public Calendar getReturnDate()  {
         return returnDate; 
+    }
+    
+    @Override
+    public Money getTotal() {
+        return total.multiply(new BigDecimal(rentalPeriod));
     }
     
     @Override

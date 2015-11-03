@@ -20,7 +20,6 @@ public class MenuFrame extends javax.swing.JFrame {
     public MenuFrame() {
         initComponents();
         r = Register.getInstance();
-        r.initializeData();
     }
 
     /**
@@ -76,6 +75,13 @@ public class MenuFrame extends javax.swing.JFrame {
         rentTotalLabel = new javax.swing.JLabel();
         rentRemoveLabel = new javax.swing.JLabel();
         rentRemoveTextField = new javax.swing.JTextField();
+        rentPeriodLabel = new javax.swing.JLabel();
+        rentPeriodPanel = new javax.swing.JPanel();
+        rentPeriodPanelLabel = new javax.swing.JLabel();
+        rentPeriodSpinner = new javax.swing.JSpinner();
+        rentPeriodSetButton = new javax.swing.JButton();
+        rentPeriodCancelButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -106,14 +112,14 @@ public class MenuFrame extends javax.swing.JFrame {
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap(249, Short.MAX_VALUE)
+                .addContainerGap(240, Short.MAX_VALUE)
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(userManagementButton)
                     .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(startReturnButton)
                         .addComponent(startRentalButton)
                         .addComponent(startSaleButton)))
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(229, Short.MAX_VALUE))
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(menuLabel)
@@ -127,7 +133,7 @@ public class MenuFrame extends javax.swing.JFrame {
             .addGroup(menuPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(menuLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(startSaleButton)
                 .addGap(35, 35, 35)
                 .addComponent(startRentalButton)
@@ -135,7 +141,7 @@ public class MenuFrame extends javax.swing.JFrame {
                 .addComponent(startReturnButton)
                 .addGap(35, 35, 35)
                 .addComponent(userManagementButton)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         getContentPane().add(menuPanel, "card2");
@@ -235,7 +241,7 @@ public class MenuFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(salePanelLayout.createSequentialGroup()
                         .addComponent(saleTotalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                         .addComponent(saleCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saleCheckoutButton)))
@@ -275,10 +281,11 @@ public class MenuFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(saleRemoveButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(saleTotalLabel)
+                .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(saleCheckoutButton)
-                    .addComponent(saleCancelButton))
+                    .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(saleTotalLabel)
+                        .addComponent(saleCancelButton)))
                 .addGap(10, 10, 10))
         );
 
@@ -286,7 +293,7 @@ public class MenuFrame extends javax.swing.JFrame {
 
         itemAddErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         itemAddErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        itemAddErrorLabel.setText("Error: Item not added to cart");
+        itemAddErrorLabel.setText("Error: Item ID not found");
 
         itemAddOkButton.setText("OK");
         itemAddOkButton.addActionListener(new java.awt.event.ActionListener() {
@@ -300,29 +307,27 @@ public class MenuFrame extends javax.swing.JFrame {
         itemAddErrorPanelLayout.setHorizontalGroup(
             itemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(itemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(154, Short.MAX_VALUE)
-                .addComponent(itemAddErrorLabel)
-                .addContainerGap(154, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, itemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(itemAddOkButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE)
+                .addGroup(itemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(itemAddErrorLabel)
+                    .addComponent(itemAddOkButton))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
         itemAddErrorPanelLayout.setVerticalGroup(
             itemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, itemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
+                .addContainerGap(135, Short.MAX_VALUE)
                 .addComponent(itemAddErrorLabel)
                 .addGap(18, 18, 18)
                 .addComponent(itemAddOkButton)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         getContentPane().add(itemAddErrorPanel, "card7");
 
         removeErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         removeErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        removeErrorLabel.setText("Error: Item was not removed from cart");
+        removeErrorLabel.setText("Error: Invalid index given");
 
         removeErrorOkButton.setText("OK");
         removeErrorOkButton.addActionListener(new java.awt.event.ActionListener() {
@@ -336,28 +341,26 @@ public class MenuFrame extends javax.swing.JFrame {
         removeErrorPanelLayout.setHorizontalGroup(
             removeErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(removeErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(removeErrorOkButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
-                .addComponent(removeErrorLabel)
-                .addContainerGap(95, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE)
+                .addGroup(removeErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(removeErrorOkButton)
+                    .addComponent(removeErrorLabel))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
         removeErrorPanelLayout.setVerticalGroup(
             removeErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(removeErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
+                .addContainerGap(129, Short.MAX_VALUE)
                 .addComponent(removeErrorLabel)
                 .addGap(18, 18, 18)
                 .addComponent(removeErrorOkButton)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         getContentPane().add(removeErrorPanel, "card7");
 
         rentLabel.setFont(new java.awt.Font("Krungthep", 0, 24)); // NOI18N
-        rentLabel.setText("New Sale");
+        rentLabel.setText("New Rental");
 
         rentCartTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -416,6 +419,8 @@ public class MenuFrame extends javax.swing.JFrame {
 
         rentRemoveLabel.setText("Line to Remove:");
 
+        rentPeriodLabel.setText("Rental Period:");
+
         javax.swing.GroupLayout rentPanelLayout = new javax.swing.GroupLayout(rentPanel);
         rentPanel.setLayout(rentPanelLayout);
         rentPanelLayout.setHorizontalGroup(
@@ -445,16 +450,18 @@ public class MenuFrame extends javax.swing.JFrame {
                                     .addComponent(rentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rentPanelLayout.createSequentialGroup()
-                        .addComponent(rentCartLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(rentPanelLayout.createSequentialGroup()
                         .addComponent(rentTotalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                         .addComponent(rentCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rentCheckoutButton)))
+                        .addComponent(rentCheckoutButton))
+                    .addGroup(rentPanelLayout.createSequentialGroup()
+                        .addComponent(rentCartLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rentPeriodLabel)
+                        .addGap(55, 55, 55)))
                 .addContainerGap())
             .addGroup(rentPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
@@ -469,8 +476,10 @@ public class MenuFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentPanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(rentLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rentCartLabel)
+                .addGap(18, 18, 18)
+                .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rentCartLabel)
+                    .addComponent(rentPeriodLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -491,14 +500,73 @@ public class MenuFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(rentRemoveButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rentTotalLabel)
+                .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rentCheckoutButton)
-                    .addComponent(rentCancelButton))
+                    .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rentTotalLabel)
+                        .addComponent(rentCancelButton)))
                 .addGap(10, 10, 10))
         );
 
         getContentPane().add(rentPanel, "card3");
+
+        rentPeriodPanelLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        rentPeriodPanelLabel.setText("Rental Period:");
+
+        rentPeriodSpinner.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), null, Integer.valueOf(14), Integer.valueOf(1)));
+
+        rentPeriodSetButton.setText("Set");
+        rentPeriodSetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentPeriodSetButtonActionPerformed(evt);
+            }
+        });
+
+        rentPeriodCancelButton.setText("Cancel");
+        rentPeriodCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentPeriodCancelButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Days");
+
+        javax.swing.GroupLayout rentPeriodPanelLayout = new javax.swing.GroupLayout(rentPeriodPanel);
+        rentPeriodPanel.setLayout(rentPeriodPanelLayout);
+        rentPeriodPanelLayout.setHorizontalGroup(
+            rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentPeriodPanelLayout.createSequentialGroup()
+                .addContainerGap(166, Short.MAX_VALUE)
+                .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(rentPeriodPanelLayout.createSequentialGroup()
+                        .addComponent(rentPeriodCancelButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(rentPeriodSetButton))
+                    .addGroup(rentPeriodPanelLayout.createSequentialGroup()
+                        .addComponent(rentPeriodPanelLabel)
+                        .addGap(34, 34, 34)
+                        .addComponent(rentPeriodSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(5, 5, 5)))
+                .addContainerGap(173, Short.MAX_VALUE))
+        );
+        rentPeriodPanelLayout.setVerticalGroup(
+            rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentPeriodPanelLayout.createSequentialGroup()
+                .addContainerGap(65, Short.MAX_VALUE)
+                .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rentPeriodPanelLabel)
+                    .addComponent(rentPeriodSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rentPeriodSetButton)
+                    .addComponent(rentPeriodCancelButton))
+                .addContainerGap(197, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(rentPeriodPanel, "card7");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -510,13 +578,29 @@ public class MenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_startSaleButtonActionPerformed
 
     private void saleCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleCancelButtonActionPerformed
+        // cancel transaction
+        r.cancelTransaction();
+        
+        // reset table
+        DefaultTableModel model = (DefaultTableModel) saleCartTable.getModel();
+        model.setRowCount(0);
+        
+        // reset total
+        saleTotalLabel.setText("Total:");
+        
+        // clear text fields
+        saleIdTextField.setText("");
+        saleQtyTextField.setText("");
+        saleRemoveTextField.setText("");
+        
+        // switch back to menu view
         salePanel.setVisible(false);
         menuPanel.setVisible(true);
     }//GEN-LAST:event_saleCancelButtonActionPerformed
 
     private void startRentalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startRentalButtonActionPerformed
         menuPanel.setVisible(false);
-        rentPanel.setVisible(true);
+        rentPeriodPanel.setVisible(true);
     }//GEN-LAST:event_startRentalButtonActionPerformed
 
     private void saleAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleAddButtonActionPerformed
@@ -549,6 +633,10 @@ public class MenuFrame extends javax.swing.JFrame {
                 // set the total label to the new total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 saleTotalLabel.setText(total);
+                
+                // clear text fields
+                saleIdTextField.setText("");
+                saleQtyTextField.setText("");
             }
             catch (NullPointerException ex) {
                 salePanel.setVisible(false);
@@ -556,10 +644,6 @@ public class MenuFrame extends javax.swing.JFrame {
             }
         }
         catch (NumberFormatException ex) {}
-        
-        // clear text fields
-        saleIdTextField.setText("");
-        saleQtyTextField.setText("");
     }//GEN-LAST:event_saleAddButtonActionPerformed
 
     private void itemAddOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddOkButtonActionPerformed
@@ -583,6 +667,9 @@ public class MenuFrame extends javax.swing.JFrame {
                 // update total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 saleTotalLabel.setText(total);
+                
+                // reset text field
+                saleRemoveTextField.setText("");
             }
             catch (IndexOutOfBoundsException ex) {
                 salePanel.setVisible(false);
@@ -591,7 +678,6 @@ public class MenuFrame extends javax.swing.JFrame {
         }
         catch (NumberFormatException ex) {}
         // clear line to remove text
-        saleRemoveTextField.setText("");
     }//GEN-LAST:event_saleRemoveButtonActionPerformed
 
     private void removeErrorOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeErrorOkButtonActionPerformed
@@ -608,16 +694,97 @@ public class MenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rentCheckoutButtonActionPerformed
 
     private void rentAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentAddButtonActionPerformed
-        // TODO add your handling code here:
+        // get id and quantity for line item
+        try {
+            Integer id = Integer.parseInt(rentIdTextField.getText());
+            Integer qty = Integer.parseInt(rentQtyTextField.getText());
+
+
+            // get table model from saleCartTable
+            DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
+
+            // create and add line item to sale
+            try {
+                LineItem currentLineItem = r.enterItem(id,qty);
+                ProductDescription currentProductDescription = currentLineItem.getProductDescription();
+
+                // add line item to table
+                String desc = currentProductDescription.getDescription();
+
+                double price = currentProductDescription.getPrice().getAmount().doubleValue();
+                String priceString = String.format("$%4.2f", price);
+                String qtyString = qty.toString();
+                double subtotal = currentLineItem.getSubtotal().getAmount().doubleValue();
+                String subtotalString = String.format("$%4.2f",subtotal);
+
+                Object[] row = {desc, priceString, qtyString, subtotalString};
+                model.addRow(row);
+
+                // set the total label to the new total
+                String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+                rentTotalLabel.setText(total);
+                
+                // clear text fields
+                rentIdTextField.setText("");
+                rentQtyTextField.setText("");
+            }
+            catch (NullPointerException ex) {
+                rentPanel.setVisible(false);
+                itemAddErrorPanel.setVisible(true);
+            }
+        }
+        catch (NumberFormatException ex) {}                                        
+
     }//GEN-LAST:event_rentAddButtonActionPerformed
 
     private void rentCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCancelButtonActionPerformed
-        // TODO add your handling code here:
+        // cancel transaction
+        r.cancelTransaction();
+        
+        // reset table
+        DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
+        model.setRowCount(0);
+        
+        // reset total
+        rentTotalLabel.setText("Total:");
+        
+        // clear text fields
+        rentIdTextField.setText("");
+        rentQtyTextField.setText("");
+        rentRemoveTextField.setText("");
+        
+        // switch back to menu view
+        rentPanel.setVisible(false);
+        menuPanel.setVisible(true);
     }//GEN-LAST:event_rentCancelButtonActionPerformed
 
     private void rentRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentRemoveButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rentRemoveButtonActionPerformed
+
+    private void rentPeriodCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentPeriodCancelButtonActionPerformed
+        // reset spinner
+        rentPeriodSpinner.setValue(1);
+        
+        // switch back to main menu view
+        rentPeriodPanel.setVisible(false);
+        menuPanel.setVisible(true);
+    }//GEN-LAST:event_rentPeriodCancelButtonActionPerformed
+
+    private void rentPeriodSetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentPeriodSetButtonActionPerformed
+        // get return period from spinner
+        Integer numDays = (Integer) rentPeriodSpinner.getValue();
+        
+        // create new rental transaction
+        r.makeNewRental(numDays);
+        
+        // switch to rental view
+        rentPeriodPanel.setVisible(false);
+        rentPanel.setVisible(true);
+        
+        // set rental period in rentPanel to rental period provided
+        rentPeriodLabel.setText("Rental Period: " + numDays + " days");
+    }//GEN-LAST:event_rentPeriodSetButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -658,6 +825,7 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel itemAddErrorLabel;
     private javax.swing.JPanel itemAddErrorPanel;
     private javax.swing.JButton itemAddOkButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel menuLabel;
@@ -674,6 +842,12 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JTextField rentIdTextField;
     private javax.swing.JLabel rentLabel;
     private javax.swing.JPanel rentPanel;
+    private javax.swing.JButton rentPeriodCancelButton;
+    private javax.swing.JLabel rentPeriodLabel;
+    private javax.swing.JPanel rentPeriodPanel;
+    private javax.swing.JLabel rentPeriodPanelLabel;
+    private javax.swing.JButton rentPeriodSetButton;
+    private javax.swing.JSpinner rentPeriodSpinner;
     private javax.swing.JLabel rentQtyLabel;
     private javax.swing.JTextField rentQtyTextField;
     private javax.swing.JButton rentRemoveButton;
