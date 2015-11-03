@@ -52,7 +52,7 @@ public class Rental extends Transaction {
     @Override
     public void removeLineItem(int index) {
         LineItem lineItem = lineItems.get(index);
-        total = total.subtract(lineItem.getSubtotal().multiply(new BigDecimal(rentalPeriod)));
+        total = total.subtract(lineItem.getSubtotal());
         this.lineItems.remove(index);
     }
     
