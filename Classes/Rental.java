@@ -47,6 +47,13 @@ public class Rental extends Transaction {
     }
     
     @Override
+    public void removeLineItem(int index) {
+        LineItem lineItem = lineItems.get(index);
+        total = total.subtract(lineItem.getSubtotal().multiply(new BigDecimal(rentalPeriod)));
+        this.lineItems.remove(index);
+    }
+    
+    @Override
     public void accept(Payment p) {
         boolean b=p.verify(this);
         if(!b) {
