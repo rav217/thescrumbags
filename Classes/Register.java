@@ -120,4 +120,8 @@ public class Register {
     public void cancelTransaction() {
         endTransaction();
     }
+    
+    public UserManager getUserManager(){
+        return this.userManager;
+    }
 }

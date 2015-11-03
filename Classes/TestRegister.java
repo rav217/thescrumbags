@@ -13,5 +13,6 @@ public class TestRegister {
     
     public static void main (String[] args){
     Register test = Register.getInstance();
+    test.initializeData();
     }
 }
