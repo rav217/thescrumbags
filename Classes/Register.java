@@ -60,11 +60,11 @@ public class Register {
     }
 
     public Payment getCurrentPayment() {
-        return uniqueInst.currentPayment;
+        return this.currentPayment;
     }
     
     public void setCurrentPayment(Payment p) {
-        uniqueInst.currentPayment = p;
+        this.currentPayment = p;
     }
             
     public ProductCatalog getCatalog() {
@@ -93,6 +93,7 @@ public class Register {
     //public void makeNewReturn() {
     //    this.currentTransaction = new Return();
     //}
+    
     public void endTransaction() {
         currentTransaction.updateInventory();
         currentTransaction.becomeComplete();
