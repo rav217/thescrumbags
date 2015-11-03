@@ -320,8 +320,8 @@ public class DBHandler {
         String name = employee.getEmployeeName();
         String password = employee.getEmployeePassword();
         boolean isManager = employee.isManager();
-        int man = 1;
-        if (isManager == true) man = 0;
+        int man = 0;
+        if (isManager == true) man = 1;
         String query = "insert into employees values ("+id+", '"+name+"', '"+password+"', "+man+")";
         try{
             stmt = conn.createStatement();
@@ -364,10 +364,10 @@ public class DBHandler {
                 //switch int to bool value for simplifying integration
                 switch (isManager) {
                     case 0:
-                        man = true;
+                        man = false;
                         break;
                     case 1:
-                        man = false;
+                        man = true;
                         break;
                 }
                 //create new Employee object based on this info
