@@ -250,6 +250,7 @@ public class DBHandler {
             int quantity = li.getQuantity();
             String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
                     +descr+"', "+quantity+", "+subtotal+")";
+
             try {
                 stmt = conn.createStatement();
                 stmt.executeUpdate(query);
