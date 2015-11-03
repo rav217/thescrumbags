@@ -16,7 +16,7 @@ public class UserManager {
     private static UserManager uniqueInstance = null;
     private EmployeeList eList;
     private int userID;
-    private EmployeeList loggedOnEmployees;
+    private final EmployeeList loggedOnEmployees;
 
     public UserManager() {
         eList = new EmployeeList();
@@ -66,6 +66,8 @@ public class UserManager {
     /**
      * Log employee into system. It can be looped in a main method if the login
      * information is incorrect.
+     * @param employeeId
+     * @param password
      */
     public void login(int employeeId, String password) {
         try {
