@@ -43,6 +43,7 @@ public class Money implements Comparable {
     }
 
     public Money subtract(Money m) {
+        // this is much safer
         BigDecimal temp = amount;
         temp = temp.subtract(m.getAmount());
         return new Money(temp);
