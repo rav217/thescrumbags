@@ -49,7 +49,7 @@ public class Register {
         dbHandler.openConnection("sql595207", "nT1*rF4!");
         
         //fetch ProductCatalog and EmployeeList from db
-        dbHandler.init(Register.getInstance());
+        this.catalog = dbHandler.init();
         
         dbHandler.closeConnection();
     }
