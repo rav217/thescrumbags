@@ -13,21 +13,24 @@ import java.math.BigDecimal;
  * @author benscandell
  */
 public class SaleReturn extends Transaction {
-    private Transaction sale;
+   
+    private final Transaction sale;
     private Reimbursement r;
-    private String reason;
-    private int saleID;
+    private final String reason;
+    private final int saleID;
     private int itemsReturned=0;
     
     /**
      * saleID is going to be the date with all symbols removed
      * @param saleID the ID number printed on the original receipt
+     * @param reason
      */
     //made serious changes: check w ben
     public SaleReturn(int saleID, String reason) {
         super();
         this.saleID=saleID;
         this.reason=reason;
+        
         //add neccessary dbhandler code
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
@@ -60,10 +63,7 @@ public class SaleReturn extends Transaction {
     }
     
     @Override
-    public void accept(Reimbursement r) {
-        boolean b=r.verify(this);
-        if (!b) {
-            System.out.println("Error reimbursing customer...");
-        }
+    public boolean accept(Reimbursement r) {
+        return r.verify(this);
     }
 }
