@@ -759,7 +759,32 @@ public class MenuFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rentCancelButtonActionPerformed
 
     private void rentRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentRemoveButtonActionPerformed
-        // TODO add your handling code here:
+        // get index of line to remove
+        try {
+            Integer row = Integer.parseInt(rentRemoveTextField.getText()) - 1;
+
+            // get table model from saleCartTable
+            DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
+
+            try {
+                // remove line from currentTransaction and from table
+                r.getCurrentTransaction().removeLineItem(row);
+                model.removeRow(row);
+
+                // update total
+                String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+                rentTotalLabel.setText(total);
+                
+                // reset text field
+                rentRemoveTextField.setText("");
+            }
+            catch (IndexOutOfBoundsException ex) {
+                rentPanel.setVisible(false);
+                removeErrorPanel.setVisible(true);
+            }
+        }
+        catch (NumberFormatException ex) {}
+        // clear line to remove text
     }//GEN-LAST:event_rentRemoveButtonActionPerformed
 
     private void rentPeriodCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentPeriodCancelButtonActionPerformed
@@ -777,6 +802,9 @@ public class MenuFrame extends javax.swing.JFrame {
         
         // create new rental transaction
         r.makeNewRental(numDays);
+        
+        // reset spinner
+        rentPeriodSpinner.setValue(1);
         
         // switch to rental view
         rentPeriodPanel.setVisible(false);
