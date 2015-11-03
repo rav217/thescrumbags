@@ -17,7 +17,7 @@ public class LineItem {
         this.subtotal = new Money(bd);
     }
     
-    //constructor with subtotal
+    //constructor with subtotal added by chris
     public LineItem(ProductDescription prod, int qty, Money subtotal) {
         this.prod = prod;
         this.qty = qty;

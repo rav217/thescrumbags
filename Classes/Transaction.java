@@ -29,7 +29,7 @@ public class Transaction {
         this.total = new Money(new BigDecimal(0));
     }
     
-    //constructor for DB integration
+    //constructor for DB integration added by chris
     public Transaction(ArrayList<LineItem> li, Money total){
         this.lineItems = li;
         this.total = total;

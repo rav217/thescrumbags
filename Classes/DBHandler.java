@@ -381,7 +381,7 @@ public class DBHandler {
         return list;
     }
     
-    //find transaction from transaction history (will work for sale or rental)
+    //find transaction from transaction history (will work for sale or rental) maybe
     public Transaction findTransaction(String type, int id){
         //need array list of sli, total price
         String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;

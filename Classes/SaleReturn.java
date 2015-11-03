@@ -23,6 +23,7 @@ public class SaleReturn extends Transaction {
      * saleID is going to be the date with all symbols removed
      * @param saleID the ID number printed on the original receipt
      */
+    //made serious changes: check w ben
     public SaleReturn(int saleID, String reason) {
         super();
         this.saleID=saleID;
