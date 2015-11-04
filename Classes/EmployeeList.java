@@ -10,17 +10,17 @@ import java.util.ArrayList;
 
 /**This class is where the employee objects will be stored. It has various methods for checking/ modifying
   * the Employee data. I can make more methods if neccesary. It will be primarily used by the UserManagement
-  * class. I haven't written that class yet (10/22/15), but I will get on that next week. I haven't run 
-  * many tests on it yet, but it is on the to do list.*/
+  * class.*/
 public class EmployeeList{
   
   private ArrayList<Employee> employeeList;
   
-  /**Constructor.*/
+  /**Constructor for this class.*/
   public EmployeeList(){
     employeeList = new ArrayList<Employee>();
   }
   
+  /**Returns the arrayList of this class.*/
   public ArrayList<Employee> getEList() {
       return employeeList;
   }
@@ -49,7 +49,7 @@ public class EmployeeList{
   }
   
   
-  /**Most likely not needed, but I have it just in case.*/
+  /**Returns the size of the arrayList.*/
   public int getEmployeeCount(){
     return employeeList.size();
   }
@@ -64,7 +64,8 @@ public class EmployeeList{
     return result;
   }
   
-  /*Helper function for this class*/
+  /**Takes in an ID and if it is in the list it returns the employee reference.
+   * Else, returns null.*/
   public Employee findEmployee(int employeeID){
     Employee result = null;
     for(int i = 0; i < employeeList.size(); i++){
@@ -75,6 +76,7 @@ public class EmployeeList{
     return result;
   }
   
+  /**Prints out a formatted version of the employeeList */
   public void printList(){
       if(employeeList.size() == 0){
           System.out.println("{");
