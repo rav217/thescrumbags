@@ -16,8 +16,6 @@ public class Register {
     private ProductCatalog catalog;
     private Transaction currentTransaction;
     private Payment currentPayment;
-    private boolean isOpen;
-    private DBHandler dbHandler;
     private UserManager userManager;
     private static Register uniqueInst;
 
