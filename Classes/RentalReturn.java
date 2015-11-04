@@ -19,14 +19,25 @@ public class RentalReturn extends Transaction {
     private int rentalID;
 
     //check with ben
-    public RentalReturn(int rentalID) {
+    public RentalReturn(int rentalID) throws ClassCastException {
         super();
         this.rentalID = rentalID;
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         this.rental = db.findTransaction("R", rentalID);
+        try {
+            if (rental instanceof Rental) {
+                rental = (Rental) rental;
+            } else {
+                throw new ClassCastException();
+            }
+        } catch (ClassCastException ex) {
+            System.out.println("Error casting to Rental object");
+        }
         db.closeConnection();
-        if (this.rental == null) System.out.println("Rental not found in database");
+        if (this.rental == null) {
+            System.out.println("Rental not found in database");
+        }
     }
 
     public Transaction getRental() {
@@ -42,11 +53,11 @@ public class RentalReturn extends Transaction {
     }
 
     public boolean checkIfLate() {
-        GregorianCalendar now=this.date;
-        if(now.after(rental.getReturnDate())) { //TODO: either fix this or change DBHandler
-            daysLate=now.get(Calendar.DAY_OF_YEAR)-rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
-            BigDecimal bd=rental.getTotal().getAmount().multiply(new BigDecimal(daysLate/10));
-            Money m=new Money(bd);
+        GregorianCalendar now = this.date;
+        if (now.after(rental.getReturnDate())) { //TODO: either fix this or change DBHandler
+            daysLate = now.get(Calendar.DAY_OF_YEAR) - rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
+            BigDecimal bd = rental.getTotal().getAmount().multiply(new BigDecimal(daysLate / 10));
+            Money m = new Money(bd);
             setTotal(m);
             return true;
         }
@@ -54,11 +65,12 @@ public class RentalReturn extends Transaction {
     }
 
     @Override
-    public void accept(Payment p) {
+    public boolean accept(Payment p) {
         boolean b = p.verify(this);
         if (!b) {
             System.out.println("Payment was not accepted.");
         }
+        return true;
     }
 
     @Override
