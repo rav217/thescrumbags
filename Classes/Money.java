@@ -13,24 +13,45 @@ public class Money implements Comparable {
 
     private BigDecimal amount;
 
+    /**
+     * Creates a Money object and initializes amount to 0.
+     */
     public Money() {
         BigDecimal zero = new BigDecimal(0);
         this.amount = zero;
 
     }
-
+    /**
+     * Creates a Money object with amount initialized to the BigDecimal passed
+     * as a parameter.
+     * @param amount BigDouble that defines the amount of the Money object.
+     */
     public Money(BigDecimal amount) {
         this.amount = amount;
     }
 
+    /**
+     * Creates a Money object with amount initialized to the BigDecimal passed
+     * as a parameter.
+     * @param amount double that defines the amount of the Money object.
+     */
     public Money (double amount) {
         this.amount = new BigDecimal(amount);
     }
     
+    /**
+     * Returns the value of the amount of the calling Money object
+     * @return BigDecimal amount of the calling object
+     */
     public java.math.BigDecimal getAmount() {
         return amount;
     }
 
+    /**
+     * 
+     * @param m
+     * @return 
+     */
     public Money add(Money m) {
         BigDecimal temp = amount;
         temp = temp.add(m.getAmount());
