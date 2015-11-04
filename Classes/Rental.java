@@ -37,7 +37,7 @@ public class Rental extends Transaction {
         this.returnDate = returnItemsOn;
     }
     
-    public Calendar getReturnDate()  {
+    public GregorianCalendar getReturnDate()  {
         return returnDate; 
     }
     

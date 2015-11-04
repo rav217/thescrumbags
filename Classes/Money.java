@@ -72,6 +72,13 @@ public class Money implements Comparable {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.amount);
+        return hash;
+    }
+
+    @Override
     public int compareTo(Object o) throws ClassCastException  {
         if (o instanceof Money) {
             Money money = (Money) o;

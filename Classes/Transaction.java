@@ -87,4 +87,5 @@ public class Transaction {
     public boolean accept(Reimbursement r) { return false;}
     
     public void updateInventory() {}
+    public GregorianCalendar getReturnDate() { return new GregorianCalendar(); }
 }

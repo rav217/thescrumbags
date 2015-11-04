@@ -232,7 +232,6 @@ public class DBHandler {
             rs = stmt.executeQuery(subQuery);
             while (rs.next()) {
                 highestID = rs.getInt("transid");
-                if (highestID == 0) highestID = 1;
             }
         } catch (SQLException ex) {
             System.out.println("Error viewing transaction history");
