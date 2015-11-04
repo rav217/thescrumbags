@@ -316,6 +316,8 @@ public class DBHandler {
             {
                 throw new NullPointerException();
             }
+            rs.beforeFirst();
+            
             while(rs.next()){
                 //info required for ProductDescription object
                 String descr = rs.getString("descr");
