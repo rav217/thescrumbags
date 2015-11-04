@@ -262,13 +262,17 @@ public class DBHandler {
     }
     
     //iterate through product catalog on db and update QOH
-    public void updateInventory(String table, ArrayList<LineItem> lineItems){
+    public void updateInventory(String table, ArrayList<LineItem> lineItems, boolean negateQuantity){
         Iterator<LineItem> i = lineItems.iterator();
 	while (i.hasNext()){
             LineItem li = i.next();
             //retrieve itemid and quantity from from lineitem
             int id = li.getProductDescription().getItemID();
             int q = li.getQuantity();
+                    
+            if(negateQuantity) //updating inventory for a return
+                q *= -1;
+                
             int curQ = 0;
             //get current qoh for that item id in appropriate table in db
             String query = "select qoh from "+table+" where id = "+id;

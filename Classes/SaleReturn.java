@@ -60,6 +60,11 @@ public class SaleReturn extends Transaction {
     @Override
     public void updateInventory() {
         //use dbh, itemsReturned and lineItems to update inventory
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        db.addTransaction("S", lineItems);
+        db.updateInventory("saleproducts", lineItems, true);
+        db.closeConnection();
     }
     
     @Override

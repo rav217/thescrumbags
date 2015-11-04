@@ -29,7 +29,7 @@ public class Sale extends Transaction {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         db.addTransaction("S", lineItems);
-        db.updateInventory("saleproducts", lineItems);
+        db.updateInventory("saleproducts", lineItems, false);
         db.closeConnection();
     }
 }
