@@ -154,26 +154,23 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="263" max="32767" attributes="0"/>
+                  <EmptySpace pref="262" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="quitButton" linkSize="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="userManagementButton" linkSize="2" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="menuLabel" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="userManagementButton" linkSize="2" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="startReturnButton" linkSize="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="startRentalButton" linkSize="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="startSaleButton" linkSize="2" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="startReturnButton" linkSize="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="startRentalButton" linkSize="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="startSaleButton" linkSize="2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="253" max="32767" attributes="0"/>
+                  <EmptySpace pref="254" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
                   <Component id="menuLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="startSaleButton" min="-2" max="-2" attributes="0"/>
@@ -183,7 +180,9 @@
                   <Component id="startReturnButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="userManagementButton" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="81" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="quitButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="22" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -227,6 +226,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userManagementButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="quitButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Quit"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quitButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

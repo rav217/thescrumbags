@@ -70,6 +70,7 @@ public class MenuFrame extends javax.swing.JFrame {
         startRentalButton = new javax.swing.JButton();
         startReturnButton = new javax.swing.JButton();
         userManagementButton = new javax.swing.JButton();
+        quitButton = new javax.swing.JButton();
         salePanel = new javax.swing.JPanel();
         saleLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -326,29 +327,35 @@ public class MenuFrame extends javax.swing.JFrame {
             }
         });
 
+        quitButton.setText("Quit");
+        quitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout menuPanelLayout = new javax.swing.GroupLayout(menuPanel);
         menuPanel.setLayout(menuPanelLayout);
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap(263, Short.MAX_VALUE)
+                .addContainerGap(262, Short.MAX_VALUE)
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(quitButton)
+                    .addComponent(userManagementButton)
                     .addComponent(menuLabel)
-                    .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(userManagementButton)
-                        .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(startReturnButton)
-                            .addComponent(startRentalButton)
-                            .addComponent(startSaleButton))))
-                .addContainerGap(253, Short.MAX_VALUE))
+                    .addComponent(startReturnButton)
+                    .addComponent(startRentalButton)
+                    .addComponent(startSaleButton))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
 
-        menuPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {startRentalButton, startReturnButton, startSaleButton, userManagementButton});
+        menuPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {quitButton, startRentalButton, startReturnButton, startSaleButton, userManagementButton});
 
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(menuLabel)
                 .addGap(45, 45, 45)
                 .addComponent(startSaleButton)
@@ -358,7 +365,9 @@ public class MenuFrame extends javax.swing.JFrame {
                 .addComponent(startReturnButton)
                 .addGap(35, 35, 35)
                 .addComponent(userManagementButton)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(quitButton)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         getContentPane().add(menuPanel, "card2");
@@ -2447,6 +2456,11 @@ public class MenuFrame extends javax.swing.JFrame {
         // disable login button
         employeeLoginButton.setEnabled(false);
     }//GEN-LAST:event_employeeLoginButtonActionPerformed
+
+    private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
+        // quit the program
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_quitButtonActionPerformed
     
     public void initPreviousRentalTable() {
         RentalReturn t = ((RentalReturn) r.getCurrentTransaction());
@@ -2572,6 +2586,7 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JTextField passwordTextField;
     private javax.swing.JTable previousRentalTable;
     private javax.swing.JTable previousSaleTable;
+    private javax.swing.JButton quitButton;
     private javax.swing.JButton removeEmployeeButton;
     private javax.swing.JLabel removeErrorLabel;
     private javax.swing.JButton removeErrorOkButton;
