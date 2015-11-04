@@ -42,17 +42,6 @@ public class Register {
         return uniqueInst;
     }
 
-    /*public void initializeData(){
-        //open new db connection
-        dbHandler = DBHandler.getInstance();
-        dbHandler.openConnection("sql595207", "nT1*rF4!");
-        
-        //fetch ProductCatalog and EmployeeList from db
-        this.catalog = dbHandler.initSPC();
-        //this.rentalcatalog = dbHandler.initRPC();
-        dbHandler.closeConnection();
-    }*/
-
     public Transaction getCurrentTransaction() {
         return currentTransaction;
     }
