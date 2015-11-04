@@ -48,7 +48,7 @@ public class DBTest {
                         System.out.println("");
                         break;
                     }
-                    go = db.fetchItem(id);
+                    //go = db.fetchItem(id);
                 }
             }
             
@@ -68,7 +68,7 @@ public class DBTest {
                     in.nextLine(); //consume rest of line
                     System.out.println("Enter item description:");
                     String descr = in.nextLine();
-                    go = db.addItem(id, price, descr);
+                    //go = db.addItem(id, price, descr);
                 }
             }
             
@@ -82,13 +82,13 @@ public class DBTest {
                         System.out.println("");
                         break;
                     }
-                    go = db.removeItem(id);
+                    //go = db.removeItem(id);
                 }
             }
             
             //perform display
             else if (inst == 4){
-                db.displayItems();
+                //db.displayItems();
             }
             
             //exit
