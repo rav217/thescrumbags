@@ -1,6 +1,6 @@
-/*
- class that will interact with the DB. can be adapted as needed
- */
+//The Scrumbags: DBHandler class
+//Singleton class that acts as a facade from the system to the DB
+
 package thescrumbags.Classes;
 
 import java.math.BigDecimal;
@@ -13,21 +13,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-/**
- *
- * @author Chris
- */
 public class DBHandler {
-
+    
+    //private variables
     private Connection conn = null;
     private Statement stmt = null;
     private ResultSet rs = null;
     private static DBHandler uniqueInst = null;
-    //put other db variables here. default constructor will make them all null
 
+    //private default constructor
     private DBHandler() {
     }
 
+    //Singleton getIsntance method
     public static synchronized DBHandler getInstance() {
         if (uniqueInst == null) {
             uniqueInst = new DBHandler();
@@ -35,7 +33,10 @@ public class DBHandler {
         return uniqueInst;
     }
     
-    //opens connection. returns false on success, true on error
+//following methods deal with opening and closing connection
+    
+    //initializes JDBC driver and opens DB connection
+    //returns false on success, true on error
     public boolean openConnection(String user, String pswd) {
         System.out.println("Loading JDBC driver...");
         try {
@@ -55,13 +56,13 @@ public class DBHandler {
             System.out.println("Invalid username or password.");
             System.out.println("");
             return true;
-
         }
         System.out.println("User " + user + " successfully connected to system.");
         System.out.println("");
         return false;
     }
 
+    //closes DB connection
     public void closeConnection() {
         try {
             conn.close();
@@ -71,8 +72,11 @@ public class DBHandler {
         }
         System.out.println("Connection closed.");
     }
+    
+//following methods deal with initializing catalogs
 
-    //initializes SaleProductCatalog
+    //initializes system ProductCatalog for sale items from DB
+    //returns ProductCatalog object
     public ProductCatalog initSPC() {
         ProductCatalog spc = new ProductCatalog();
         int id = 0;
@@ -101,7 +105,8 @@ public class DBHandler {
         return spc;
     }
     
-    //initialize RentalProductCatalog
+    //initializes system ProductCatalog for rental items from DB
+    //returns ProductCatalog object
     public ProductCatalog initRPC(){
         ProductCatalog rpc = new ProductCatalog();       
         int id = 0;
@@ -130,172 +135,11 @@ public class DBHandler {
         return rpc;
     }
     
-    //add transaction to transaction history in db (transtype, transid, itemid, price, descr, quantity, subtotal)
-    //TODO: transid ends up being 0 every time
-    public void addTransaction(String type, ArrayList<LineItem> lineItems){
-        //query into db, select greatest transid, make transid that +1
-        int highestID = 1; //if 1st element, transid will be 1
-        String subQuery = "select max(transid) as transid from transactionhistory";
-        try{
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(subQuery);
-            while (rs.next()) {
-                highestID = rs.getInt("transid");
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error viewing transaction history");
-            closeConnection();
-        }
-        highestID += 1;
-        Iterator<LineItem> i = lineItems.iterator();
-	while (i.hasNext()){
-            LineItem li = i.next();
-            int itemid = li.getProductDescription().getItemID();
-            BigDecimal priceBD = li.getProductDescription().getPrice().getAmount();
-            double price = priceBD.doubleValue();
-            BigDecimal subtotalBD = li.getSubtotal().getAmount();
-            double subtotal = subtotalBD.doubleValue();
-            String descr = li.getProductDescription().getDescription();
-            int quantity = li.getQuantity();
-            String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
-                    +descr+"', "+quantity+", "+subtotal+")";
-
-            try {
-                stmt = conn.createStatement();
-                stmt.executeUpdate(query);
-            } catch (SQLException ex) {
-                System.out.println("Error adding transaction to transaction history.");
-                closeConnection();
-            }
-        }
-    }
+//following methods deal with transactions
     
-    //iterate through product catalog on db and update QOH
-    public void updateInventory(String table, ArrayList<LineItem> lineItems, boolean negateQuantity){
-        Iterator<LineItem> i = lineItems.iterator();
-	while (i.hasNext()){
-            LineItem li = i.next();
-            //retrieve itemid and quantity from from lineitem
-            int id = li.getProductDescription().getItemID();
-            int q = li.getQuantity();
-                    
-            if(negateQuantity) //updating inventory for a return
-                q *= -1;
-                
-            int curQ = 0;
-            //get current qoh for that item id in appropriate table in db
-            String query = "select qoh from "+table+" where id = "+id;
-            try{
-                stmt = conn.createStatement();
-                rs = stmt.executeQuery(query);
-                while (rs.next()){
-                    curQ = rs.getInt("qoh");
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error viewing product");
-                closeConnection();
-            }
-            //calculate new qoh and execute an update on db
-            int newQ = curQ-q;
-            if (newQ < 0){
-                System.out.println("Quantity requested exceeds QOH");
-                return;
-            }
-            String exQuery = "update "+table+" saleproducts set qoh = "+newQ+" where id = "+id;
-            try{
-                stmt = conn.createStatement();
-                stmt.executeUpdate(exQuery);
-            } catch (SQLException ex) {
-                System.out.println("Error updating QOH");
-                closeConnection();
-            }
-        }
-    }
-
-    public int getNextUserID(){
-        int highestID = 1; //if 1st element, empid will be 1
-        String query = "select max(id) as id from employees";
-        try{
-        stmt = conn.createStatement();
-            rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                highestID = rs.getInt("id"); 
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error viewing employees table");
-            closeConnection();
-        }
-     return highestID + 1;       
-    }
-    
-    public void addEmployee(Employee employee){
-        int id = employee.getEmployeeID();
-        String name = employee.getEmployeeName();
-        String password = employee.getEmployeePassword();
-        boolean isManager = employee.isManager();
-        int man = 0;
-        if (isManager == true) man = 1;
-        String query = "insert into employees values ("+id+", '"+name+"', '"+password+"', "+man+")";
-        try{
-            stmt = conn.createStatement();
-            stmt.executeUpdate(query);
-        } catch(SQLException ex){
-            System.out.println("Error inserting employee into database");
-            closeConnection();
-        }
-    }
-    
-    public void removeEmployee(int id){
-        String query = "delete from employees where id = "+id;
-        try{
-            stmt = conn.createStatement();
-            stmt.executeUpdate(query);
-        } catch(SQLException ex){
-            System.out.println("Error removing employee into database");
-            closeConnection();
-        }
-    }
-    
-    //initialize EmployeeList
-    public EmployeeList initializeEmployees(){
-        EmployeeList list = new EmployeeList();
-        int id = 0;
-        String name = "";
-        String password = "";
-        int isManager = 0;
-        String query2 = "select * from employees";
-        try {
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery(query2);
-            //while the result set is not empty
-            while (rs.next()) {
-                id = rs.getInt("id");
-                name = rs.getString("name");
-                password = rs.getString("password");
-                isManager = rs.getInt("ismanager");
-                boolean man = true;
-                //switch int to bool value for simplifying integration
-                switch (isManager) {
-                    case 0:
-                        man = false;
-                        break;
-                    case 1:
-                        man = true;
-                        break;
-                }
-                //create new Employee object based on this info
-                //add the employee to employee list
-                Employee e = new Employee(id, man, name, password);
-                list.addEmployee(e);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error viewing employees in system.");
-            closeConnection();
-        }
-        return list;
-    }
-    
-    //find transaction from transaction history (will work for sale or rental) maybe
+    //finds transaction from transactionhistory table in DB
+    //returns Transaction object
+    //TODO: should return val be Sale or Rental?
     public Transaction findTransaction(String type, int id){
         //need array list of sli, total price
         String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;
@@ -350,5 +194,177 @@ public class DBHandler {
             //create rental object
         }
         return new Transaction(items, tp);
+    }
+    
+    //adds transaction to transactionhistory table in DB
+    public void addTransaction(String type, ArrayList<LineItem> lineItems){
+        //query into db, select greatest transid, make transid that +1
+        int highestID = 1; //if 1st element, transid will be 1
+        String subQuery = "select max(transid) as transid from transactionhistory";
+        try{
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(subQuery);
+            while (rs.next()) {
+                highestID = rs.getInt("transid");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error viewing transaction history");
+            closeConnection();
+        }
+        highestID += 1;
+        Iterator<LineItem> i = lineItems.iterator();
+	while (i.hasNext()){
+            LineItem li = i.next();
+            int itemid = li.getProductDescription().getItemID();
+            BigDecimal priceBD = li.getProductDescription().getPrice().getAmount();
+            double price = priceBD.doubleValue();
+            BigDecimal subtotalBD = li.getSubtotal().getAmount();
+            double subtotal = subtotalBD.doubleValue();
+            String descr = li.getProductDescription().getDescription();
+            int quantity = li.getQuantity();
+            String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
+                    +descr+"', "+quantity+", "+subtotal+")";
+
+            try {
+                stmt = conn.createStatement();
+                stmt.executeUpdate(query);
+            } catch (SQLException ex) {
+                System.out.println("Error adding transaction to transaction history.");
+                closeConnection();
+            }
+        }
+    }
+    
+    //updates inventory in DB upon completion of a sale or rental
+    //TODO: does it work for returns
+    public void updateInventory(String table, ArrayList<LineItem> lineItems, boolean negateQuantity){
+        Iterator<LineItem> i = lineItems.iterator();
+	while (i.hasNext()){
+            LineItem li = i.next();
+            //retrieve itemid and quantity from from lineitem
+            int id = li.getProductDescription().getItemID();
+            int q = li.getQuantity();
+                    
+            if(negateQuantity) //updating inventory for a return
+                q *= -1;
+                
+            int curQ = 0;
+            //get current qoh for that item id in appropriate table in db
+            String query = "select qoh from "+table+" where id = "+id;
+            try{
+                stmt = conn.createStatement();
+                rs = stmt.executeQuery(query);
+                while (rs.next()){
+                    curQ = rs.getInt("qoh");
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error viewing product");
+                closeConnection();
+            }
+            //calculate new qoh and execute an update on db
+            int newQ = curQ-q;
+            if (newQ < 0){
+                System.out.println("Quantity requested exceeds QOH");
+                return;
+            }
+            String exQuery = "update "+table+" set qoh = "+newQ+" where id = "+id;
+            try{
+                stmt = conn.createStatement();
+                stmt.executeUpdate(exQuery);
+            } catch (SQLException ex) {
+                System.out.println("Error updating QOH");
+                closeConnection();
+            }
+        }
+    }
+
+//following methods deal with user management
+    
+    //gets unique user id for new employee
+    //returns user id
+    public int getNextUserID(){
+        int highestID = 1; //if 1st element, empid will be 1
+        String query = "select max(id) as id from employees";
+        try{
+        stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                highestID = rs.getInt("id"); 
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error viewing employees table");
+            closeConnection();
+        }
+     return highestID + 1;       
+    }
+    
+    //adds employee to employees DB table
+    public void addEmployee(Employee employee){
+        int id = employee.getEmployeeID();
+        String name = employee.getEmployeeName();
+        String password = employee.getEmployeePassword();
+        boolean isManager = employee.isManager();
+        int man = 0;
+        if (isManager == true) man = 1;
+        String query = "insert into employees values ("+id+", '"+name+"', '"+password+"', "+man+")";
+        try{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch(SQLException ex){
+            System.out.println("Error inserting employee into database");
+            closeConnection();
+        }
+    }
+    
+    //removes employee from employees DB table
+    public void removeEmployee(int id){
+        String query = "delete from employees where id = "+id;
+        try{
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch(SQLException ex){
+            System.out.println("Error removing employee into database");
+            closeConnection();
+        }
+    }
+    
+    //initializes system EmployeeList from DB
+    //returns EmployeeList object
+    public EmployeeList initializeEmployees(){
+        EmployeeList list = new EmployeeList();
+        int id = 0;
+        String name = "";
+        String password = "";
+        int isManager = 0;
+        String query2 = "select * from employees";
+        try {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query2);
+            //while the result set is not empty
+            while (rs.next()) {
+                id = rs.getInt("id");
+                name = rs.getString("name");
+                password = rs.getString("password");
+                isManager = rs.getInt("ismanager");
+                boolean man = true;
+                //switch int to bool value for simplifying integration
+                switch (isManager) {
+                    case 0:
+                        man = false;
+                        break;
+                    case 1:
+                        man = true;
+                        break;
+                }
+                //create new Employee object based on this info
+                //add the employee to employee list
+                Employee e = new Employee(id, man, name, password);
+                list.addEmployee(e);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error viewing employees in system.");
+            closeConnection();
+        }
+        return list;
     }
 }
