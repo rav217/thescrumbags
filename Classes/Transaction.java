@@ -1,46 +1,59 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package thescrumbags.Classes;
 
-import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.math.BigDecimal;
 
-//This is the Sale class which stores a list of items being sold, the current date,
-// the total and customer payment. It is able to add new line items to the sale, calculate the total,
-// and tender a payment. Implements the java.util.Date class
-public class Transaction {
+/**
+ * The Transaction class stores a list of items being sold or rented.
+ * Stores the current date, the total, and customer payment/reimbursement
+ * Adds new line items to the transaction, calculates total, and processes payments
+ * @author The Scrumbags
+ */
+public abstract class Transaction {
 
     protected ArrayList<LineItem> lineItems = new ArrayList<>();
     //date also functions as transaction ID
     protected GregorianCalendar date;
     protected boolean isComplete;
     protected Money total;
+    protected Receipt receipt;
 
-  //creates a new transaction object, date reflects current date and time, isComplete
-    //is set to false at object creation
+    /**
+     * Default constructor.
+     * Creates new Calendar for the current date, sets total to 0
+     */
     public Transaction() {
         this.date = new GregorianCalendar();
         this.isComplete = false;
         this.total = new Money(new BigDecimal(0));
     }
     
-    //constructor for DB integration added by chris
+
+    public abstract Receipt makeNewReceipt();
+    
+    /**
+     * 2-arg constructor for Transaction
+     * Sets lineItems to li, total to total
+     * @param li new line items
+     * @param total new total
+     */
     public Transaction(ArrayList<LineItem> li, Money total){
         this.lineItems = li;
         this.total = total;
     }
 
-    //sets isComplete to true, called at time of sale completion
+    /**
+     * Sets isComplete to true, called at time of sale completion
+     */
     public void becomeComplete() {
         this.isComplete = true;
     }
-
-    //returns objects isComplete
+    
+    /**
+     * Returns whether Transaction is complete
+     * @return if complete
+     */
     public boolean isComplete() {
         return this.isComplete;
     }
@@ -90,9 +103,11 @@ public class Transaction {
         this.total=m;
     }
     
-    public boolean accept(Payment p) { return false;}
-    public boolean accept(Reimbursement r) { return false;}
+    public boolean accept(Payment p) { return false; }
+    
+    public boolean accept(Reimbursement r) { return false; }
     
     public void updateInventory() {}
+    
     public GregorianCalendar getReturnDate() { return new GregorianCalendar(); }
 }
