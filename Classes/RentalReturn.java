@@ -128,5 +128,11 @@ public class RentalReturn extends Transaction {
         db.updateInventory("rentalproducts", lineItems, true);
         db.closeConnection();
     }
+    
+    public Receipt makeNewReceipt()
+    {
+        return null;
+    }
+    
 
 }
