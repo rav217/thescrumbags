@@ -112,4 +112,10 @@ public class Rental extends Transaction {
         db.closeConnection();
         
     }
+    
+    @Override
+    public void makeNewReceipt() {
+        receipt=new RentalReceipt();
+        receipt.makeReceipt(this);
+    }
 }
