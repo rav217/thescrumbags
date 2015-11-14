@@ -30,7 +30,7 @@ public abstract class Transaction {
     }
     
 
-    public abstract void makeNewReceipt();
+    public abstract Receipt makeNewReceipt();
     
     /**
      * 2-arg constructor for Transaction
