@@ -114,8 +114,9 @@ public class Rental extends Transaction {
     }
     
     @Override
-    public void makeNewReceipt() {
+    public Receipt makeNewReceipt() {
         receipt=new RentalReceipt();
         receipt.makeReceipt(this);
+        return receipt;
     }
 }
