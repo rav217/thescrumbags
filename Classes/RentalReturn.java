@@ -18,7 +18,12 @@ public class RentalReturn extends Transaction {
     private int daysLate;
     private int rentalID;
 
-    //check with ben
+    /**
+     * Constructor for RentalReturn
+     * Grabs corresponding rental from DB
+     * @param rentalID the rental ID number corresponding to the return
+     * @throws ClassCastException if transaction is not a Rental
+     */
     public RentalReturn(int rentalID) throws ClassCastException {
         super();
         this.rentalID = rentalID;
@@ -40,18 +45,36 @@ public class RentalReturn extends Transaction {
         }
     }
 
+    /**
+     * Get method for rental corresponding to rental return
+     * @return the corresponding rental
+     */
     public Transaction getRental() {
         return rental;
     }
 
+    /**
+     * Get method for number of days late
+     * @return number of days late
+     */
     public int getDaysLate() {
         return daysLate;
     }
 
+    /**
+     * Get method for rental ID number
+     * @return rental ID
+     */
     public int getRentalID() {
         return rentalID;
     }
 
+    /**
+     * Compares today's date to original rental's date.
+     * If late, creates a new Money object and sets it as the total, returns true.
+     * Otherwise returns false
+     * @return whether or not return is late
+     */
     public boolean checkIfLate() {
         GregorianCalendar now = this.date;
         if (now.after(rental.getReturnDate())) { //TODO: either fix this or change DBHandler
@@ -64,6 +87,11 @@ public class RentalReturn extends Transaction {
         return false;
     }
 
+    /**
+     * Accepts a payment to be processed if the rental is returned late.
+     * @param p the payment to be accepted
+     * @return whether or not the payment went through
+     */
     @Override
     public boolean accept(Payment p) {
         boolean b = p.verify(this);
@@ -73,6 +101,9 @@ public class RentalReturn extends Transaction {
         return true;
     }
 
+    /**
+     * Updates inventory in DB after transaction is complete.
+     */
     @Override
     public void updateInventory() {
         //use dbh, itemsReturned and lineItems to update inventory
