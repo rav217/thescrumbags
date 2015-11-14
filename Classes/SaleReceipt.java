@@ -21,4 +21,9 @@ public class SaleReceipt extends Receipt {
             throw new ClassCastException();
         }
     }
+    
+    @Override
+    public void printReceipt() {
+        
+    }
 }
