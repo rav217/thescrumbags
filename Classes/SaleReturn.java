@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package thescrumbags.Classes;
 
 import java.math.BigDecimal;
 
-
 /**
- *
- * @author benscandell
+ * Represents a transaction to return inventory.
+ * Subclass of Transaction.
+ * Grabs Sale object corresponding to passed sale ID number.
+ * Verifies (with receipt) that the entered items were indeed purchased.
+ * If so, creates a Reimbursement object.
  */
 public class SaleReturn extends Transaction {
    
@@ -21,11 +18,13 @@ public class SaleReturn extends Transaction {
     private int itemsReturned=0;
     
     /**
-     * saleID is going to be the date with all symbols removed
+     * Constructor for SaleReturn.
+     * First calls Transaction's constructor.
+     * Grabs the sale from DB.
+     * saleID is the date with all symbols removed.
      * @param saleID the ID number printed on the original receipt
-     * @param reason
+     * @param reason the reason for the return
      */
-    //made serious changes: check w ben
     public SaleReturn(int saleID, String reason) {
         super();
         this.saleID=saleID;
@@ -39,24 +38,48 @@ public class SaleReturn extends Transaction {
         if (this.sale == null) System.out.println("Sale not found in database");
     }
     
+    /**
+     * Get method for sale
+     * @return sale corresponding to the sale return
+     */
     public Transaction getSale() { return sale; }
     
+    /**
+     * Get method for reason
+     * @return the reason these items were returned
+     */
     public String getReason() { return reason; }
     
+    /**
+     * Get method for sale ID.
+     * Sale ID number is just the date with all symbols removed.
+     * @return the sale ID
+     */
     public int getSaleID() { return saleID; } 
     
+    /**
+     * After the total is calculated by Transaction methods, negates the Money amount.
+     * For returns, the total should be negative.
+     * @return the new transaction total
+     */
     public Money negateTotal() {
         return getTotal().multiply(new BigDecimal(-1));
     }
     
+    /**
+     * Overrides Transaction's becomeComplete method.
+     * itemsReturned, counts the total number of items returned before completion.
+     */
     @Override
     public void becomeComplete() {
-        for(LineItem l: lineItems) {
-            itemsReturned+=1;
-        } 
+        itemsReturned=lineItems.size();
         super.becomeComplete();     
     }
     
+    /**
+     * Updates the inventory in the DB.
+     * Records the sale return.
+     */
     @Override
     public void updateInventory() {
         //use dbh, itemsReturned and lineItems to update inventory
@@ -67,6 +90,12 @@ public class SaleReturn extends Transaction {
         db.closeConnection();
     }
     
+    /**
+     * Accept method for sale return.
+     * Will be accepting a reimbursement instead of a payment.
+     * @param r reimbursement for the customer
+     * @return whether or not the reimbursement went through
+     */
     @Override
     public boolean accept(Reimbursement r) {
         return r.verify(this);

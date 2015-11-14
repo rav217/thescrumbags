@@ -1,23 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package thescrumbags.Classes;
 
 /**
  * To be used for all cash reimbursements
  * CreditReiumbursement will extend Reimbursement
- * @author benscandell
+ * @author The Scrumbags
  */
 public class Reimbursement {
     
     private Money amount;
     
+    /**
+     * Default constructor for Reimbursement
+     */
     public Reimbursement() {}
     
+    /**
+     * Get method for amount
+     * @return the amount of money to be reimbursed
+     */
     public Money getAmount() { return amount; } 
     
+    /**
+     * Prompts cashier to give the customer a certain amount.
+     * First negates the total to represent an outflow of money.
+     * @param s the SaleReturn to be verified
+     * @return success/failure of method
+     */
     public boolean verify(SaleReturn s) {
         amount=s.negateTotal();
         System.out.println("Give the customer $"+amount); //will show negative number

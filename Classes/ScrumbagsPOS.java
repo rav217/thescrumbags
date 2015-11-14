@@ -13,7 +13,7 @@ import javax.swing.table.TableModel;
  *
  * @author jjn
  */
-public class MenuFrame extends javax.swing.JFrame {
+public class ScrumbagsPOS extends javax.swing.JFrame {
 
     Register r;
     UserManager um;
@@ -28,7 +28,7 @@ public class MenuFrame extends javax.swing.JFrame {
     /**
      * Creates new form MenuFrame
      */
-    public MenuFrame() {
+    public ScrumbagsPOS() {
         initComponents();
         r = Register.getInstance();
         um = UserManager.getInstance();
@@ -201,6 +201,12 @@ public class MenuFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         rentalReturnReturnButton = new javax.swing.JButton();
         rentalReturnRemoveButton = new javax.swing.JButton();
+        creditPanel = new javax.swing.JPanel();
+        creditCancelButton = new javax.swing.JButton();
+        creditOkButton = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        creditTextField = new javax.swing.JTextField();
+        creditErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -886,6 +892,11 @@ public class MenuFrame extends javax.swing.JFrame {
 
         creditButton.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         creditButton.setText("Credit");
+        creditButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout cashOrCreditPanelLayout = new javax.swing.GroupLayout(cashOrCreditPanel);
         cashOrCreditPanel.setLayout(cashOrCreditPanelLayout);
@@ -1717,6 +1728,60 @@ public class MenuFrame extends javax.swing.JFrame {
 
         getContentPane().add(rentalReturnPanel, "card3");
 
+        creditCancelButton.setText("Cancel");
+
+        creditOkButton.setText("OK");
+        creditOkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditOkButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Enter credit card number:");
+
+        creditErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        creditErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout creditPanelLayout = new javax.swing.GroupLayout(creditPanel);
+        creditPanel.setLayout(creditPanelLayout);
+        creditPanelLayout.setHorizontalGroup(
+            creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(creditPanelLayout.createSequentialGroup()
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addGroup(creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(creditTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(creditPanelLayout.createSequentialGroup()
+                            .addComponent(creditCancelButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(creditOkButton)))
+                    .addComponent(creditErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+
+        creditPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {creditErrorLabel, creditTextField, jLabel11});
+
+        creditPanelLayout.setVerticalGroup(
+            creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, creditPanelLayout.createSequentialGroup()
+                .addContainerGap(100, Short.MAX_VALUE)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(creditTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(creditCancelButton)
+                    .addComponent(creditOkButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(creditErrorLabel)
+                .addContainerGap(100, Short.MAX_VALUE))
+        );
+
+        creditPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {creditErrorLabel, creditTextField, jLabel11});
+
+        getContentPane().add(creditPanel, "card20");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -2461,6 +2526,29 @@ public class MenuFrame extends javax.swing.JFrame {
         // quit the program
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_quitButtonActionPerformed
+
+    private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
+        // switch to credit view
+        cashOrCreditPanel.setVisible(false);
+        creditPanel.setVisible(true);
+    }//GEN-LAST:event_creditButtonActionPerformed
+
+    private void creditOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditOkButtonActionPerformed
+        try {
+            // get credit card number
+            Integer cardNum = Integer.parseInt(creditTextField.getText());
+            
+            // end transaction
+            r.endTransaction();
+            
+            // return to menu view
+            creditPanel.setVisible(false);
+            menuPanel.setVisible(true);
+        }
+        catch (NumberFormatException ex) {
+            creditErrorLabel.setText("Invalid credit card number entered.");
+        }
+    }//GEN-LAST:event_creditOkButtonActionPerformed
     
     public void initPreviousRentalTable() {
         RentalReturn t = ((RentalReturn) r.getCurrentTransaction());
@@ -2506,21 +2594,22 @@ public class MenuFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ScrumbagsPOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ScrumbagsPOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ScrumbagsPOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ScrumbagsPOS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MenuFrame().setVisible(true);
+                new ScrumbagsPOS().setVisible(true);
             }
         });
     }
@@ -2539,6 +2628,11 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JLabel changeAmountLabel;
     private javax.swing.JLabel changeLabel;
     private javax.swing.JButton creditButton;
+    private javax.swing.JButton creditCancelButton;
+    private javax.swing.JLabel creditErrorLabel;
+    private javax.swing.JButton creditOkButton;
+    private javax.swing.JPanel creditPanel;
+    private javax.swing.JTextField creditTextField;
     private javax.swing.JLabel employeeErrorLabel;
     private javax.swing.JTextField employeeIDTextField;
     private javax.swing.JLabel employeeIdAddLabel;
@@ -2555,6 +2649,7 @@ public class MenuFrame extends javax.swing.JFrame {
     private javax.swing.JButton itemAddOkButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
