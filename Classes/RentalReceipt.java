@@ -21,6 +21,10 @@ public class RentalReceipt extends Receipt {
         } else {
             throw new ClassCastException();
         }
+    }
+    
+    @Override
+    public void printReceipt() {
         
     }
 }
