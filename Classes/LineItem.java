@@ -19,20 +19,15 @@ public class LineItem {
     
     // constructor for LineItems added by Jacob
     public LineItem(LineItem li) {
-        copy(li);
-    }
-    
-    public static LineItem copy(LineItem li) {
-        LineItem newLineItem = new LineItem(li.prod, li.qty, li.subtotal);
-        return newLineItem;
+        this.prod = li.prod;
+        this.qty = li.qty;
+        this.subtotal = li.subtotal;
     }
     
     //constructor with subtotal added by chris
     public LineItem(ProductDescription prod, int qty, Money subtotal) {
         this.prod = prod;
         this.qty = qty;
-        BigDecimal q=new BigDecimal(qty);
-        BigDecimal bd = prod.getPrice().getAmount().multiply(q);
         this.subtotal = subtotal;
     }
 

@@ -93,7 +93,7 @@ public class Register {
     
     // enterItem for LineItems added by Jacob 
     public LineItem enterItem(LineItem li) {
-        return currentTransaction.makeLineItem(li.getProductDescription(), li.getQuantity());
+        return currentTransaction.makeLineItem(li);
     }
 
     public void makeCashPayment(Money cashGiven) {
