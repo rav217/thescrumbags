@@ -34,8 +34,9 @@ public class Sale extends Transaction {
     }
     
     @Override
-    public void makeNewReceipt() { 
+    public Receipt makeNewReceipt() { 
         receipt=new SaleReceipt();
         receipt.makeReceipt(this);
+        return receipt;
     }
 }
