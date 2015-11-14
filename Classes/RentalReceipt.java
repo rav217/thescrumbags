@@ -25,6 +25,7 @@ public class RentalReceipt extends Receipt {
     
     @Override
     public void printReceipt() {
+        //super.printReceipt(); ??
         
     }
 }
