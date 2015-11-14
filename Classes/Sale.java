@@ -32,4 +32,10 @@ public class Sale extends Transaction {
         db.updateInventory("saleproducts", lineItems, false);
         db.closeConnection();
     }
+    
+    @Override
+    public void makeNewReceipt() { 
+        receipt=new SaleReceipt();
+        receipt.makeReceipt(this);
+    }
 }
