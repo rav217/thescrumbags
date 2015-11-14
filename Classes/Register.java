@@ -129,7 +129,7 @@ public class Register {
      * @return the new line item
      */
     public LineItem enterItem(LineItem li) {
-        return currentTransaction.makeLineItem(li.getProductDescription(), li.getQuantity());
+        return currentTransaction.makeLineItem(li);
     }
 
     /**

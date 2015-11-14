@@ -2455,7 +2455,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         
         // remove line from sale and from Return's sale object so it cannot be accessed again
         previousRentalTableModel.removeRow(returnRow);
-        t.removeLineItem(returnRow);
     }//GEN-LAST:event_rentalReturnReturnButtonActionPerformed
 
     private void rentalReturnRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnRemoveButtonActionPerformed
@@ -2467,12 +2466,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         LineItem line = t.getLineItem(returnRow);
         
         // remove row from r.currentTransaction and returnCartTable
-        r.getCurrentTransaction().removeLineItem(returnRow);
-        rentalReturnCartTableModel.addRow(makeRow(line));
+        rentalReturnCartTableModel.removeRow(returnRow);
+        t.removeLineItem(returnRow);
         
         // remove line from sale and from Return's sale object so it cannot be accessed again
         previousRentalTableModel.addRow(makeRow(line));
-        t.removeLineItem(returnRow);
     }//GEN-LAST:event_rentalReturnRemoveButtonActionPerformed
 
     private void employeeIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeIdTextFieldActionPerformed

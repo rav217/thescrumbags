@@ -66,6 +66,13 @@ public abstract class Transaction {
         total = total.add(lineItem.getSubtotal());
         return lineItem;
     }
+    
+    public LineItem makeLineItem(LineItem li) {
+        LineItem lineItem = new LineItem(li);
+        lineItems.add(lineItem);
+        total = total.add(lineItem.getSubtotal());
+        return lineItem;
+    }
 
     public void removeLineItem(int index) {
         LineItem lineItem = lineItems.get(index);
