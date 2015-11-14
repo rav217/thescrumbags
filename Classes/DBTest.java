@@ -2,6 +2,7 @@
  class created to test the DB connection
  */
 package thescrumbags.Classes;
+import java.sql.DriverManager;
 import java.util.Scanner;
 
 /**
@@ -16,7 +17,7 @@ public class DBTest {
         boolean next = true; //outer loop conditional
         boolean go = true; //inner loop conditional
         
-        //establish connection to system
+        /*establish connection to system
         while(go){
             System.out.println("Enter username:");
             String user = in.nextLine();
@@ -24,7 +25,9 @@ public class DBTest {
             String pswd = in.nextLine();
             System.out.println("");
             go = db.openConnection(user, pswd);
-        }
+        }*/
+        
+        db.openConnection("sql595207", "nT1*rF4!");
         
         //start menu loop
         while (next){

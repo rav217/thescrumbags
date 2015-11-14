@@ -77,8 +77,7 @@ public class SaleReturn extends Transaction {
     }
     
     /**
-     * Updates the inventory in the DB.
-     * Records the sale return.
+     *Add sale return to transactionhistory, don't update inventory
      */
     @Override
     public void updateInventory() {

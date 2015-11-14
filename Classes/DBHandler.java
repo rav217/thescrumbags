@@ -196,7 +196,7 @@ public class DBHandler {
         return new Transaction(items, tp);
     }
     
-    //adds transaction to transactionhistory table in DB
+    //adds sale or rental to transactionhistory table in DB
     public void addTransaction(String type, ArrayList<LineItem> lineItems){
         //query into db, select greatest transid, make transid that +1
         int highestID = 1; //if 1st element, transid will be 1
@@ -233,6 +233,14 @@ public class DBHandler {
                 closeConnection();
             }
         }
+    }
+    
+    //adds sale return to transactionhistory and salereturns tables in DB
+    public void addSaleReturn(SaleReturn ret){
+    }
+    
+    //adds rental return to transactionhistory table in DB
+    public void addRentalReturn(RentalReturn ret){
     }
     
     //updates inventory in DB upon completion of a sale or rental
