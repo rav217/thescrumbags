@@ -84,7 +84,26 @@ public class Register {
         db.closeConnection();
         this.currentTransaction = new Rental(numDays);
     }
-
+    
+    /*
+    //for only sale items
+    public void makeNewTransaction() {
+        DBHandler db=DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        this.catalog=db.initSPC();
+        db.closeConnection();
+        this.currentTransaction=new Transaction();
+    }
+    
+    //for both sale and rental items
+    public void makeNewTransaction(int numDays) {
+        DBHandler db=DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        db.closeConnection();
+        this.currentTransaction=new Transaction(numDays);
+    }
+    */
+    
     /**
      * Ends the current transaction upon completion
      */
