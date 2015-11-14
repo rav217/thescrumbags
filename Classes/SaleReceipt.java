@@ -24,6 +24,6 @@ public class SaleReceipt extends Receipt {
     
     @Override
     public void printReceipt() {
-        
+        super.printReceipt();
     }
 }
