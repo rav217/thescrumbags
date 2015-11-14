@@ -107,9 +107,16 @@ public class Rental extends Transaction {
     public void updateInventory() {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
-        db.addTransaction("R", lineItems);
-        db.updateInventory("rentalproducts", lineItems, false);
+        db.addTransaction("R", this.lineItems, "");
+        db.updateInventory("rentalproducts", this.lineItems);
         db.closeConnection();
         
+    }
+    
+    @Override
+    public Receipt makeNewReceipt() {
+        receipt=new RentalReceipt();
+        receipt.makeReceipt(this);
+        return receipt;
     }
 }

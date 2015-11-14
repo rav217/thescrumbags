@@ -193,11 +193,11 @@ public class DBHandler {
         else{
             //create rental object
         }
-        return new Transaction(items, tp);
+        return new Transaction(items, tp); //need sale, rental constructor w 2 args
     }
     
-    //adds sale or rental to transactionhistory table in DB
-    public void addTransaction(String type, ArrayList<LineItem> lineItems){
+    //adds transaction to transaction table in DB (type S, R, SR, RR)
+    public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason){
         //query into db, select greatest transid, make transid that +1
         int highestID = 1; //if 1st element, transid will be 1
         String subQuery = "select max(transid) as transid from transactionhistory";
@@ -223,7 +223,7 @@ public class DBHandler {
             String descr = li.getProductDescription().getDescription();
             int quantity = li.getQuantity();
             String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
-                    +descr+"', "+quantity+", "+subtotal+")";
+                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"')";
 
             try {
                 stmt = conn.createStatement();
@@ -235,27 +235,14 @@ public class DBHandler {
         }
     }
     
-    //adds sale return to transactionhistory and salereturns tables in DB
-    public void addSaleReturn(SaleReturn ret){
-    }
-    
-    //adds rental return to transactionhistory table in DB
-    public void addRentalReturn(RentalReturn ret){
-    }
-    
-    //updates inventory in DB upon completion of a sale or rental
-    //TODO: does it work for returns
-    public void updateInventory(String table, ArrayList<LineItem> lineItems, boolean negateQuantity){
+    //updates inventory in DB
+    public void updateInventory(String table, ArrayList<LineItem> lineItems){
         Iterator<LineItem> i = lineItems.iterator();
 	while (i.hasNext()){
             LineItem li = i.next();
             //retrieve itemid and quantity from from lineitem
             int id = li.getProductDescription().getItemID();
-            int q = li.getQuantity();
-                    
-            if(negateQuantity) //updating inventory for a return
-                q *= -1;
-                
+            int q = li.getQuantity();             
             int curQ = 0;
             //get current qoh for that item id in appropriate table in db
             String query = "select qoh from "+table+" where id = "+id;

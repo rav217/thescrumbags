@@ -28,8 +28,15 @@ public class Sale extends Transaction {
     public void updateInventory() { //add transaction to db, update inventory QOH
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
-        db.addTransaction("S", lineItems);
-        db.updateInventory("saleproducts", lineItems, false);
+        db.addTransaction("S", this.lineItems, "");
+        db.updateInventory("saleproducts", this.lineItems);
         db.closeConnection();
+    }
+    
+    @Override
+    public Receipt makeNewReceipt() { 
+        receipt=new SaleReceipt();
+        receipt.makeReceipt(this);
+        return receipt;
     }
 }

@@ -76,6 +76,11 @@ public class SaleReturn extends Transaction {
         super.becomeComplete();     
     }
     
+    @Override
+    public Receipt makeNewReceipt(){
+        return null;
+    }
+    
     /**
      *Add sale return to transactionhistory, don't update inventory
      */
@@ -84,8 +89,7 @@ public class SaleReturn extends Transaction {
         //use dbh, itemsReturned and lineItems to update inventory
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
-        db.addTransaction("S", lineItems);
-        db.updateInventory("saleproducts", lineItems, true);
+        db.addTransaction("SR", this.lineItems, this.reason);
         db.closeConnection();
     }
     

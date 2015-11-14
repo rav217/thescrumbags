@@ -56,11 +56,11 @@ public class RentalReturn extends Transaction {
     /**
      * Get method for number of days late
      * @return number of days late
-     */
+     *
     public int getDaysLate() {
         return daysLate;
     }
-
+*/
     /**
      * Get method for rental ID number
      * @return rental ID
@@ -75,16 +75,31 @@ public class RentalReturn extends Transaction {
      * Otherwise returns false
      * @return whether or not return is late
      */
-    public boolean checkIfLate() {
+    public int getDaysLate() {
         GregorianCalendar now = this.date;
         if (now.after(rental.getReturnDate())) { //TODO: either fix this or change DBHandler
             daysLate = now.get(Calendar.DAY_OF_YEAR) - rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
-            BigDecimal bd = rental.getTotal().getAmount().multiply(new BigDecimal(daysLate / 10));
-            Money m = new Money(bd);
-            setTotal(m);
-            return true;
+            
+            return daysLate;
         }
-        return false;
+        else
+            return 0;
+    }
+    
+    public double getLateFee()
+    {
+        int daysLate = getDaysLate();
+        double total = 0;
+        double fee = 0;
+        
+        for(int i=0; i < rental.lineItems.size(); i++)
+        {
+            fee = rental.lineItems.get(i).getSubtotal().getAmount().doubleValue() * .25;
+            total += fee;            
+        }
+        
+        total *= daysLate;
+        return total;        
     }
 
     /**
@@ -109,9 +124,15 @@ public class RentalReturn extends Transaction {
         //use dbh, itemsReturned and lineItems to update inventory
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
-        db.addTransaction("R", lineItems);
-        db.updateInventory("rentalproducts", lineItems, true);
+        db.addTransaction("RR", this.lineItems, "");
+        db.updateInventory("rentalproducts", lineItems);
         db.closeConnection();
     }
+    
+    public Receipt makeNewReceipt()
+    {
+        return null;
+    }
+    
 
 }
