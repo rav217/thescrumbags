@@ -24,12 +24,13 @@ public abstract class Receipt {
     }
     
     public static void main(String[] args) {
-        sendReceipt("bsc218@lehigh.edu", "test receipt", "this is a test receipt");
+        String[] toAddress={"bsc218@lehigh.edu", "crb217@lehigh.edu", "jjn217@lehigh.edu", "rav217@lehigh.edu", "tjm217@lehigh.edu"};
+        sendReceipt(toAddress, "test receipt", "this is a test receipt... sent from Receipt class");
     }
     
     public abstract void makeReceipt(Transaction t);
     
-    public static void sendReceipt(String to, String subject, String body) {
+    public static void sendReceipt(String[] to, String subject, String body) {
         Properties props=System.getProperties();
         String host="smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -43,7 +44,12 @@ public abstract class Receipt {
         MimeMessage message = new MimeMessage(session);
         try {
             message.setFrom(new InternetAddress(userName));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            InternetAddress[] toAddress=new InternetAddress[to.length];
+            for(int i=0; i < to.length; i++) {
+                InternetAddress ia=new InternetAddress(to[i]);
+                message.addRecipient(Message.RecipientType.TO, ia);
+            }
+            
             message.setSubject(subject);
             message.setText(body);
             Transport transport = session.getTransport("smtp");
