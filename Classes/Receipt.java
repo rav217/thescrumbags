@@ -12,4 +12,5 @@ package thescrumbags.Classes;
 public abstract class Receipt {
     public Receipt() {}
     public abstract void makeReceipt(Transaction t);
+    public abstract void printReceipt();
 }
