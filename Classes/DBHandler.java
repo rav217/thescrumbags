@@ -138,7 +138,7 @@ public class DBHandler {
 //following methods deal with transactions
     
     //finds transaction from transactionhistory table in DB
-    //returns Transaction object
+    //returns Transaction
     public Transaction findTransaction(String type, int id){
         //need array list of sli, total price
         String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;
@@ -162,6 +162,10 @@ public class DBHandler {
             rs.beforeFirst();
             
             while(rs.next()){
+                //if item has already been returned, start loop over for next
+                int returned = rs.getInt("returned");
+                if (returned == 1)
+                    continue;
                 //info required for ProductDescription object
                 String descr = rs.getString("descr");
                 int itemid = rs.getInt("itemid");
@@ -221,7 +225,7 @@ public class DBHandler {
             String descr = li.getProductDescription().getDescription();
             int quantity = li.getQuantity();
             String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
-                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"')";
+                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0)";
 
             try {
                 stmt = conn.createStatement();
