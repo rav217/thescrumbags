@@ -226,7 +226,8 @@ public class DBHandler {
             int quantity = li.getQuantity();
             String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
                     +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0)";
-
+            //set return column on item being returned
+            //need the original sale id to query for items
             try {
                 stmt = conn.createStatement();
                 stmt.executeUpdate(query);
