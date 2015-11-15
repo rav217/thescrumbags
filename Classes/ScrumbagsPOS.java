@@ -32,7 +32,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         initComponents();
         r = Register.getInstance();
         um = UserManager.getInstance();
-        
+
         // get table models and store to manipulate internal data easier
         saleTableModel = ((DefaultTableModel) saleCartTable.getModel());
         rentTableModel = ((DefaultTableModel) rentCartTable.getModel());
@@ -41,7 +41,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleReturnCartTableModel = ((DefaultTableModel) saleReturnCartTable.getModel());
         previousRentalTableModel = ((DefaultTableModel) previousRentalTable.getModel());
         rentalReturnCartTableModel = ((DefaultTableModel) rentalReturnCartTable.getModel());
-        
+
         // disable login button on employee login panel
         employeeLoginButton.setEnabled(false);
     }
@@ -211,12 +211,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
-        employeeIdTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                employeeIdTextFieldActionPerformed(evt);
-            }
-        });
-
         employeeIdLabel.setText("User ID:");
 
         employeePasswordLabel.setText("Password:");
@@ -224,11 +218,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeePasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 employeePasswordFieldActionPerformed(evt);
-            }
-        });
-        employeePasswordField.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                employeePasswordFieldPropertyChange(evt);
             }
         });
 
@@ -1397,12 +1386,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Enter the sale ID:");
 
-        saleReturnIdTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saleReturnIdTextFieldActionPerformed(evt);
-            }
-        });
-
         saleReturnCancelButton.setText("Cancel");
         saleReturnCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1422,12 +1405,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleReturnReasonLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         saleReturnReasonLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         saleReturnReasonLabel.setText("Enter reason for return:");
-
-        saleReturnReasonTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saleReturnReasonTextFieldActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout saleReturnIdPanelLayout = new javax.swing.GroupLayout(saleReturnIdPanel);
         saleReturnIdPanel.setLayout(saleReturnIdPanelLayout);
@@ -1518,12 +1495,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Enter the rental ID:");
-
-        rentalReturnIdTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rentalReturnIdTextFieldActionPerformed(evt);
-            }
-        });
 
         rentalReturnIdCancelButton.setText("Cancel");
         rentalReturnIdCancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -2134,13 +2105,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             newEmployee = um.addCashier(name, password);
         }
         addEmployeeToTable(newEmployee);
-        
+
         // clear text fields
         nameTextField.setText("");
         passwordTextField.setText("");
         employeeIDTextField.setText("");
-        
-    
+
 
     }//GEN-LAST:event_addEmployeeButtonActionPerformed
 
@@ -2154,7 +2124,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         } catch (ArrayIndexOutOfBoundsException ex) { //TODO: make popup happen
 
         }
-        
+
         // clear text fields
         nameTextField.setText("");
         passwordTextField.setText("");
@@ -2193,7 +2163,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // clear managerLoginTable fields
         managerNameTextField.setText("");
         managerPasswordField.setText("");
-        
+
         // return to menu view
         managerLoginPanel.setVisible(false);
         menuPanel.setVisible(true);
@@ -2208,19 +2178,17 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             // check login information
             boolean isManager = um.managerLogin(employeeId, password);
             boolean isEmployee = um.login(employeeId, password);
-            
+
             if (isManager) {
                 // switch to user manager view
                 managerLoginPanel.setVisible(false);
                 userManagerPanel.setVisible(true);
-                
+
                 // initialize employees in userManagerPanel table
                 initEmployeeTable();
-            }
-            else if (isEmployee){
-                managerErrorLabel.setText("User " +employeeId+ " is not a manager. Access Denied.");
-            }
-            else {
+            } else if (isEmployee) {
+                managerErrorLabel.setText("User " + employeeId + " is not a manager. Access Denied.");
+            } else {
                 managerErrorLabel.setText("Invalid ID or password entered.");
             }
         } catch (NumberFormatException ex) {
@@ -2242,11 +2210,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void saleReturnCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCheckoutButtonActionPerformed
         // update inventory in database
         r.endTransaction();
-        
+
         // clear tables
         previousSaleTableModel.setRowCount(0);
         saleReturnCartTableModel.setRowCount(0);
-        
+
         // return to menu panel
         saleReturnPanel.setVisible(false);
         menuPanel.setVisible(true);
@@ -2257,30 +2225,25 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         previousSaleTableModel.setRowCount(0);
         saleReturnCartTableModel.setRowCount(0);
         saleReturnTotalLabel.setText("Total: ");
-        
+
         // return to menu view
         saleReturnPanel.setVisible(false);
         menuPanel.setVisible(true);
-        
+
     }//GEN-LAST:event_saleReutrnCancelButtonActionPerformed
 
     private void startReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startReturnButtonActionPerformed
 
         //NOTE: this is handling the sale return use case only!!!
-
         // switch to return view
         menuPanel.setVisible(false);
         saleOrRentalReturnPanel.setVisible(true);
     }//GEN-LAST:event_startReturnButtonActionPerformed
 
-    private void saleReturnIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnIdTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saleReturnIdTextFieldActionPerformed
-
     private void saleReturnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCancelButtonActionPerformed
         // clear saleReturnIdLabel's textfield
         saleReturnIdTextField.setText("");
-        
+
         // switch back to menu view
         saleReturnIdPanel.setVisible(false);
         menuPanel.setVisible(true);
@@ -2294,22 +2257,22 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             previousSaleTableModel.addRow(row);
         }
     }
-    
+
     private void saleReturnOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnOkButtonActionPerformed
         // catch occurs when a non int is passed to the text field
         try {
             // get sale ID from field and test it
             Integer saleID = Integer.parseInt(saleReturnIdTextField.getText());
             String reason = saleReturnReasonTextField.getText();
-            
+
             // create new return with saleID
             r.makeNewSaleReturn(saleID, reason);
-            
+
             // check that sale was found
-            if (((SaleReturn)r.getCurrentTransaction()).getSale() != null) {
+            if (((SaleReturn) r.getCurrentTransaction()).getSale() != null) {
                 initPreviousSaleTable();
             }
-            
+
             // clear saleReturnIdLabel's textfield
             saleReturnIdTextField.setText("");
             saleReturnReasonTextField.setText("");
@@ -2322,26 +2285,22 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saleReturnOkButtonActionPerformed
 
-    private void saleReturnReasonTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnReasonTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_saleReturnReasonTextFieldActionPerformed
-
     private void saleReturnReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnReturnButtonActionPerformed
         // get the current transaction's sale object
         Transaction t = ((SaleReturn) r.getCurrentTransaction()).getSale();
-        
+
         // get selected row and make into LineItem
         int returnRow = previousSaleTable.getSelectedRow();
         LineItem line = t.getLineItem(returnRow);
-        
+
         // add row to r.currentTransaction and returnCartTable
         r.enterItem(line);
         saleReturnCartTableModel.addRow(makeRow(line));
-        
+
         // remove line from sale and from Return's sale object so it cannot be accessed again
         previousSaleTableModel.removeRow(returnRow);
         t.removeLineItem(returnRow);
-        
+
         // set total value
         String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
         saleReturnTotalLabel.setText(total);
@@ -2350,19 +2309,20 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void saleReturnRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnRemoveButtonActionPerformed
         // get the current transaction's sale object
         Transaction t = r.getCurrentTransaction();
-        
+        Transaction prevSale = ((SaleReturn)t).getSale();
+
         // get selected row and make into LineItem
         int returnRow = saleReturnCartTable.getSelectedRow();
         LineItem line = t.getLineItem(returnRow);
-        
+
         // remove row from r.currentTransaction and returnCartTable
-        r.getCurrentTransaction().removeLineItem(returnRow);
-        saleReturnCartTableModel.addRow(makeRow(line));
+        saleReturnCartTableModel.removeRow(returnRow);
+        t.removeLineItem(returnRow);
         
         // remove line from sale and from Return's sale object so it cannot be accessed again
         previousSaleTableModel.addRow(makeRow(line));
-        t.removeLineItem(returnRow);
-        
+        prevSale.makeLineItem(line);
+
         // set total value
         String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
         saleReturnTotalLabel.setText(total);
@@ -2380,10 +2340,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleReturnIdPanel.setVisible(true);
     }//GEN-LAST:event_saleReturnButtonActionPerformed
 
-    private void rentalReturnIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnIdTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rentalReturnIdTextFieldActionPerformed
-
     private void rentalReturnIdCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnIdCancelButtonActionPerformed
         // switch back to menu view
         rentalReturnIdPanel.setVisible(false);
@@ -2395,17 +2351,17 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         try {
             // get sale ID from field and test it
             Integer saleID = Integer.parseInt(rentalReturnIdTextField.getText());
-            
+
             // create new return with saleID
             r.makeNewRentalReturn(saleID);
-            
-            System.out.println(((RentalReturn)r.getCurrentTransaction()).getRental());
-            
+
+            System.out.println(((RentalReturn) r.getCurrentTransaction()).getRental());
+
             // check that sale was found
-            if (((RentalReturn)r.getCurrentTransaction()).getRental() != null) {
+            if (((RentalReturn) r.getCurrentTransaction()).getRental() != null) {
                 initPreviousRentalTable();
             }
-            
+
             // clear saleReturnIdLabel's textfield
             rentalReturnIdTextField.setText("");
 
@@ -2420,11 +2376,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void rentalReturnDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnDoneButtonActionPerformed
         // update inventory in database
         r.endTransaction();
-        
+
         // clear tables
         previousRentalTableModel.setRowCount(0);
         rentalReturnCartTableModel.setRowCount(0);
-        
+
         // return to menu panel
         rentalReturnPanel.setVisible(false);
         menuPanel.setVisible(true);
@@ -2434,58 +2390,54 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // clear tables and total
         previousRentalTableModel.setRowCount(0);
         rentalReturnCartTableModel.setRowCount(0);
-        
+
         // return to menu view
         rentalReturnPanel.setVisible(false);
         menuPanel.setVisible(true);
-        
+
     }//GEN-LAST:event_rentalReturnCancelButtonActionPerformed
 
     private void rentalReturnReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnReturnButtonActionPerformed
         // get the current transaction's sale object
         Transaction t = ((RentalReturn) r.getCurrentTransaction()).getRental();
-        
+
         // get selected row and make into LineItem
         int returnRow = previousRentalTable.getSelectedRow();
         LineItem line = t.getLineItem(returnRow);
-        
+
         // add row to r.currentTransaction and returnCartTable
         r.enterItem(line);
         rentalReturnCartTableModel.addRow(makeRow(line));
-        
+
         // remove line from sale and from Return's sale object so it cannot be accessed again
         previousRentalTableModel.removeRow(returnRow);
+        t.removeLineItem(returnRow);
     }//GEN-LAST:event_rentalReturnReturnButtonActionPerformed
 
     private void rentalReturnRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnRemoveButtonActionPerformed
         // get the current transaction's sale object
         Transaction t = r.getCurrentTransaction();
-        
+        Transaction prevRental = ((RentalReturn)t).getRental();
+
         // get selected row and make into LineItem
         int returnRow = rentalReturnCartTable.getSelectedRow();
         LineItem line = t.getLineItem(returnRow);
-        
+
         // remove row from r.currentTransaction and returnCartTable
         rentalReturnCartTableModel.removeRow(returnRow);
         t.removeLineItem(returnRow);
-        
+
         // remove line from sale and from Return's sale object so it cannot be accessed again
         previousRentalTableModel.addRow(makeRow(line));
+        prevRental.makeLineItem(line);
+        
     }//GEN-LAST:event_rentalReturnRemoveButtonActionPerformed
-
-    private void employeeIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeIdTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_employeeIdTextFieldActionPerformed
 
     private void employeePasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeePasswordFieldActionPerformed
         // enable the login button
         employeeLoginButton.setEnabled(true);
         employeeLoginButton.requestFocus();
     }//GEN-LAST:event_employeePasswordFieldActionPerformed
-
-    private void employeePasswordFieldPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_employeePasswordFieldPropertyChange
-        // TODO add your handling code here:
-    }//GEN-LAST:event_employeePasswordFieldPropertyChange
 
     private void employeeQuitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeQuitButtonActionPerformed
         // quit the program
@@ -2497,16 +2449,15 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         try {
             Integer employeeId = Integer.parseInt(employeeIdTextField.getText());
             String password = new String(employeePasswordField.getPassword());
-            
+
             if (um.login(employeeId, password)) {
                 // switch to user manager view
                 employeeLoginPanel.setVisible(false);
                 menuPanel.setVisible(true);
-                
+
                 // clear error label
                 employeeErrorLabel.setText("");
-            }
-            else {
+            } else {
                 employeeErrorLabel.setText("Invalid ID or password entered.");
             }
         } catch (NumberFormatException ex) {
@@ -2535,19 +2486,18 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         try {
             // get credit card number
             Integer cardNum = Integer.parseInt(creditTextField.getText());
-            
+
             // end transaction
             r.endTransaction();
-            
+
             // return to menu view
             creditPanel.setVisible(false);
             menuPanel.setVisible(true);
-        }
-        catch (NumberFormatException ex) {
+        } catch (NumberFormatException ex) {
             creditErrorLabel.setText("Invalid credit card number entered.");
         }
     }//GEN-LAST:event_creditOkButtonActionPerformed
-    
+
     public void initPreviousRentalTable() {
         RentalReturn t = ((RentalReturn) r.getCurrentTransaction());
         System.out.println(t.getRental());
@@ -2556,8 +2506,8 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             previousRentalTableModel.addRow(row);
         }
     }
-    
-    public Object[] makeRow(LineItem l){
+
+    public Object[] makeRow(LineItem l) {
         // get current line item and its product description
         ProductDescription productDescription = l.getProductDescription();
 
@@ -2575,6 +2525,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         Object[] row = {desc, priceString, qtyString, subtotalString};
         return row;
     }
+
     /**
      * @param args the command line arguments
      */

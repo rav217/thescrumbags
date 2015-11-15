@@ -90,9 +90,6 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="employeeIdTextField">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="employeeIdTextFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="employeeIdLabel">
           <Properties>
@@ -107,7 +104,6 @@
         <Component class="javax.swing.JPasswordField" name="employeePasswordField">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="employeePasswordFieldActionPerformed"/>
-            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="employeePasswordFieldPropertyChange"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="employeeQuitButton">
@@ -1714,9 +1710,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="saleReturnIdTextField">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saleReturnIdTextFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="saleReturnCancelButton">
           <Properties>
@@ -1751,9 +1744,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="saleReturnReasonTextField">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saleReturnReasonTextFieldActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -1866,9 +1856,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="rentalReturnIdTextField">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rentalReturnIdTextFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="rentalReturnIdCancelButton">
           <Properties>
