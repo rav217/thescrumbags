@@ -31,6 +31,12 @@ public class Rental extends Transaction {
         returnDate.add(Calendar.DAY_OF_YEAR, rentalPeriod);
     }
     
+    //need 2 arg constructor for DB purposes
+    public Rental(ArrayList<LineItem> lineItems, Money total){
+        this.lineItems = lineItems;
+        this.total = total;
+    }
+    
     /**
      * Determines whether the rental has been returned
      * @return if rental has been returned
@@ -108,7 +114,7 @@ public class Rental extends Transaction {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         db.addTransaction("R", this.lineItems, "");
-        db.updateInventory("rentalproducts", this.lineItems);
+        db.updateInventory("rentalproducts", this.lineItems, false);
         db.closeConnection();
         
     }

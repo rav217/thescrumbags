@@ -125,7 +125,7 @@ public class RentalReturn extends Transaction {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         db.addTransaction("RR", this.lineItems, "");
-        db.updateInventory("rentalproducts", lineItems);
+        db.updateInventory("rentalproducts", lineItems, true);
         db.closeConnection();
     }
     

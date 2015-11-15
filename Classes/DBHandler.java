@@ -139,7 +139,6 @@ public class DBHandler {
     
     //finds transaction from transactionhistory table in DB
     //returns Transaction object
-    //TODO: should return val be Sale or Rental?
     public Transaction findTransaction(String type, int id){
         //need array list of sli, total price
         String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;
@@ -188,12 +187,11 @@ public class DBHandler {
         BigDecimal totalPriceBD = BigDecimal.valueOf(totalPrice);
         Money tp = new Money(totalPriceBD);
         if (type.equals("S")){
-            //create sale object
+            return new Sale(items, tp);
         }
         else{
-            //create rental object
+            return new Rental(items, tp);
         }
-        return new Transaction(items, tp); //need sale, rental constructor w 2 args
     }
     
     //adds transaction to transaction table in DB (type S, R, SR, RR)
@@ -236,13 +234,16 @@ public class DBHandler {
     }
     
     //updates inv in DB
-    public void updateInventory(String table, ArrayList<LineItem> lineItems){
+    public void updateInventory(String table, ArrayList<LineItem> lineItems, boolean neg){
         Iterator<LineItem> i = lineItems.iterator();
 	while (i.hasNext()){
             LineItem li = i.next();
             //retrieve itemid and quantity from from lineitem
             int id = li.getProductDescription().getItemID();
-            int q = li.getQuantity();             
+            int q = li.getQuantity();
+            //if rental return, negate q so it gets added
+            if (neg)
+                q = q * -1;
             int curQ = 0;
             //get current qoh for that item id in appropriate table in db
             String query = "select qoh from "+table+" where id = "+id;

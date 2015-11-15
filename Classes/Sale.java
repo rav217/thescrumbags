@@ -1,6 +1,7 @@
 package thescrumbags.Classes;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 //This is the Sale class which stores a list of items being sold, the current date,
 // the total and customer payment. It is able to add new line items to the sale, calculate the total,
@@ -11,6 +12,12 @@ public class Sale extends Transaction {
     //is set to false at object creation
     public Sale() {
         super();
+    }
+    
+    //need constructor w 2 args for DB purposes
+    public Sale(ArrayList<LineItem> lineItems, Money total){
+        this.lineItems = lineItems;
+        this.total = total;
     }
     
     public void calculateDiscount(BigDecimal discount) {
@@ -29,7 +36,7 @@ public class Sale extends Transaction {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         db.addTransaction("S", this.lineItems, "");
-        db.updateInventory("saleproducts", this.lineItems);
+        db.updateInventory("saleproducts", this.lineItems, false);
         db.closeConnection();
     }
     
