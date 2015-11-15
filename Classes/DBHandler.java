@@ -235,7 +235,7 @@ public class DBHandler {
         }
     }
     
-    //updates inventory in DB
+    //updates inv in DB
     public void updateInventory(String table, ArrayList<LineItem> lineItems){
         Iterator<LineItem> i = lineItems.iterator();
 	while (i.hasNext()){

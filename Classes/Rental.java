@@ -104,7 +104,7 @@ public class Rental extends Transaction {
      * Updates inventory in DB
      */
     @Override
-    public void updateInventory() {
+    public void updateInventory() { //update inv
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         db.addTransaction("R", this.lineItems, "");

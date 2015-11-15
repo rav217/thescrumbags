@@ -121,7 +121,7 @@ public class RentalReturn extends Transaction {
      */
     @Override
     public void updateInventory() {
-        //use dbh, itemsReturned and lineItems to update inventory
+        //use dbh, itemsReturned and lineItems to update inv
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         db.addTransaction("RR", this.lineItems, "");
