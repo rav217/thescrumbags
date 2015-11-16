@@ -1,5 +1,7 @@
 package thescrumbags.Classes;
 
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author The Scrumbags
@@ -14,14 +16,10 @@ public class SaleReceipt extends Receipt {
      */
     @Override
     public void makeReceiptBody(Transaction t) throws ClassCastException {
-        if(t instanceof Sale) { 
-            Sale s=(Sale)t;
-            receiptBody+="SCRUMBAGS POS\t"+date.toString()+"\n\n";
-            for (int i=0; i < s.getLineItemsLength(); i++) {
-                receiptBody+=s.getLineItem(i).toString()+"\n";
-            }
-        } else {
-            throw new ClassCastException();
+        int date=GregorianCalendar.DATE;
+        receiptBody+="SCRUMBAGS POS\t"+date+"\n\n";
+        for(LineItem l: t.getLineItems()) {
+            receiptBody+=l.toString()+"\n";
         }
     }
 }
