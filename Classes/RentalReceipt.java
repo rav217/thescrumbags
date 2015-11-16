@@ -13,7 +13,7 @@ public class RentalReceipt extends Receipt {
     public void makeReceiptBody(Transaction t) {        
         if(t instanceof Rental) {
             Rental r=(Rental)t;
-            receiptBody+="SCRUMBAGS POS\t"+date.toString()+"\n\n";
+            receiptBody+="SCRUMBAGS POS\t"+GregorianCalendar.DATE+"\n\n";
             for (int i=0; i < r.getLineItemsLength(); i++) {
                 receiptBody+=r.getLineItem(i).toString()+"\n";
                 receiptBody+="Return date:\t\t" + r.getReturnDate().toString()+"\n\n";
