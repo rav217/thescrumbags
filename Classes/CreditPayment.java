@@ -29,7 +29,8 @@ public class CreditPayment implements Payment {
         {
             return false;
         }
-        if(cardNum.length()==16 && cardNumInt <= 0) return true;
+        if(cardNum.length()==16 && cardNumInt <= 0) 
+            return true;
         return false;
     }
     
