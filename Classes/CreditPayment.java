@@ -20,7 +20,16 @@ public class CreditPayment implements Payment {
     //use Transaction with credit authorization service
     @Override
     public boolean verify(Transaction t) {
-        if(cardNum.length()==16) return true;
+        int cardNumInt;
+        try
+        {
+            cardNumInt = Integer.parseInt(cardNum);
+        }
+        catch(NumberFormatException ex)
+        {
+            return false;
+        }
+        if(cardNum.length()==16 && cardNumInt <= 0) return true;
         return false;
     }
     
