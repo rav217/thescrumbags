@@ -1,5 +1,7 @@
 package thescrumbags.Classes;
 
+import java.util.GregorianCalendar;
+
 /**
  *
  * @author The Scrumbags
@@ -8,7 +10,7 @@ public class RentalReceipt extends Receipt {
     public RentalReceipt() {}
     
     @Override
-    public void makeReceiptBody(Transaction t) {
+    public void makeReceiptBody(Transaction t) {        
         if(t instanceof Rental) {
             Rental r=(Rental)t;
             receiptBody+="SCRUMBAGS POS\t"+date.toString()+"\n\n";
