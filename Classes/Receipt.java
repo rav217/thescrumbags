@@ -13,31 +13,21 @@ public abstract class Receipt {
     
     protected static final String userName="scrumbagspos";
     protected static final String password="scrumbags3";
-    protected final String[] recipients;
     protected String receiptBody;
-    protected String emailSubject;
     protected GregorianCalendar date;
     
     /**
      * Constructor for Receipt.
-     * Takes in e-mail address to send receipt to.
-     * @param recipients the customers' e-mail addresses
-     * @param body the body of the receipt
-     * @param emailSubject the subject of the email
      */
-    public Receipt(String[] recipients) {
-        this.recipients=recipients;
-    }
+    public Receipt() {}
     
     //sets subject and body of email
     public abstract void makeReceiptBody(Transaction t);
     
-    public String[] getRecipients() { return recipients; }
-    
     public String getReceiptBody() { return receiptBody; } 
  
-    public void sendReceipt() {
-        emailReceipt(recipients, "Your Scrumbags Receipt" + date.toString(), getReceiptBody());
+    public void sendReceipt(String[] to) {
+        emailReceipt(to, "Your Scrumbags Receipt" + date.toString(), getReceiptBody());
     }
     
     /**
