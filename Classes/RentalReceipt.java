@@ -10,12 +10,12 @@ package thescrumbags.Classes;
  * @author The Scrumbags
  */
 public class RentalReceipt extends Receipt {
-    public RentalReceipt(String[] recipients, String emailSubject, String body) {
-        super(recipients, emailSubject, body);
+    public RentalReceipt(String[] recipients) {
+        super(recipients);
     }
     
     @Override
-    public void makeReceipt(Transaction t) {
+    public void makeReceiptBody(Transaction t) {
         if(t instanceof Rental) {
             Rental r=(Rental)t;
             receiptBody+="SCRUMBAGS POS\t"+date.toString()+"\n\n";
