@@ -3,6 +3,7 @@ package thescrumbags.Classes;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.math.BigDecimal;
 
 /**
  * An abstract class that e-mails a sales receipt to a customer.
@@ -16,10 +17,22 @@ public abstract class Receipt {
     protected String receiptBody;
     protected GregorianCalendar date;
     
+    public static void main(String[] args) {
+        Sale s=new Sale();
+        ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "test");
+        LineItem l=new LineItem(pd, 3);
+        s.makeLineItem(l);
+        Receipt r=s.makeNewReceipt();
+        System.out.print(r.getReceiptBody());
+    }
+    
     /**
      * Constructor for Receipt.
      */
-    public Receipt() {}
+    public Receipt() {
+        date=new GregorianCalendar();
+        receiptBody="";
+    }
     
     //sets subject and body of email
     public abstract void makeReceiptBody(Transaction t);
