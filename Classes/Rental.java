@@ -122,7 +122,7 @@ public class Rental extends Transaction {
     @Override
     public Receipt makeNewReceipt() {
         receipt=new RentalReceipt();
-        receipt.makeReceipt(this);
+        receipt.makeReceiptBody(this);
         return receipt;
     }
 }
