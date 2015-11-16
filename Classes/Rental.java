@@ -113,7 +113,7 @@ public class Rental extends Transaction {
     public void updateInventory() { //update inv
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
-        db.addTransaction("R", this.lineItems, "");
+        db.addTransaction("R", this.lineItems, "", 0);
         db.updateInventory("rentalproducts", this.lineItems, false);
         db.closeConnection();
         
