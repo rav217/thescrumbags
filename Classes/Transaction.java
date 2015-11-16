@@ -93,6 +93,8 @@ public abstract class Transaction {
     public LineItem getLastLineItem() {
         return this.lineItems.get(this.lineItems.size() - 1);
     }
+    
+    public Receipt getReceipt() { return receipt; }
 
     //returns the current total for the Sale object
     public Money getTotal() {
