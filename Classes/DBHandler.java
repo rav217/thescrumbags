@@ -239,7 +239,7 @@ public class DBHandler {
         }
     }
     
-    //sets return flag for appropriate sale or rental line items in transactionhistory table
+    //sets return flag for appropriate sale or rental line items in transactionhistory table in DB
     public void setReturnFlag(int origTransID, int itemid){
         String query = "update transactionhistory set returned = 1 where transid = "+origTransID+" and itemid = "+itemid;
         try {
