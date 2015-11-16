@@ -1,5 +1,7 @@
 package thescrumbags.Classes;
 
+import java.util.GregorianCalendar;
+
 /**
  * A Singleton class representing a cash register for a POS system
  * @author The Scrumbags
@@ -109,9 +111,19 @@ public class Register {
      */
     public void endTransaction() {
         currentTransaction.updateInventory();
+        currentTransaction.makeNewReceipt();
         currentTransaction.becomeComplete();
     }
 
+    public void sendReceipt(String[] to) {
+        GregorianCalendar date=new GregorianCalendar();
+        Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.toString(), currentTransaction.getReceipt().getReceiptBody());
+    }
+    
+    public String printReceipt() { 
+        return currentTransaction.getReceipt().getReceiptBody();
+    }
+    
     /**
      * Creates a new line item for the current transaction
      * @param id product's item id number
