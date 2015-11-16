@@ -199,7 +199,7 @@ public class DBHandler {
     }
     
     //adds transaction to transaction table in DB (type S, R, SR, RR)
-    public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason){
+    public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID){
         //query into db, select greatest transid, make transid that +1
         int highestID = 1; //if 1st element, transid will be 1
         String subQuery = "select max(transid) as transid from transactionhistory";
@@ -226,8 +226,6 @@ public class DBHandler {
             int quantity = li.getQuantity();
             String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
                     +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0)"; //add column for corresponding transaction
-            //set return flag for this line item on original sale or return transaction
-            setReturnFlag(origTransID, itemid); //need a way to get the original transactin's id...
             try {
                 stmt = conn.createStatement();
                 stmt.executeUpdate(query);
@@ -235,20 +233,21 @@ public class DBHandler {
                 System.out.println("Error adding transaction to transaction history.");
                 closeConnection();
             }
+            //set return flag for this line item on original sale or return transaction
+            if (type.equals("SR") || type.equals("RR"))
+                setReturnFlag(origTransID, itemid);
         }
     }
     
     //sets return flag for appropriate sale or rental line items in transactionhistory table
-    public void setReturnFlag(int origTransID, int transid){
-        String query = "";
-        //execute update on (select * from transactionhistory where transid = 'transid' and return not = 1)
-        //set return to 1
+    public void setReturnFlag(int origTransID, int itemid){
+        String query = "update transactionhistory set returned = 1 where transid = "+origTransID+" and itemid = "+itemid;
         try {
             stmt = conn.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException ex) {
-                System.out.println("Error setting return flag");
-                closeConnection();
+            System.out.println("Error setting return flag");
+            closeConnection();
         }
     }
     
