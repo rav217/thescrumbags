@@ -199,7 +199,6 @@ public class DBHandler {
     }
     
     //adds transaction to transaction table in DB (type S, R, SR, RR)
-    //also updates the returned flag corresponding to sale or rental
     public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason){
         //query into db, select greatest transid, make transid that +1
         int highestID = 1; //if 1st element, transid will be 1
@@ -226,9 +225,9 @@ public class DBHandler {
             String descr = li.getProductDescription().getDescription();
             int quantity = li.getQuantity();
             String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
-                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0)"; //add return column
-            //set return flag or original line items being returned that aren't already returned
-            setReturnFlag(highestID);
+                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0)"; //add column for corresponding transaction
+            //set return flag for this line item on original sale or return transaction
+            setReturnFlag(origTransID, itemid); //need a way to get the original transactin's id...
             try {
                 stmt = conn.createStatement();
                 stmt.executeUpdate(query);
@@ -240,7 +239,7 @@ public class DBHandler {
     }
     
     //sets return flag for appropriate sale or rental line items in transactionhistory table
-    public void setReturnFlag(int transid){
+    public void setReturnFlag(int origTransID, int transid){
         String query = "";
         //execute update on (select * from transactionhistory where transid = 'transid' and return not = 1)
         //set return to 1
