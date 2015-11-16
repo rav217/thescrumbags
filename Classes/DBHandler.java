@@ -199,6 +199,7 @@ public class DBHandler {
     }
     
     //adds transaction to transaction table in DB (type S, R, SR, RR)
+    //implement adding date to transaction history
     public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID){
         //query into db, select greatest transid, make transid that +1
         int highestID = 1; //if 1st element, transid will be 1
