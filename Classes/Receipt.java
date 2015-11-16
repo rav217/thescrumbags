@@ -25,10 +25,6 @@ public abstract class Receipt {
     public abstract void makeReceiptBody(Transaction t);
     
     public String getReceiptBody() { return receiptBody; } 
- 
-    public void sendReceipt(String[] to) {
-        emailReceipt(to, "Your Scrumbags Receipt" + date.toString(), getReceiptBody());
-    }
     
     /**
      * Sends the receipt to customer(s).
