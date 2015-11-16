@@ -16,6 +16,7 @@ public abstract class Receipt {
     protected final String[] recipients;
     protected String receiptBody;
     protected String emailSubject;
+    protected GregorianCalendar date;
     
     /**
      * Constructor for Receipt.
