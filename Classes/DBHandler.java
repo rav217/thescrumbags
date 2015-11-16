@@ -244,6 +244,13 @@ public class DBHandler {
         String query = "";
         //execute update on (select * from transactionhistory where transid = 'transid' and return not = 1)
         //set return to 1
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException ex) {
+                System.out.println("Error setting return flag");
+                closeConnection();
+        }
     }
     
     //updates inv in DB
