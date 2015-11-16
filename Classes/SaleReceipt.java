@@ -10,8 +10,8 @@ package thescrumbags.Classes;
  * @author benscandell
  */
 public class SaleReceipt extends Receipt {
-    public SaleReceipt(String[] recipients, String emailSubject, String body) {
-        super(recipients, emailSubject, body);
+    public SaleReceipt(String[] recipients) {
+        super(recipients);
     }
     
     /**
@@ -20,7 +20,7 @@ public class SaleReceipt extends Receipt {
      * @throws ClassCastException 
      */
     @Override
-    public void makeReceipt(Transaction t) throws ClassCastException {
+    public void makeReceiptBody(Transaction t) throws ClassCastException {
         if(t instanceof Sale) { 
             Sale s=(Sale)t;
             receiptBody+="SCRUMBAGS POS\t"+date.toString()+"\n\n";
