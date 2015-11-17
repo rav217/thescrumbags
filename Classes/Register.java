@@ -11,7 +11,6 @@ public class Register {
     private ProductCatalog catalog;
     private Transaction currentTransaction;
     private Payment currentPayment;
-    private UserManager userManager;
     private static Register uniqueInst;
 
     /**
@@ -89,11 +88,18 @@ public class Register {
     
     /**
      * Ends the current transaction upon completion
+     * @return returns true if the payment was accepted
      */
-    public void endTransaction() {
-        currentTransaction.updateInventory();
-        currentTransaction.makeNewReceipt();
-        currentTransaction.becomeComplete();
+    public boolean endTransaction() {
+        if (this.currentTransaction.accept(this.currentPayment)) {
+            currentTransaction.updateInventory();
+            currentTransaction.makeNewReceipt();
+            currentTransaction.becomeComplete();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public void sendReceipt(String[] to) {
@@ -131,8 +137,9 @@ public class Register {
      * @param cashGiven cash tendered
      */
     public void makeCashPayment(Money cashGiven) {
-        Payment p = new CashPayment(cashGiven);
-        this.currentTransaction.accept(p);
+        this.currentPayment = new CashPayment(cashGiven);
+        //Payment p = new CashPayment(cashGiven);
+        //this.currentTransaction.accept(p);
     }
 
     /**
@@ -189,13 +196,5 @@ public class Register {
      */
     public void cancelTransaction() {
         this.currentTransaction = null;
-    }
-    
-    /**
-     * Get method for user manager
-     * @return user manager
-     */
-    public UserManager getUserManager(){
-        return this.userManager;
     }
 }
