@@ -15,22 +15,13 @@ public abstract class Receipt {
     protected static final String userName="scrumbagspos";
     protected static final String password="scrumbags3";
     protected String receiptBody;
-    protected GregorianCalendar date;
-    
-    public static void main(String[] args) {
-        Sale s=new Sale();
-        ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "test");
-        LineItem l=new LineItem(pd, 3);
-        s.makeLineItem(l);
-        Receipt r=s.makeNewReceipt();
-        System.out.print(r.getReceiptBody());
-    }
+    protected Calendar date;
     
     /**
      * Constructor for Receipt.
      */
     public Receipt() {
-        date=new GregorianCalendar();
+        date=GregorianCalendar.getInstance();
         receiptBody="";
     }
     
