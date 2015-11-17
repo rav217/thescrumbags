@@ -148,8 +148,7 @@ public class Register {
      * @param cardNum credit card number 
      */
     public void makeCreditPayment(String cardNum) {
-        Payment p = new CreditPayment(cardNum);
-        this.currentTransaction.accept(p);
+        this.currentPayment = new CreditPayment(cardNum);
     }
 
     /**

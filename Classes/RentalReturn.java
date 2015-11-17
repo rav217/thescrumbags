@@ -31,6 +31,7 @@ public class RentalReturn extends Transaction {
         db.openConnection("sql595207", "nT1*rF4!");
         this.rental = db.findTransaction("R", rentalID);
         this.daysLate = this.getDaysLate();
+        this.setLateFee();
         try {
             if (rental instanceof Rental) {
                 rental = (Rental) rental;
@@ -46,6 +47,24 @@ public class RentalReturn extends Transaction {
         }
     }
 
+      //creates a new LineItem for the sale given a description and quantity,
+    //adds new LineItem to the lineItems ArrayList, total updated with new subtotal
+    @Override
+    public LineItem makeLineItem(ProductDescription desc, int qty) {
+        LineItem lineItem = new LineItem(desc, qty);
+        lineItems.add(lineItem);
+        // total = total.add(lineItem.getSubtotal());
+        return lineItem;
+    }
+    
+    @Override
+    public LineItem makeLineItem(LineItem li) {
+        LineItem lineItem = new LineItem(li);
+        lineItems.add(lineItem);
+        // total = total.add(lineItem.getSubtotal());
+        return lineItem;
+    }
+    
     /**
      * Get method for rental corresponding to rental return
      * @return the corresponding rental
@@ -84,21 +103,23 @@ public class RentalReturn extends Transaction {
             return daysLate;
         }
         else
-            return 1;
+            return 0;
     }
     
-    public double getLateFee()
+    public final void setLateFee()
     {
         double totalFee = 0;
         double fee = 0;
         
-        for (LineItem lineItem : rental.lineItems) {
+        System.out.println("setting late fee");
+        for (LineItem lineItem : rental.getLineItems()) {
+            System.out.println(lineItem.toString());
             fee = lineItem.getSubtotal().getAmount().doubleValue() * .25;
             totalFee += fee;            
         }
         
         totalFee *= this.daysLate;
-        return totalFee;        
+        this.total = new Money(totalFee);        
     }
 
     /**

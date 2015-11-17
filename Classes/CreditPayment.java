@@ -5,6 +5,8 @@
  */
 package thescrumbags.Classes;
 
+import java.math.BigInteger;
+
 /**
  *
  * @author benscandell
@@ -23,15 +25,18 @@ public class CreditPayment implements Payment {
         int cardNumInt;
         try
         {
-            cardNumInt = Integer.parseInt(cardNum);
+            if (this.cardNum.length() > 0){
+                cardNumInt = Integer.parseInt(this.cardNum.substring(0,1));
+            }
+            else {
+                return false;
+            }
         }
         catch(NumberFormatException ex)
         {
             return false;
         }
-        if(cardNum.length()==16 && cardNumInt <= 0) 
-            return true;
-        return false;
+        return cardNum.length() == 16 && cardNumInt >= 0;
     }
     
 }

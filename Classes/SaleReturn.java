@@ -15,7 +15,6 @@ public class SaleReturn extends Transaction {
     private Reimbursement r;
     private final String reason;
     private final int saleID;
-    private int itemsReturned=0;
     
     /**
      * Constructor for SaleReturn.
@@ -36,6 +35,10 @@ public class SaleReturn extends Transaction {
         this.sale = db.findTransaction("S", saleID);
         db.closeConnection();
         if (this.sale == null) System.out.println("Sale not found in database");
+        
+        for (LineItem lineItem: sale.getLineItems()) {
+            System.out.println(lineItem.toString());
+        }
     }
     
     /**
@@ -65,16 +68,7 @@ public class SaleReturn extends Transaction {
     public Money negateTotal() {
         return getTotal().multiply(new BigDecimal(-1));
     }
-    
-    /**
-     * Overrides Transaction's becomeComplete method.
-     * itemsReturned, counts the total number of items returned before completion.
-     */
-    @Override
-    public void becomeComplete() {
-        itemsReturned=lineItems.size();
-        super.becomeComplete();     
-    }
+      
     
     @Override
     public Receipt makeNewReceipt(){
