@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.GregorianCalendar;
+import java.util.Date;
 
 public class DBHandler {
     
@@ -139,6 +141,7 @@ public class DBHandler {
     
     //finds transaction from transactionhistory table in DB
     //returns Transaction
+    //TODO: add col for rental period, use 1 arg rental constructor
     public Transaction findTransaction(String type, int id){
         //need array list of sli, total price
         String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;
@@ -199,8 +202,8 @@ public class DBHandler {
     }
     
     //adds transaction to transaction table in DB (type S, R, SR, RR)
-    //implement adding date to transactionhistory
-    public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID){
+    //add field for rental period
+    public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID, GregorianCalendar date, int rPeriod){
         //query into db, select greatest transid, make transid that +1
         int highestID = 1; //if 1st element, transid will be 1
         String subQuery = "select max(transid) as transid from transactionhistory";
@@ -216,6 +219,9 @@ public class DBHandler {
         }
         highestID += 1;
         Iterator<LineItem> i = lineItems.iterator();
+        //get date String from GregorianCalendar obj
+        Date dateobj = date.getTime();
+        String dateString = dateobj.toString();
 	while (i.hasNext()){
             LineItem li = i.next();
             int itemid = li.getProductDescription().getItemID();
@@ -225,8 +231,9 @@ public class DBHandler {
             double subtotal = subtotalBD.doubleValue();
             String descr = li.getProductDescription().getDescription();
             int quantity = li.getQuantity();
-            String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+itemid+", "+price+", '"
-                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0)"; //add column for corresponding transaction
+            String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+origTransID+", "+itemid+", "+price+", '"
+                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0, '"+dateString+"')";
+            System.out.println(query);
             try {
                 stmt = conn.createStatement();
                 stmt.executeUpdate(query);

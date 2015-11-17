@@ -3,7 +3,6 @@ package thescrumbags.Classes;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.math.BigDecimal;
 
 /**
  * An abstract class that e-mails a sales receipt to a customer.

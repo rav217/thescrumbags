@@ -1,17 +1,19 @@
 package thescrumbags.Classes;
 
-import java.util.*;
+import java.util.GregorianCalendar;
 
 /**
- *
+ * A class to represent a receipt for a sale return.
+ * Extends Receipt.
  * @author The Scrumbags
  */
-public class SaleReceipt extends Receipt {
-    public SaleReceipt() { super(); }
+public class ReturnReceipt extends Receipt {
+
+    public ReturnReceipt() { super(); }
     
     /**
      * Writes the actual receipt body.
-     * @param t 
+     * @param t
      */
     @Override
     public void makeReceiptBody(Transaction t) {
@@ -26,4 +28,5 @@ public class SaleReceipt extends Receipt {
             receiptBody+=l.toString()+"\n";
         }
     }
+    
 }

@@ -3,12 +3,18 @@ package thescrumbags.Classes;
 import java.util.*;
 
 /**
- *
+ * A class to represent a receipt for a rental.
+ * Extends Receipt
  * @author The Scrumbags
  */
 public class RentalReceipt extends Receipt {
-    public RentalReceipt() {}
+    public RentalReceipt() { super(); }
     
+     /**
+     * Writes the actual receipt body.
+     * @param t
+     * @throws ClassCastException 
+     */
     @Override
     public void makeReceiptBody(Transaction t) throws ClassCastException { 
         int month=date.get(GregorianCalendar.MONTH);
