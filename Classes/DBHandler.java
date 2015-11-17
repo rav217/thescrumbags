@@ -141,6 +141,7 @@ public class DBHandler {
     
     //finds transaction from transactionhistory table in DB
     //returns Transaction
+    //TODO: initialize due date for rental
     public Transaction findTransaction(String type, int id){
         //need array list of sli, total price
         String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;
