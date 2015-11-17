@@ -15,22 +15,25 @@ public abstract class Receipt {
     protected static final String userName="scrumbagspos";
     protected static final String password="scrumbags3";
     protected String receiptBody;
-    protected GregorianCalendar date;
+    protected Calendar date;
     
+    /*
     public static void main(String[] args) {
         Sale s=new Sale();
-        ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "test");
-        LineItem l=new LineItem(pd, 3);
-        s.makeLineItem(l);
+        ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "condoms");
+        ProductDescription pd1=new ProductDescription(1, new Money(new BigDecimal(75)), "blow");
+        s.makeLineItem(pd, 3);
+        s.makeLineItem(pd1, 1);
         Receipt r=s.makeNewReceipt();
         System.out.print(r.getReceiptBody());
     }
+    */
     
     /**
      * Constructor for Receipt.
      */
     public Receipt() {
-        date=new GregorianCalendar();
+        date=GregorianCalendar.getInstance();
         receiptBody="";
     }
     
