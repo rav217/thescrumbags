@@ -48,4 +48,10 @@ public class LineItem {
         //display LineItem info
         System.out.printf(": %s\tPrice: $%4.2f\tQuantity: %d\tSubtotal: $%4.2f\n", this.prod.getDescription(), this.prod.getPrice().getAmount(), this.qty, this.subtotal.getAmount());
     }
+    
+    @Override
+    public String toString() {
+        String str= prod.getDescription()+ "\t"+prod.getPrice().toString()+"\t"+qty;
+        return str;
+    }
 }
