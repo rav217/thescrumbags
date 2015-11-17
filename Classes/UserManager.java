@@ -130,13 +130,15 @@ public class UserManager {
      * @param password
      */
     public boolean login(int employeeId, String password) {
+        Employee e = this.eList.findEmployee(employeeId);
         boolean successful = false;
+        
         try {
             if (eList.checkPassword(employeeId, password)) {
                 loggedOnEmployees.addEmployee(eList.findEmployee(employeeId));
                 successful = true;
             }
-        } catch (NullPointerException e) {
+        } catch (NullPointerException ex) {
             System.out.println("Error: employeeID not found.");
         }
         return successful;
@@ -147,18 +149,32 @@ public class UserManager {
      * @param password
      * @return 
      */
-    public boolean managerLogin(int employeeId, String password) {
+    public boolean checkManager(int employeeId, String password) {
         Employee e = this.eList.findEmployee(employeeId);
         boolean successful = false;
         
         try {
             if (e.isManager()) {
                 if (eList.checkPassword(employeeId, password)) {
-                    loggedOnEmployees.addEmployee(eList.findEmployee(employeeId));
                     successful = true;
                 }
             }
         } catch (NullPointerException ex) {
+            System.out.println("Error: employeeID not found.");
+        }
+        return successful;
+    }
+    
+    public boolean checkEmployee(int employeeId, String password) {
+        Employee e = this.eList.findEmployee(employeeId);
+        boolean successful = false;
+        
+        try {
+            if (eList.checkPassword(employeeId, password)) {
+                successful = true;
+            }
+        }
+        catch (NullPointerException ex) {
             System.out.println("Error: employeeID not found.");
         }
         return successful;
