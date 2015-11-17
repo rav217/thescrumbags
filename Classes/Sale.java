@@ -35,7 +35,7 @@ public class Sale extends Transaction {
     public void updateInventory() { //add transaction to db, update inv
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
-        db.addTransaction("S", this.lineItems, "", 0);
+        db.addTransaction("S", this.lineItems, "", 0, this.date);
         db.updateInventory("saleproducts", this.lineItems, false);
         db.closeConnection();
     }
