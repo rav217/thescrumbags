@@ -6,6 +6,8 @@
 package thescrumbags.Classes;
 
 import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -15,8 +17,11 @@ import javax.swing.table.TableModel;
  */
 public class ScrumbagsPOS extends javax.swing.JFrame {
 
+    // the gui has a register (for transactions) and a user manager (for employee management)
     Register r;
     UserManager um;
+
+    // stores the table models of all tables in gui for ease of use
     DefaultTableModel saleTableModel;
     DefaultTableModel rentTableModel;
     DefaultTableModel employeeTableModel;
@@ -25,12 +30,16 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     DefaultTableModel previousRentalTableModel;
     DefaultTableModel rentalReturnCartTableModel;
 
+    // continuously updated whenever a panel is left (for use with cancel buttons)
+    JPanel previousPanel;
+
     /**
      * Creates new form MenuFrame
      */
     public ScrumbagsPOS() {
         initComponents();
-        r = Register.getInstance();
+
+        // initialize User Manager
         um = UserManager.getInstance();
 
         // get table models and store to manipulate internal data easier
@@ -43,7 +52,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentalReturnCartTableModel = ((DefaultTableModel) rentalReturnCartTable.getModel());
 
         // disable login button on employee login panel
-        employeeLoginButton.setEnabled(false);
+        sysStartLoginButton.setEnabled(false);
     }
 
     /**
@@ -55,6 +64,16 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        systemStartPanel = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        sysStartPasswordField = new javax.swing.JPasswordField();
+        sysStartErrorLabel = new javax.swing.JLabel();
+        sysStartLoginButton = new javax.swing.JButton();
+        sysStartQuitButton = new javax.swing.JButton();
+        sysStartPasswordLabel = new javax.swing.JLabel();
+        sysStartUserIdLabel = new javax.swing.JLabel();
+        sysStartUserIdTextField = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
         employeeLoginPanel = new javax.swing.JPanel();
         employeeIdTextField = new javax.swing.JTextField();
         employeeIdLabel = new javax.swing.JLabel();
@@ -70,7 +89,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         startRentalButton = new javax.swing.JButton();
         startReturnButton = new javax.swing.JButton();
         userManagementButton = new javax.swing.JButton();
-        quitButton = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
         salePanel = new javax.swing.JPanel();
         saleLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -138,7 +157,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         managerLoginPanel = new javax.swing.JPanel();
         managerNameTextField = new javax.swing.JTextField();
         managerNameLabel = new javax.swing.JLabel();
-        managerNameLabel1 = new javax.swing.JLabel();
+        managerPasswordLabel = new javax.swing.JLabel();
         managerPasswordField = new javax.swing.JPasswordField();
         managerCancelButton = new javax.swing.JButton();
         managerLoginButton = new javax.swing.JButton();
@@ -162,7 +181,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleReturnPanel = new javax.swing.JPanel();
         saleReturnLabel = new javax.swing.JLabel();
         saleReturnCheckoutButton = new javax.swing.JButton();
-        saleReutrnCancelButton = new javax.swing.JButton();
+        saleReturnCancelButton = new javax.swing.JButton();
         saleReturnTotalLabel = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         previousSaleTable = new javax.swing.JTable();
@@ -175,7 +194,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleReturnIdPanel = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         saleReturnIdTextField = new javax.swing.JTextField();
-        saleReturnCancelButton = new javax.swing.JButton();
+        saleReturnIdCancelButton = new javax.swing.JButton();
         saleReturnOkButton = new javax.swing.JButton();
         saleReturnErrorLabel = new javax.swing.JLabel();
         saleReturnReasonLabel = new javax.swing.JLabel();
@@ -201,15 +220,121 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         rentalReturnReturnButton = new javax.swing.JButton();
         rentalReturnRemoveButton = new javax.swing.JButton();
+        lateFeeLabel = new javax.swing.JLabel();
         creditPanel = new javax.swing.JPanel();
         creditCancelButton = new javax.swing.JButton();
         creditOkButton = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         creditTextField = new javax.swing.JTextField();
         creditErrorLabel = new javax.swing.JLabel();
+        logOutPanel = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        logOutIdTextField = new javax.swing.JTextField();
+        logOutLogOutButton = new javax.swing.JButton();
+        logOutCancelButton = new javax.swing.JButton();
+        logOutErrorLabel = new javax.swing.JLabel();
+        systemOffPanel = new javax.swing.JPanel();
+        sysOffUserIdTextField = new javax.swing.JTextField();
+        sysOffUserIdLabel = new javax.swing.JLabel();
+        sysOffPasswordLabel = new javax.swing.JLabel();
+        sysOffPasswordField = new javax.swing.JPasswordField();
+        sysOffCancelButton = new javax.swing.JButton();
+        sysOffShutDownButton = new javax.swing.JButton();
+        sysOffErrorLabel = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        shutDownConfirmPanel = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        shutDownShutDownButton = new javax.swing.JButton();
+        shutDownCancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
+
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel12.setText("Welcome to the Scrumbags POS System");
+
+        sysStartPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sysStartPasswordFieldActionPerformed(evt);
+            }
+        });
+
+        sysStartErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
+        sysStartLoginButton.setText("Login");
+        sysStartLoginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sysStartLoginButtonActionPerformed(evt);
+            }
+        });
+
+        sysStartQuitButton.setText("Quit");
+        sysStartQuitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sysStartQuitButtonActionPerformed(evt);
+            }
+        });
+
+        sysStartPasswordLabel.setText("Password:");
+
+        sysStartUserIdLabel.setText("Manager ID:");
+
+        jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel13.setText("System Start Up");
+
+        javax.swing.GroupLayout systemStartPanelLayout = new javax.swing.GroupLayout(systemStartPanel);
+        systemStartPanel.setLayout(systemStartPanelLayout);
+        systemStartPanelLayout.setHorizontalGroup(
+            systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(systemStartPanelLayout.createSequentialGroup()
+                .addContainerGap(164, Short.MAX_VALUE)
+                .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12)
+                    .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(sysStartErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, systemStartPanelLayout.createSequentialGroup()
+                            .addComponent(sysStartQuitButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sysStartLoginButton))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, systemStartPanelLayout.createSequentialGroup()
+                            .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(sysStartUserIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(sysStartUserIdLabel))
+                            .addGap(18, 18, 18)
+                            .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(sysStartPasswordLabel)
+                                .addComponent(sysStartPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(164, Short.MAX_VALUE))
+        );
+
+        systemStartPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {sysStartPasswordField, sysStartUserIdTextField});
+
+        systemStartPanelLayout.setVerticalGroup(
+            systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(systemStartPanelLayout.createSequentialGroup()
+                .addContainerGap(104, Short.MAX_VALUE)
+                .addComponent(jLabel12)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel13)
+                .addGap(18, 18, 18)
+                .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sysStartUserIdLabel)
+                    .addComponent(sysStartPasswordLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sysStartUserIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sysStartPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sysStartQuitButton)
+                    .addComponent(sysStartLoginButton))
+                .addGap(18, 18, 18)
+                .addComponent(sysStartErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(105, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(systemStartPanel, "card21");
 
         employeeIdLabel.setText("User ID:");
 
@@ -236,6 +361,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         });
 
         employeeErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        employeeErrorLabel.setText("System startup successful...");
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel10.setText("Employee Login");
@@ -245,7 +371,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginPanelLayout.setHorizontalGroup(
             employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(employeeLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(149, Short.MAX_VALUE)
+                .addContainerGap(188, Short.MAX_VALUE)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -262,7 +388,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(employeePasswordLabel)
                                 .addComponent(employeePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         employeeLoginPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {employeeIdTextField, employeePasswordField});
@@ -270,7 +396,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginPanelLayout.setVerticalGroup(
             employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(employeeLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
+                .addContainerGap(110, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -286,7 +412,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(employeeLoginButton))
                 .addGap(18, 18, 18)
                 .addComponent(employeeErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         getContentPane().add(employeeLoginPanel, "card13");
@@ -322,10 +448,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             }
         });
 
-        quitButton.setText("Quit");
-        quitButton.addActionListener(new java.awt.event.ActionListener() {
+        logOutButton.setText("Log Out");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quitButtonActionPerformed(evt);
+                logOutButtonActionPerformed(evt);
             }
         });
 
@@ -334,23 +460,23 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap(262, Short.MAX_VALUE)
+                .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(quitButton)
+                    .addComponent(logOutButton)
                     .addComponent(userManagementButton)
                     .addComponent(menuLabel)
                     .addComponent(startReturnButton)
                     .addComponent(startRentalButton)
                     .addComponent(startSaleButton))
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
-        menuPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {quitButton, startRentalButton, startReturnButton, startSaleButton, userManagementButton});
+        menuPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {logOutButton, startRentalButton, startReturnButton, startSaleButton, userManagementButton});
 
         menuPanelLayout.setVerticalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(menuLabel)
                 .addGap(45, 45, 45)
                 .addComponent(startSaleButton)
@@ -361,8 +487,8 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(userManagementButton)
                 .addGap(35, 35, 35)
-                .addComponent(quitButton)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(logOutButton)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         getContentPane().add(menuPanel, "card2");
@@ -544,11 +670,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleItemAddErrorPanelLayout.setVerticalGroup(
             saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saleItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(175, Short.MAX_VALUE)
+                .addContainerGap(183, Short.MAX_VALUE)
                 .addComponent(itemAddErrorLabel)
                 .addGap(18, 18, 18)
                 .addComponent(itemAddOkButton)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         getContentPane().add(saleItemAddErrorPanel, "card7");
@@ -578,11 +704,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleRemoveErrorPanelLayout.setVerticalGroup(
             saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(169, Short.MAX_VALUE)
+                .addContainerGap(178, Short.MAX_VALUE)
                 .addComponent(removeErrorLabel)
                 .addGap(18, 18, 18)
                 .addComponent(removeErrorOkButton)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         getContentPane().add(saleRemoveErrorPanel, "card7");
@@ -748,7 +874,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentPeriodPanelLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         rentPeriodPanelLabel.setText("Rental Period:");
 
-        rentPeriodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 14, 1));
+        rentPeriodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 14, 1));
 
         rentPeriodSetButton.setText("Set");
         rentPeriodSetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -789,7 +915,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentPeriodPanelLayout.setVerticalGroup(
             rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentPeriodPanelLayout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
+                .addContainerGap(114, Short.MAX_VALUE)
                 .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rentPeriodPanelLabel)
                     .addComponent(rentPeriodSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -798,7 +924,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rentPeriodSetButton)
                     .addComponent(rentPeriodCancelButton))
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(245, Short.MAX_VALUE))
         );
 
         getContentPane().add(rentPeriodPanel, "card7");
@@ -828,11 +954,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentRemoveErrorPanelLayout.setVerticalGroup(
             rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(169, Short.MAX_VALUE)
+                .addContainerGap(178, Short.MAX_VALUE)
                 .addComponent(rentRemoveErrorLabel)
                 .addGap(18, 18, 18)
                 .addComponent(rentRemoveErrorButton)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         getContentPane().add(rentRemoveErrorPanel, "card7");
@@ -862,11 +988,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentItemAddErrorPanelLayout.setVerticalGroup(
             rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(175, Short.MAX_VALUE)
+                .addContainerGap(183, Short.MAX_VALUE)
                 .addComponent(rentItemAddErrorLabel)
                 .addGap(18, 18, 18)
                 .addComponent(rentItemAddErrorButton)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         getContentPane().add(rentItemAddErrorPanel, "card7");
@@ -904,11 +1030,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         cashOrCreditPanelLayout.setVerticalGroup(
             cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cashOrCreditPanelLayout.createSequentialGroup()
-                .addContainerGap(156, Short.MAX_VALUE)
+                .addContainerGap(165, Short.MAX_VALUE)
                 .addGroup(cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(creditButton))
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         cashOrCreditPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cashButton, creditButton});
@@ -949,28 +1075,27 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cashPanelLayout.createSequentialGroup()
                 .addContainerGap(166, Short.MAX_VALUE)
-                .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cashErrorLabel)
+                .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cashTotalLabel)
-                    .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(cashPanelLayout.createSequentialGroup()
-                            .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cashPanelCancelButton)
-                                .addGroup(cashPanelLayout.createSequentialGroup()
-                                    .addComponent(changeLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(changeAmountLabel)))
-                            .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(cashPanelLayout.createSequentialGroup()
-                                    .addGap(125, 125, 125)
-                                    .addComponent(cashDoneButton))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(calcChangeButton))))
-                        .addGroup(cashPanelLayout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cashReceivedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
+                        .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cashPanelCancelButton)
+                            .addGroup(cashPanelLayout.createSequentialGroup()
+                                .addComponent(changeLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(changeAmountLabel)))
+                        .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(cashPanelLayout.createSequentialGroup()
+                                .addGap(125, 125, 125)
+                                .addComponent(cashDoneButton))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(calcChangeButton))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cashReceivedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cashErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(166, Short.MAX_VALUE))
         );
 
@@ -979,7 +1104,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         cashPanelLayout.setVerticalGroup(
             cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
+                .addContainerGap(110, Short.MAX_VALUE)
                 .addComponent(cashTotalLabel)
                 .addGap(18, 18, 18)
                 .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -996,8 +1121,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(changeAmountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cashErrorLabel)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
+
+        cashPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cashErrorLabel, cashReceivedTextField});
 
         getContentPane().add(cashPanel, "card9");
 
@@ -1009,7 +1136,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         managerNameLabel.setText("User ID:");
 
-        managerNameLabel1.setText("Password:");
+        managerPasswordLabel.setText("Password:");
 
         managerPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1061,7 +1188,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                                 .addComponent(managerNameLabel))
                             .addGap(18, 18, 18)
                             .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(managerNameLabel1)
+                                .addComponent(managerPasswordLabel)
                                 .addComponent(managerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(184, Short.MAX_VALUE))
         );
@@ -1071,12 +1198,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         managerLoginPanelLayout.setVerticalGroup(
             managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(managerLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
+                .addContainerGap(113, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(managerNameLabel)
-                    .addComponent(managerNameLabel1))
+                    .addComponent(managerPasswordLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(managerNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1087,7 +1214,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(managerLoginButton))
                 .addGap(18, 18, 18)
                 .addComponent(managerErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         getContentPane().add(managerLoginPanel, "card13");
@@ -1113,9 +1240,16 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.Integer.class, java.lang.Boolean.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane2.setViewportView(employeeTable);
@@ -1131,9 +1265,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             }
         });
 
-        userNameLabel.setText("name");
+        userNameLabel.setText("Employee Name");
 
-        passwordLabel.setText("password");
+        passwordLabel.setText("Password");
 
         userManagerDoneButton.setText("Done");
         userManagerDoneButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1215,7 +1349,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addComponent(employeeIdAddLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeEmployeeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
                         .addComponent(userManagerDoneButton))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -1233,10 +1367,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             }
         });
 
-        saleReutrnCancelButton.setText("Cancel");
-        saleReutrnCancelButton.addActionListener(new java.awt.event.ActionListener() {
+        saleReturnCancelButton.setText("Cancel");
+        saleReturnCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saleReutrnCancelButtonActionPerformed(evt);
+                saleReturnCancelButtonActionPerformed(evt);
             }
         });
 
@@ -1341,7 +1475,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addGroup(saleReturnPanelLayout.createSequentialGroup()
                                 .addComponent(saleReturnTotalLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(saleReutrnCancelButton)
+                                .addComponent(saleReturnCancelButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(saleReturnCheckoutButton))
                             .addGroup(saleReturnPanelLayout.createSequentialGroup()
@@ -1367,7 +1501,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saleReturnReturnButton)
-                        .addGap(0, 51, Short.MAX_VALUE))
+                        .addGap(0, 68, Short.MAX_VALUE))
                     .addGroup(saleReturnPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1375,7 +1509,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(saleReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(saleReturnCheckoutButton)
-                            .addComponent(saleReutrnCancelButton)
+                            .addComponent(saleReturnCancelButton)
                             .addComponent(saleReturnTotalLabel))))
                 .addContainerGap())
         );
@@ -1386,10 +1520,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Enter the sale ID:");
 
-        saleReturnCancelButton.setText("Cancel");
-        saleReturnCancelButton.addActionListener(new java.awt.event.ActionListener() {
+        saleReturnIdCancelButton.setText("Cancel");
+        saleReturnIdCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saleReturnCancelButtonActionPerformed(evt);
+                saleReturnIdCancelButtonActionPerformed(evt);
             }
         });
 
@@ -1419,7 +1553,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(saleReturnReasonLabel)
                         .addGroup(saleReturnIdPanelLayout.createSequentialGroup()
-                            .addComponent(saleReturnCancelButton)
+                            .addComponent(saleReturnIdCancelButton)
                             .addGap(85, 85, 85)
                             .addComponent(saleReturnOkButton)))
                     .addComponent(saleReturnErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1431,7 +1565,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleReturnIdPanelLayout.setVerticalGroup(
             saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleReturnIdPanelLayout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(75, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(saleReturnIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1441,11 +1575,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addComponent(saleReturnReasonTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(saleReturnCancelButton)
+                    .addComponent(saleReturnIdCancelButton)
                     .addComponent(saleReturnOkButton))
                 .addGap(18, 18, 18)
                 .addComponent(saleReturnErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
         );
 
         getContentPane().add(saleReturnIdPanel, "card15");
@@ -1481,11 +1615,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleOrRentalReturnPanelLayout.setVerticalGroup(
             saleOrRentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleOrRentalReturnPanelLayout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(184, Short.MAX_VALUE)
                 .addGroup(saleOrRentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saleReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rentalReturnButton))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         saleOrRentalReturnPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {rentalReturnButton, saleReturnButton});
@@ -1533,7 +1667,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentalReturnIdPanelLayout.setVerticalGroup(
             rentalReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentalReturnIdPanelLayout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
+                .addContainerGap(116, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(rentalReturnIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1543,7 +1677,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(rentalReturnIdOkButton))
                 .addGap(20, 20, 20)
                 .addComponent(rentalReturnErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         getContentPane().add(rentalReturnIdPanel, "card15");
@@ -1635,6 +1769,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             }
         });
 
+        lateFeeLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        lateFeeLabel.setText("Late Fee:");
+
         javax.swing.GroupLayout rentalReturnPanelLayout = new javax.swing.GroupLayout(rentalReturnPanel);
         rentalReturnPanel.setLayout(rentalReturnPanelLayout);
         rentalReturnPanelLayout.setHorizontalGroup(
@@ -1648,10 +1785,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(rentalReturnPanelLayout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(rentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(rentalReturnReturnButton)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(18, Short.MAX_VALUE)
+                                .addGroup(rentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lateFeeLabel)
+                                    .addGroup(rentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(rentalReturnReturnButton)
+                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)))
                         .addGroup(rentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
@@ -1685,7 +1824,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rentalReturnReturnButton)
-                        .addGap(0, 51, Short.MAX_VALUE))
+                        .addGap(0, 68, Short.MAX_VALUE))
                     .addGroup(rentalReturnPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1693,13 +1832,19 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(rentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rentalReturnDoneButton)
-                            .addComponent(rentalReturnCancelButton))))
+                            .addComponent(rentalReturnCancelButton)
+                            .addComponent(lateFeeLabel))))
                 .addContainerGap())
         );
 
         getContentPane().add(rentalReturnPanel, "card3");
 
         creditCancelButton.setText("Cancel");
+        creditCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creditCancelButtonActionPerformed(evt);
+            }
+        });
 
         creditOkButton.setText("OK");
         creditOkButton.addActionListener(new java.awt.event.ActionListener() {
@@ -1736,7 +1881,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         creditPanelLayout.setVerticalGroup(
             creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, creditPanelLayout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(156, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(creditTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1746,22 +1891,214 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(creditOkButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(creditErrorLabel)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         creditPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {creditErrorLabel, creditTextField, jLabel11});
 
         getContentPane().add(creditPanel, "card20");
 
+        jLabel14.setText("Enter User ID:");
+
+        logOutLogOutButton.setText("Log Out");
+        logOutLogOutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutLogOutButtonActionPerformed(evt);
+            }
+        });
+
+        logOutCancelButton.setText("Cancel");
+        logOutCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutCancelButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout logOutPanelLayout = new javax.swing.GroupLayout(logOutPanel);
+        logOutPanel.setLayout(logOutPanelLayout);
+        logOutPanelLayout.setHorizontalGroup(
+            logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logOutPanelLayout.createSequentialGroup()
+                .addContainerGap(219, Short.MAX_VALUE)
+                .addGroup(logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(logOutErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(logOutPanelLayout.createSequentialGroup()
+                        .addGroup(logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(logOutCancelButton))
+                        .addGroup(logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(logOutPanelLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(logOutLogOutButton))
+                            .addGroup(logOutPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(logOutIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(225, Short.MAX_VALUE))
+        );
+
+        logOutPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel14, logOutLogOutButton});
+
+        logOutPanelLayout.setVerticalGroup(
+            logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logOutPanelLayout.createSequentialGroup()
+                .addContainerGap(144, Short.MAX_VALUE)
+                .addGroup(logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(logOutIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logOutLogOutButton)
+                    .addComponent(logOutCancelButton))
+                .addGap(18, 18, 18)
+                .addComponent(logOutErrorLabel)
+                .addContainerGap(180, Short.MAX_VALUE))
+        );
+
+        logOutPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {logOutCancelButton, logOutErrorLabel});
+
+        getContentPane().add(logOutPanel, "card22");
+
+        sysOffUserIdLabel.setText("Manager ID:");
+
+        sysOffPasswordLabel.setText("Password:");
+
+        sysOffPasswordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sysOffPasswordFieldActionPerformed(evt);
+            }
+        });
+
+        sysOffCancelButton.setText("Cancel");
+        sysOffCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sysOffCancelButtonActionPerformed(evt);
+            }
+        });
+
+        sysOffShutDownButton.setText("Shut Down");
+        sysOffShutDownButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sysOffShutDownButtonActionPerformed(evt);
+            }
+        });
+
+        sysOffErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel15.setText("System Shut Down");
+
+        javax.swing.GroupLayout systemOffPanelLayout = new javax.swing.GroupLayout(systemOffPanel);
+        systemOffPanel.setLayout(systemOffPanelLayout);
+        systemOffPanelLayout.setHorizontalGroup(
+            systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(systemOffPanelLayout.createSequentialGroup()
+                .addContainerGap(187, Short.MAX_VALUE)
+                .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(sysOffErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, systemOffPanelLayout.createSequentialGroup()
+                            .addComponent(sysOffCancelButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(sysOffShutDownButton))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, systemOffPanelLayout.createSequentialGroup()
+                            .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(sysOffUserIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(sysOffUserIdLabel))
+                            .addGap(18, 18, 18)
+                            .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(sysOffPasswordLabel)
+                                .addComponent(sysOffPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(185, Short.MAX_VALUE))
+        );
+
+        systemOffPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {sysOffPasswordField, sysOffUserIdTextField});
+
+        systemOffPanelLayout.setVerticalGroup(
+            systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(systemOffPanelLayout.createSequentialGroup()
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addComponent(jLabel15)
+                .addGap(18, 18, 18)
+                .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sysOffUserIdLabel)
+                    .addComponent(sysOffPasswordLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sysOffUserIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sysOffPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sysOffCancelButton)
+                    .addComponent(sysOffShutDownButton))
+                .addGap(18, 18, 18)
+                .addComponent(sysOffErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(147, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(systemOffPanel, "card13");
+
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel16.setText("Are you sure you want to shut down?");
+
+        shutDownShutDownButton.setText("Shut Down");
+        shutDownShutDownButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shutDownShutDownButtonActionPerformed(evt);
+            }
+        });
+
+        shutDownCancelButton.setText("Cancel");
+        shutDownCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shutDownCancelButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout shutDownConfirmPanelLayout = new javax.swing.GroupLayout(shutDownConfirmPanel);
+        shutDownConfirmPanel.setLayout(shutDownConfirmPanelLayout);
+        shutDownConfirmPanelLayout.setHorizontalGroup(
+            shutDownConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shutDownConfirmPanelLayout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addGroup(shutDownConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(shutDownConfirmPanelLayout.createSequentialGroup()
+                        .addComponent(shutDownCancelButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(shutDownShutDownButton))
+                    .addComponent(jLabel16))
+                .addContainerGap(61, Short.MAX_VALUE))
+        );
+        shutDownConfirmPanelLayout.setVerticalGroup(
+            shutDownConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(shutDownConfirmPanelLayout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(shutDownConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(shutDownShutDownButton)
+                    .addComponent(shutDownCancelButton))
+                .addContainerGap(69, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(shutDownConfirmPanel, "card24");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void startSaleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startSaleButtonActionPerformed
+        // clear table from previous sale
+        saleTableModel.setRowCount(0);
+
+        // clear total from last sale
+        saleTotalLabel.setText("Total:");
+
         r.makeNewSale();
         // set the total label to the new total
         String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
         saleTotalLabel.setText(total);
         menuPanel.setVisible(false);
+        previousPanel = menuPanel;
         salePanel.setVisible(true);
     }//GEN-LAST:event_startSaleButtonActionPerformed
 
@@ -1779,11 +2116,20 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // switch back to menu view
         salePanel.setVisible(false);
+        previousPanel = salePanel;
         menuPanel.setVisible(true);
     }//GEN-LAST:event_saleCancelButtonActionPerformed
 
     private void startRentalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startRentalButtonActionPerformed
+        // clear table from previous rental
+        rentTableModel.setRowCount(0);
+
+        // clear total from last rental
+        rentTotalLabel.setText("Total:");
+
+        // switch to rental view
         menuPanel.setVisible(false);
+        previousPanel = menuPanel;
         rentPeriodPanel.setVisible(true);
     }//GEN-LAST:event_startRentalButtonActionPerformed
 
@@ -1807,6 +2153,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 saleQtyTextField.setText("");
             } catch (NullPointerException ex) {
                 salePanel.setVisible(false);
+                previousPanel = salePanel;
                 saleItemAddErrorPanel.setVisible(true);
             }
         } catch (NumberFormatException ex) {
@@ -1815,6 +2162,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
     private void itemAddOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddOkButtonActionPerformed
         saleItemAddErrorPanel.setVisible(false);
+        previousPanel = saleItemAddErrorPanel;
         salePanel.setVisible(true);
     }//GEN-LAST:event_itemAddOkButtonActionPerformed
 
@@ -1836,6 +2184,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 saleRemoveTextField.setText("");
             } catch (IndexOutOfBoundsException ex) {
                 salePanel.setVisible(false);
+                previousPanel = salePanel;
                 saleRemoveErrorPanel.setVisible(true);
             }
         } catch (NumberFormatException ex) {
@@ -1845,28 +2194,25 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
     private void removeErrorOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeErrorOkButtonActionPerformed
         saleRemoveErrorPanel.setVisible(false);
+        previousPanel = saleRemoveErrorPanel;
         salePanel.setVisible(true);
     }//GEN-LAST:event_removeErrorOkButtonActionPerformed
 
     private void saleCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleCheckoutButtonActionPerformed
-        // end sale to update inventory and add transaction to database
-        //r.endTransaction();
+        // set total label in cashPanel
+        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        cashTotalLabel.setText(total);
+
+        // prompt for cash or credit
+        salePanel.setVisible(false);
+        previousPanel = salePanel;
+        cashOrCreditPanel.setVisible(true);
 
         // clear text fields
         saleIdTextField.setText("");
         saleQtyTextField.setText("");
         saleRemoveTextField.setText("");
 
-        // reset table
-        saleTableModel.setRowCount(0);
-
-        // set total label in cashPanel
-        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
-        cashTotalLabel.setText(total);
-
-        // prompt for cash or credit
-        cashOrCreditPanel.setVisible(true);
-        salePanel.setVisible(false);
     }//GEN-LAST:event_saleCheckoutButtonActionPerformed
 
     private void rentCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCheckoutButtonActionPerformed
@@ -1877,6 +2223,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // return to menu view
         rentPanel.setVisible(false);
+        previousPanel = rentPanel;
         cashOrCreditPanel.setVisible(true);
     }//GEN-LAST:event_rentCheckoutButtonActionPerformed
 
@@ -1900,6 +2247,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 rentQtyTextField.setText("");
             } catch (NullPointerException ex) {
                 rentPanel.setVisible(false);
+                previousPanel = rentPanel;
                 rentItemAddErrorPanel.setVisible(true);
             }
         } catch (NumberFormatException ex) {
@@ -1912,12 +2260,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         r.cancelTransaction();
 
         // reset table
-        DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
-        model.setRowCount(0);
-
+        //DefaultTableModel model = (DefaultTableModel) rentCartTable.getModel();
+        //model.setRowCount(0);
         // reset total
-        rentTotalLabel.setText("Total:");
-
+        // rentTotalLabel.setText("Total:");
         // clear text fields
         rentIdTextField.setText("");
         rentQtyTextField.setText("");
@@ -1925,6 +2271,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // switch back to menu view
         rentPanel.setVisible(false);
+        previousPanel = rentPanel;
         menuPanel.setVisible(true);
     }//GEN-LAST:event_rentCancelButtonActionPerformed
 
@@ -1946,6 +2293,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 rentRemoveTextField.setText("");
             } catch (IndexOutOfBoundsException ex) {
                 rentPanel.setVisible(false);
+                previousPanel = rentPanel;
                 rentRemoveErrorPanel.setVisible(true);
             }
         } catch (NumberFormatException ex) {
@@ -1959,6 +2307,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // switch back to main menu view
         rentPeriodPanel.setVisible(false);
+        previousPanel = rentPeriodPanel;
         menuPanel.setVisible(true);
     }//GEN-LAST:event_rentPeriodCancelButtonActionPerformed
 
@@ -1974,6 +2323,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // switch to rental view
         rentPeriodPanel.setVisible(false);
+        previousPanel = rentPeriodPanel;
         rentPanel.setVisible(true);
 
         // set rental period in rentPanel to rental period provided
@@ -1986,14 +2336,21 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         cashTotalLabel.setText(total);
 
         // switch to cash payment view
+        // note that the previous panel is not updated here, that is so we can access the previous transaction if we cancel the payment
         cashOrCreditPanel.setVisible(false);
         cashPanel.setVisible(true);
 
         // disable done button on cashPanel
         cashDoneButton.setEnabled(false);
+
+        // reset cash error message from previous attempts
+        cashErrorLabel.setText("");
+        // reset change amount from previous attempts
+        changeAmountLabel.setText("");
     }//GEN-LAST:event_cashButtonActionPerformed
 
     private void calcChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcChangeButtonActionPerformed
+        changeAmountLabel.setText("");
         try {
             // get cash received
             Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
@@ -2008,63 +2365,72 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
                 // allow done button to be pressed
                 cashDoneButton.setEnabled(true);
+
+                // reset cashErrorLabel
+                cashErrorLabel.setText("");
             } else {
-                changeAmountLabel.setText("Insufficient Funds");
+                cashErrorLabel.setText("Insufficient funds.");
+                // clear cash text fields
+                cashReceivedTextField.setText("");
             }
         } catch (NumberFormatException ex) {
+            cashErrorLabel.setText("Enter a valid amount.");
+            // clear cash text fields
+            cashReceivedTextField.setText("");
         }
     }//GEN-LAST:event_calcChangeButtonActionPerformed
 
     private void cashDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashDoneButtonActionPerformed
-        // end sale
-        r.endTransaction();
+        // get cash received
+        Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
 
-        // return to menu view
-        cashPanel.setVisible(false);
-        menuPanel.setVisible(true);
+        // create a new payment from cashReceived and verify that it is correct
+        r.makeCashPayment(new Money(cashReceived));
 
-        // reset sale table
-        saleTableModel.setRowCount(0);
+        // attempt to end transaction
+        if (r.endTransaction()) {
+            // return to menu view
+            cashPanel.setVisible(false);
+            previousPanel = cashPanel;
+            menuPanel.setVisible(true);
+            
+            // clear sale return tables and rental return tables from past attempts
+            previousSaleTableModel.setRowCount(0);
+            saleReturnCartTableModel.setRowCount(0);
+            previousRentalTableModel.setRowCount(0);
+            rentalReturnCartTableModel.setRowCount(0);
 
+        }
         // clear cash text fields
         cashReceivedTextField.setText("");
-        changeAmountLabel.setText("");
-        cashErrorLabel.setText("");
-
-        // reset rent table
-        rentTableModel.setRowCount(0);
+        //changeAmountLabel.setText("");
+        // cashErrorLabel.setText("");
 
     }//GEN-LAST:event_cashDoneButtonActionPerformed
 
     private void cashPanelCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashPanelCancelButtonActionPerformed
-        // cancel transaction
-        r.cancelTransaction();
-
         // clear all cashPanel text
-        // return to menu view
+        // return to the previous transaction panel
         cashPanel.setVisible(false);
-        menuPanel.setVisible(true);
+        previousPanel.setVisible(true);
 
         // clear text fields
         cashReceivedTextField.setText("");
         changeAmountLabel.setText("");
         cashErrorLabel.setText("");
-
-        // reset rent and sale tables
-        rentTableModel.setRowCount(0);
-        saleTableModel.setRowCount(0);
-
     }//GEN-LAST:event_cashPanelCancelButtonActionPerformed
 
     private void rentRemoveErrorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentRemoveErrorButtonActionPerformed
         // change back to rental view
         rentRemoveErrorPanel.setVisible(false);
+        previousPanel = rentRemoveErrorPanel;
         rentPanel.setVisible(true);
     }//GEN-LAST:event_rentRemoveErrorButtonActionPerformed
 
     private void rentItemAddErrorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentItemAddErrorButtonActionPerformed
         // change back to rental view
         rentItemAddErrorPanel.setVisible(false);
+        previousPanel = rentItemAddErrorPanel;
         rentPanel.setVisible(true);
     }//GEN-LAST:event_rentItemAddErrorButtonActionPerformed
 
@@ -2134,6 +2500,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void userManagementButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagementButtonActionPerformed
         // change to user management view
         menuPanel.setVisible(false);
+        previousPanel = menuPanel;
         managerLoginPanel.setVisible(true);
 
         // disable login button on manager login panel
@@ -2143,6 +2510,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void userManagerDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userManagerDoneButtonActionPerformed
         // switch back to menu view
         userManagerPanel.setVisible(false);
+        previousPanel = userManagerPanel;
         menuPanel.setVisible(true);
 
         // clear employee table for future calls
@@ -2166,6 +2534,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // return to menu view
         managerLoginPanel.setVisible(false);
+        previousPanel = managerLoginPanel;
         menuPanel.setVisible(true);
     }//GEN-LAST:event_managerCancelButtonActionPerformed
 
@@ -2176,12 +2545,19 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             String password = new String(managerPasswordField.getPassword());
 
             // check login information
-            boolean isManager = um.managerLogin(employeeId, password);
-            boolean isEmployee = um.login(employeeId, password);
+            boolean isManager = um.checkManager(employeeId, password);
+            boolean isEmployee = false;
+            if (!isManager) {
+                isEmployee = um.checkEmployee(employeeId, password);
+            }
 
             if (isManager) {
+                // clear error label
+                managerErrorLabel.setText("");
+
                 // switch to user manager view
                 managerLoginPanel.setVisible(false);
+                previousPanel = managerLoginPanel;
                 userManagerPanel.setVisible(true);
 
                 // initialize employees in userManagerPanel table
@@ -2208,6 +2584,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_managerPasswordFieldPropertyChange
 
     private void saleReturnCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCheckoutButtonActionPerformed
+        // create a reimbursement
+        r.makeReimbursement();  
+
         // update inventory in database
         r.endTransaction();
 
@@ -2217,10 +2596,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // return to menu panel
         saleReturnPanel.setVisible(false);
+        previousPanel = saleReturnPanel;
         menuPanel.setVisible(true);
     }//GEN-LAST:event_saleReturnCheckoutButtonActionPerformed
 
-    private void saleReutrnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReutrnCancelButtonActionPerformed
+    private void saleReturnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCancelButtonActionPerformed
         // clear tables and total
         previousSaleTableModel.setRowCount(0);
         saleReturnCartTableModel.setRowCount(0);
@@ -2228,26 +2608,29 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // return to menu view
         saleReturnPanel.setVisible(false);
+        previousPanel = saleReturnPanel;
         menuPanel.setVisible(true);
 
-    }//GEN-LAST:event_saleReutrnCancelButtonActionPerformed
+    }//GEN-LAST:event_saleReturnCancelButtonActionPerformed
 
     private void startReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startReturnButtonActionPerformed
 
         //NOTE: this is handling the sale return use case only!!!
         // switch to return view
         menuPanel.setVisible(false);
+        previousPanel = menuPanel;
         saleOrRentalReturnPanel.setVisible(true);
     }//GEN-LAST:event_startReturnButtonActionPerformed
 
-    private void saleReturnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCancelButtonActionPerformed
+    private void saleReturnIdCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnIdCancelButtonActionPerformed
         // clear saleReturnIdLabel's textfield
         saleReturnIdTextField.setText("");
 
         // switch back to menu view
         saleReturnIdPanel.setVisible(false);
+        previousPanel = saleReturnIdPanel;
         menuPanel.setVisible(true);
-    }//GEN-LAST:event_saleReturnCancelButtonActionPerformed
+    }//GEN-LAST:event_saleReturnIdCancelButtonActionPerformed
 
     // requires that current transaction be a saleReturn and that the sale was already found
     public void initPreviousSaleTable() {
@@ -2279,7 +2662,13 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
             // switch to saleReturn view
             saleReturnIdPanel.setVisible(false);
+            previousPanel = saleReturnIdPanel;
             saleReturnPanel.setVisible(true);
+
+            // clear saleReturnTable from past attempts
+            previousSaleTableModel.setRowCount(0);
+            saleReturnCartTableModel.setRowCount(0);
+
         } catch (Exception ex) {
             saleReturnErrorLabel.setText("Invalid sale ID entered.");
         }
@@ -2309,7 +2698,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void saleReturnRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnRemoveButtonActionPerformed
         // get the current transaction's sale object
         Transaction t = r.getCurrentTransaction();
-        Transaction prevSale = ((SaleReturn)t).getSale();
+        Transaction prevSale = ((SaleReturn) t).getSale();
 
         // get selected row and make into LineItem
         int returnRow = saleReturnCartTable.getSelectedRow();
@@ -2318,7 +2707,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // remove row from r.currentTransaction and returnCartTable
         saleReturnCartTableModel.removeRow(returnRow);
         t.removeLineItem(returnRow);
-        
+
         // remove line from sale and from Return's sale object so it cannot be accessed again
         previousSaleTableModel.addRow(makeRow(line));
         prevSale.makeLineItem(line);
@@ -2331,35 +2720,48 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void rentalReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnButtonActionPerformed
         // switch to rental return view
         saleOrRentalReturnPanel.setVisible(false);
+        previousPanel = saleOrRentalReturnPanel;
         rentalReturnIdPanel.setVisible(true);
     }//GEN-LAST:event_rentalReturnButtonActionPerformed
 
     private void saleReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnButtonActionPerformed
         // switch to sale return view
         saleOrRentalReturnPanel.setVisible(false);
+        previousPanel = saleOrRentalReturnPanel;
         saleReturnIdPanel.setVisible(true);
     }//GEN-LAST:event_saleReturnButtonActionPerformed
 
     private void rentalReturnIdCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnIdCancelButtonActionPerformed
         // switch back to menu view
         rentalReturnIdPanel.setVisible(false);
+        previousPanel = rentalReturnPanel;
         menuPanel.setVisible(true);
     }//GEN-LAST:event_rentalReturnIdCancelButtonActionPerformed
 
     private void rentalReturnIdOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnIdOkButtonActionPerformed
         // catch occurs when a non int is passed to the text field
         try {
+            
             // get sale ID from field and test it
-            Integer saleID = Integer.parseInt(rentalReturnIdTextField.getText());
+            Integer rentID = Integer.parseInt(rentalReturnIdTextField.getText());
 
             // create new return with saleID
-            r.makeNewRentalReturn(saleID);
+            r.makeNewRentalReturn(rentID);
+            
+            // get the current transaction and its rental object
+            RentalReturn rentReturn = (RentalReturn) r.getCurrentTransaction();
+            Rental rental = (Rental) rentReturn.getRental();
 
-            System.out.println(((RentalReturn) r.getCurrentTransaction()).getRental());
-
-            // check that sale was found
-            if (((RentalReturn) r.getCurrentTransaction()).getRental() != null) {
+            // check that rental was found in transaction database
+            if (rental != null) {
+                System.out.println("initializing previous rental table");
+                
+                // initialize the items that can be returned
                 initPreviousRentalTable();
+                
+                // display late fee
+                String lateFee = String.format("Late Fee: $%4.2f", rentReturn.getTotal().getAmount().doubleValue());
+                lateFeeLabel.setText(lateFee);
             }
 
             // clear saleReturnIdLabel's textfield
@@ -2367,23 +2769,43 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
             // switch to saleReturn view
             rentalReturnIdPanel.setVisible(false);
+            previousPanel = rentalReturnIdPanel;
             rentalReturnPanel.setVisible(true);
-        } catch (Exception ex) {
-            rentalReturnErrorLabel.setText("Invalid rental ID entered.");
+        } 
+        catch (NumberFormatException ex) {
+            rentalReturnErrorLabel.setText("Invalid ID entered.");
+        }
+        catch (ClassCastException cex) {
+            rentalReturnErrorLabel.setText("Rental ID not found in database");
         }
     }//GEN-LAST:event_rentalReturnIdOkButtonActionPerformed
 
     private void rentalReturnDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnDoneButtonActionPerformed
-        // update inventory in database
-        r.endTransaction();
-
-        // clear tables
-        previousRentalTableModel.setRowCount(0);
-        rentalReturnCartTableModel.setRowCount(0);
-
-        // return to menu panel
-        rentalReturnPanel.setVisible(false);
-        menuPanel.setVisible(true);
+        // check if the customer incurred a late fee
+        if (r.getCurrentTransaction().getTotal().getAmount().doubleValue() > 0) {
+            
+            // go to cash or credit panel
+            rentalReturnPanel.setVisible(false);
+            previousPanel = rentalReturnPanel;
+            cashOrCreditPanel.setVisible(true);
+        }
+        else {
+            // make a new payment to satisfy verify
+            r.makeCashPayment(new Money(0));
+            
+            // end the transaction because no payment needed
+            r.endTransaction();
+            
+            // clear tables and total
+            previousRentalTableModel.setRowCount(0);
+            rentalReturnCartTableModel.setRowCount(0);
+            
+            // return to menu panel
+            rentalReturnPanel.setVisible(false);
+            previousPanel = rentalReturnPanel;
+            menuPanel.setVisible(true);
+            
+        }
     }//GEN-LAST:event_rentalReturnDoneButtonActionPerformed
 
     private void rentalReturnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnCancelButtonActionPerformed
@@ -2393,6 +2815,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // return to menu view
         rentalReturnPanel.setVisible(false);
+        previousPanel = rentalReturnPanel;
         menuPanel.setVisible(true);
 
     }//GEN-LAST:event_rentalReturnCancelButtonActionPerformed
@@ -2417,7 +2840,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void rentalReturnRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnRemoveButtonActionPerformed
         // get the current transaction's sale object
         Transaction t = r.getCurrentTransaction();
-        Transaction prevRental = ((RentalReturn)t).getRental();
+        Transaction prevRental = ((RentalReturn) t).getRental();
 
         // get selected row and make into LineItem
         int returnRow = rentalReturnCartTable.getSelectedRow();
@@ -2430,7 +2853,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // remove line from sale and from Return's sale object so it cannot be accessed again
         previousRentalTableModel.addRow(makeRow(line));
         prevRental.makeLineItem(line);
-        
+
     }//GEN-LAST:event_rentalReturnRemoveButtonActionPerformed
 
     private void employeePasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeePasswordFieldActionPerformed
@@ -2440,8 +2863,13 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_employeePasswordFieldActionPerformed
 
     private void employeeQuitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeQuitButtonActionPerformed
-        // quit the program
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        // switch to manager authorized shut down view
+        employeeLoginPanel.setVisible(false);
+        previousPanel = employeeLoginPanel;
+        systemOffPanel.setVisible(true);
+
+        // disable shutdown button
+        sysOffShutDownButton.setEnabled(false);
     }//GEN-LAST:event_employeeQuitButtonActionPerformed
 
     private void employeeLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeLoginButtonActionPerformed
@@ -2453,6 +2881,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             if (um.login(employeeId, password)) {
                 // switch to user manager view
                 employeeLoginPanel.setVisible(false);
+                previousPanel = employeeLoginPanel;
                 menuPanel.setVisible(true);
 
                 // clear error label
@@ -2471,11 +2900,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginButton.setEnabled(false);
     }//GEN-LAST:event_employeeLoginButtonActionPerformed
 
-    private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
-        // quit the program
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-    }//GEN-LAST:event_quitButtonActionPerformed
-
     private void creditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditButtonActionPerformed
         // switch to credit view
         cashOrCreditPanel.setVisible(false);
@@ -2483,20 +2907,195 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_creditButtonActionPerformed
 
     private void creditOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditOkButtonActionPerformed
-        try {
-            // get credit card number
-            Integer cardNum = Integer.parseInt(creditTextField.getText());
+        // reset creditErrorLabel from past tries
+        creditErrorLabel.setText("");
+        
+        // make a payment object using the credit card number given
+        r.makeCreditPayment(creditTextField.getText());
 
-            // end transaction
-            r.endTransaction();
-
+        // end transaction
+        if (r.endTransaction()) {
             // return to menu view
             creditPanel.setVisible(false);
+            previousPanel = creditPanel;
             menuPanel.setVisible(true);
-        } catch (NumberFormatException ex) {
-            creditErrorLabel.setText("Invalid credit card number entered.");
+        } else {
+            creditErrorLabel.setText("Payment not authorized.");
         }
+
+        // clear the credit card number field
+        creditTextField.setText("");
     }//GEN-LAST:event_creditOkButtonActionPerformed
+
+    private void sysStartPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysStartPasswordFieldActionPerformed
+        // activate manager login button
+        sysStartLoginButton.setEnabled(true);
+        sysStartLoginButton.requestFocus();
+    }//GEN-LAST:event_sysStartPasswordFieldActionPerformed
+
+    private void sysStartLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysStartLoginButtonActionPerformed
+        //get name and password
+        try {
+            Integer employeeId = Integer.parseInt(sysStartUserIdTextField.getText());
+            String password = new String(sysStartPasswordField.getPassword());
+
+            // check login information
+            boolean isManager = um.checkManager(employeeId, password);
+            boolean isEmployee = false;
+            if (!isManager) {
+                isEmployee = um.checkEmployee(employeeId, password);
+            }
+
+            if (isManager) {
+                // clear error message
+                sysStartErrorLabel.setText("");
+
+                // initialize the Register to make sales
+                r = Register.getInstance();
+
+                // switch to employee login
+                systemStartPanel.setVisible(false);
+                previousPanel = systemStartPanel;
+                employeeLoginPanel.setVisible(true);
+
+                // disable employeeLoginButton
+                employeeLoginButton.setEnabled(false);
+            } else if (isEmployee) {
+                sysStartErrorLabel.setText("User " + employeeId + " is not a manager. Access Denied.");
+                um.logout(employeeId);
+            } else {
+                sysStartErrorLabel.setText("Invalid ID or password entered.");
+            }
+        } catch (NumberFormatException ex) {
+            sysStartErrorLabel.setText("Invalid ID or password entered.");
+        }
+        // clear fields for next time
+        sysStartUserIdTextField.setText("");
+        sysStartPasswordField.setText("");
+
+        // disable login button
+        sysStartLoginButton.setEnabled(false);
+    }//GEN-LAST:event_sysStartLoginButtonActionPerformed
+
+    private void sysStartQuitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysStartQuitButtonActionPerformed
+        // quit program
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_sysStartQuitButtonActionPerformed
+
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        // switch to logout view
+        menuPanel.setVisible(false);
+        previousPanel = menuPanel;
+        logOutPanel.setVisible(true);
+    }//GEN-LAST:event_logOutButtonActionPerformed
+
+    private void logOutLogOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutLogOutButtonActionPerformed
+        // get user ID from text field
+        try {
+            Integer id = Integer.parseInt(logOutIdTextField.getText());
+
+            if (um.logout(id)) {
+                // clear error label
+                logOutErrorLabel.setText("");
+
+                // switch to user login panel
+                logOutPanel.setVisible(false);
+                previousPanel = logOutPanel;
+                employeeLoginPanel.setVisible(true);
+            } else {
+                logOutErrorLabel.setText("Logout unsuccessful...");
+            }
+        } catch (NumberFormatException ex) {
+            logOutErrorLabel.setText("Logout unsuccessful...");
+        }
+
+        // clear text field
+        logOutIdTextField.setText("");
+    }//GEN-LAST:event_logOutLogOutButtonActionPerformed
+
+    private void logOutCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutCancelButtonActionPerformed
+        // clear text field
+        logOutIdTextField.setText("");
+
+        // switch back to menu view
+        logOutPanel.setVisible(false);
+        previousPanel = logOutPanel;
+        menuPanel.setVisible(true);
+    }//GEN-LAST:event_logOutCancelButtonActionPerformed
+
+    private void sysOffPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysOffPasswordFieldActionPerformed
+        // enable shut down button
+        sysOffShutDownButton.setEnabled(true);
+        sysOffShutDownButton.requestFocus();
+    }//GEN-LAST:event_sysOffPasswordFieldActionPerformed
+
+    private void sysOffCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysOffCancelButtonActionPerformed
+        // swtich back to employee log in
+        systemOffPanel.setVisible(false);
+        previousPanel = systemOffPanel;
+        employeeLoginPanel.setVisible(true);
+    }//GEN-LAST:event_sysOffCancelButtonActionPerformed
+
+    private void sysOffShutDownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysOffShutDownButtonActionPerformed
+        //get name and password
+        try {
+            Integer employeeId = Integer.parseInt(sysOffUserIdTextField.getText());
+            String password = new String(sysOffPasswordField.getPassword());
+
+            // check login information
+            boolean isManager = um.checkManager(employeeId, password);
+            boolean isEmployee = false;
+            if (!isManager) {
+                isEmployee = um.checkEmployee(employeeId, password);
+            }
+
+            if (isManager) {
+                // clear error label
+                sysOffErrorLabel.setText("");
+
+                // switch to user manager view
+                systemOffPanel.setVisible(false);
+                previousPanel = systemOffPanel;
+                shutDownConfirmPanel.setVisible(true);
+
+                // initialize employees in userManagerPanel table
+                initEmployeeTable();
+            } else if (isEmployee) {
+                sysOffErrorLabel.setText("User " + employeeId + " is not a manager. Access Denied.");
+            } else {
+                sysOffErrorLabel.setText("Invalid ID or password entered.");
+            }
+        } catch (NumberFormatException ex) {
+            sysOffErrorLabel.setText("Invalid ID or password entered.");
+        }
+        // clear fields for next time
+        sysOffUserIdTextField.setText("");
+        sysOffPasswordField.setText("");
+
+        // disable login button
+        sysOffShutDownButton.setEnabled(false);
+    }//GEN-LAST:event_sysOffShutDownButtonActionPerformed
+
+    private void shutDownShutDownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shutDownShutDownButtonActionPerformed
+        // quit program
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_shutDownShutDownButtonActionPerformed
+
+    private void shutDownCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shutDownCancelButtonActionPerformed
+        // switch back to shutdown authorization view
+        shutDownConfirmPanel.setVisible(false);
+        previousPanel = shutDownConfirmPanel;
+        systemOffPanel.setVisible(true);
+    }//GEN-LAST:event_shutDownCancelButtonActionPerformed
+
+    private void creditCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creditCancelButtonActionPerformed
+        // clear credit card number text field
+        creditTextField.setText("");
+
+        // switch back to previous transaction
+        creditPanel.setVisible(false);
+        previousPanel.setVisible(true);
+    }//GEN-LAST:event_creditCancelButtonActionPerformed
 
     public void initPreviousRentalTable() {
         RentalReturn t = ((RentalReturn) r.getCurrentTransaction());
@@ -2599,6 +3198,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2614,15 +3218,22 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JLabel lateFeeLabel;
+    private javax.swing.JButton logOutButton;
+    private javax.swing.JButton logOutCancelButton;
+    private javax.swing.JLabel logOutErrorLabel;
+    private javax.swing.JTextField logOutIdTextField;
+    private javax.swing.JButton logOutLogOutButton;
+    private javax.swing.JPanel logOutPanel;
     private javax.swing.JButton managerCancelButton;
     private javax.swing.JCheckBox managerCheckBox;
     private javax.swing.JLabel managerErrorLabel;
     private javax.swing.JButton managerLoginButton;
     private javax.swing.JPanel managerLoginPanel;
     private javax.swing.JLabel managerNameLabel;
-    private javax.swing.JLabel managerNameLabel1;
     private javax.swing.JTextField managerNameTextField;
     private javax.swing.JPasswordField managerPasswordField;
+    private javax.swing.JLabel managerPasswordLabel;
     private javax.swing.JLabel menuLabel;
     private javax.swing.JPanel menuPanel;
     private javax.swing.JTextField nameTextField;
@@ -2630,7 +3241,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JTextField passwordTextField;
     private javax.swing.JTable previousRentalTable;
     private javax.swing.JTable previousSaleTable;
-    private javax.swing.JButton quitButton;
     private javax.swing.JButton removeEmployeeButton;
     private javax.swing.JLabel removeErrorLabel;
     private javax.swing.JButton removeErrorOkButton;
@@ -2696,6 +3306,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JTable saleReturnCartTable;
     private javax.swing.JButton saleReturnCheckoutButton;
     private javax.swing.JLabel saleReturnErrorLabel;
+    private javax.swing.JButton saleReturnIdCancelButton;
     private javax.swing.JPanel saleReturnIdPanel;
     private javax.swing.JTextField saleReturnIdTextField;
     private javax.swing.JLabel saleReturnLabel;
@@ -2706,11 +3317,29 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JButton saleReturnRemoveButton;
     private javax.swing.JButton saleReturnReturnButton;
     private javax.swing.JLabel saleReturnTotalLabel;
-    private javax.swing.JButton saleReutrnCancelButton;
     private javax.swing.JLabel saleTotalLabel;
+    private javax.swing.JButton shutDownCancelButton;
+    private javax.swing.JPanel shutDownConfirmPanel;
+    private javax.swing.JButton shutDownShutDownButton;
     private javax.swing.JButton startRentalButton;
     private javax.swing.JButton startReturnButton;
     private javax.swing.JButton startSaleButton;
+    private javax.swing.JButton sysOffCancelButton;
+    private javax.swing.JLabel sysOffErrorLabel;
+    private javax.swing.JPasswordField sysOffPasswordField;
+    private javax.swing.JLabel sysOffPasswordLabel;
+    private javax.swing.JButton sysOffShutDownButton;
+    private javax.swing.JLabel sysOffUserIdLabel;
+    private javax.swing.JTextField sysOffUserIdTextField;
+    private javax.swing.JLabel sysStartErrorLabel;
+    private javax.swing.JButton sysStartLoginButton;
+    private javax.swing.JPasswordField sysStartPasswordField;
+    private javax.swing.JLabel sysStartPasswordLabel;
+    private javax.swing.JButton sysStartQuitButton;
+    private javax.swing.JLabel sysStartUserIdLabel;
+    private javax.swing.JTextField sysStartUserIdTextField;
+    private javax.swing.JPanel systemOffPanel;
+    private javax.swing.JPanel systemStartPanel;
     private javax.swing.JButton userManagementButton;
     private javax.swing.JButton userManagerDoneButton;
     private javax.swing.JLabel userManagerLabel;
