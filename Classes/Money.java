@@ -115,4 +115,10 @@ public class Money implements Comparable {
         }
         else throw new ClassCastException();
     }
+    
+    @Override
+    public String toString() {
+        String str=amount.toString();
+        return str;
+    }
 }
