@@ -51,7 +51,7 @@ public class LineItem {
     
     @Override
     public String toString() {
-        String str= prod.getDescription()+ "\t"+prod.getPrice().toString()+"\t"+qty;
+        String str= prod.getDescription()+ "\t$"+prod.getPrice().toString()+"\t"+qty;
         return str;
     }
 }
