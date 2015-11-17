@@ -7,12 +7,11 @@ import java.util.*;
  * @author The Scrumbags
  */
 public class SaleReceipt extends Receipt {
-    public SaleReceipt() {}
+    public SaleReceipt() { super(); }
     
     /**
      * Writes the actual receipt body.
-     * @param t
-     * @throws ClassCastException 
+     * @param t 
      */
     @Override
     public void makeReceiptBody(Transaction t) {
