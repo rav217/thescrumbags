@@ -30,11 +30,9 @@ public class RentalReturn extends Transaction {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         this.rental = db.findTransaction("R", rentalID);
-        this.daysLate = this.getDaysLate();
-        this.setLateFee();
         try {
-            if (rental instanceof Rental) {
-                rental = (Rental) rental;
+            if (this.rental instanceof Rental) {
+                this.rental = (Rental) this.rental;
             } else {
                 throw new ClassCastException();
             }
@@ -44,6 +42,11 @@ public class RentalReturn extends Transaction {
         db.closeConnection();
         if (this.rental == null) {
             System.out.println("Rental not found in database");
+        }
+        else {
+            this.setLateFee();
+            System.out.println(this.total);
+            this.daysLate = this.getDaysLate();
         }
     }
 
@@ -97,6 +100,10 @@ public class RentalReturn extends Transaction {
      */
     public final int getDaysLate() {
         GregorianCalendar now = this.date;
+        System.out.println("rental return date");
+        System.out.println(this.rental.getReturnDate());
+        System.out.println("today's date");
+        System.out.println(now);
         if (now.after(rental.getReturnDate())) { //TODO: either fix this or change DBHandler
             daysLate = now.get(Calendar.DAY_OF_YEAR) - rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
             

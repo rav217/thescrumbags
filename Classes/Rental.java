@@ -27,8 +27,9 @@ public class Rental extends Transaction {
     public Rental(int rentalPeriod) {
         super();
         this.rentalPeriod = rentalPeriod;
-        returnDate = new GregorianCalendar();
-        returnDate.add(Calendar.DAY_OF_YEAR, rentalPeriod);
+        this.returnDate = new GregorianCalendar();
+        this.returnDate.add(Calendar.DAY_OF_YEAR, rentalPeriod);
+        System.out.println(this.returnDate);
     }
     
     //need 2 arg constructor for DB purposes
