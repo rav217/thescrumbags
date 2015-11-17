@@ -166,7 +166,6 @@ public class UserManager {
     }
     
     public boolean checkEmployee(int employeeId, String password) {
-        Employee e = this.eList.findEmployee(employeeId);
         boolean successful = false;
         
         try {
