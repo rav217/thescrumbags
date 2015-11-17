@@ -141,7 +141,7 @@ public class DBHandler {
     
     //finds transaction from transactionhistory table in DB
     //returns Transaction
-    //TODO: initialize due date for rental trans
+    //TODO: add col for rental period, use 1 arg rental constructor
     public Transaction findTransaction(String type, int id){
         //need array list of sli, total price
         String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;
@@ -202,8 +202,8 @@ public class DBHandler {
     }
     
     //adds transaction to transaction table in DB (type S, R, SR, RR)
-    //implement adding date to transactionhistory
-    public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID, GregorianCalendar date){
+    //add field for rental period
+    public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID, GregorianCalendar date, int rPeriod){
         //query into db, select greatest transid, make transid that +1
         int highestID = 1; //if 1st element, transid will be 1
         String subQuery = "select max(transid) as transid from transactionhistory";

@@ -144,7 +144,7 @@ public class RentalReturn extends Transaction {
         //use dbh, itemsReturned and lineItems to update inv
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
-        db.addTransaction("RR", this.lineItems, "", this.rentalID, this.date);
+        db.addTransaction("RR", this.lineItems, "", this.rentalID, this.date, 0); //can't call rental period because RR is abs Trans
         db.updateInventory("rentalproducts", lineItems, true);
         db.closeConnection();
     }
