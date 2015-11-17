@@ -30,6 +30,7 @@ public class RentalReturn extends Transaction {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         this.rental = db.findTransaction("R", rentalID);
+        this.daysLate = this.getDaysLate();
         try {
             if (rental instanceof Rental) {
                 rental = (Rental) rental;
@@ -75,7 +76,7 @@ public class RentalReturn extends Transaction {
      * Otherwise returns false
      * @return whether or not return is late
      */
-    public int getDaysLate() {
+    public final int getDaysLate() {
         GregorianCalendar now = this.date;
         if (now.after(rental.getReturnDate())) { //TODO: either fix this or change DBHandler
             daysLate = now.get(Calendar.DAY_OF_YEAR) - rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
@@ -83,23 +84,21 @@ public class RentalReturn extends Transaction {
             return daysLate;
         }
         else
-            return 0;
+            return 1;
     }
     
     public double getLateFee()
     {
-        int daysLate = getDaysLate();
-        double total = 0;
+        double totalFee = 0;
         double fee = 0;
         
-        for(int i=0; i < rental.lineItems.size(); i++)
-        {
-            fee = rental.lineItems.get(i).getSubtotal().getAmount().doubleValue() * .25;
-            total += fee;            
+        for (LineItem lineItem : rental.lineItems) {
+            fee = lineItem.getSubtotal().getAmount().doubleValue() * .25;
+            totalFee += fee;            
         }
         
-        total *= daysLate;
-        return total;        
+        totalFee *= this.daysLate;
+        return totalFee;        
     }
 
     /**
