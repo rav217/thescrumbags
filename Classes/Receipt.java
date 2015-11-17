@@ -17,18 +17,6 @@ public abstract class Receipt {
     protected String receiptBody;
     protected Calendar date;
     
-    /*
-    public static void main(String[] args) {
-        Sale s=new Sale();
-        ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "condoms");
-        ProductDescription pd1=new ProductDescription(1, new Money(new BigDecimal(75)), "blow");
-        s.makeLineItem(pd, 3);
-        s.makeLineItem(pd1, 1);
-        Receipt r=s.makeNewReceipt();
-        System.out.print(r.getReceiptBody());
-    }
-    */
-    
     /**
      * Constructor for Receipt.
      */
