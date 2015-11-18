@@ -83,6 +83,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginButton = new javax.swing.JButton();
         employeeErrorLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel();
         menuLabel = new javax.swing.JLabel();
         startSaleButton = new javax.swing.JButton();
@@ -289,22 +290,19 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             .addGroup(systemStartPanelLayout.createSequentialGroup()
                 .addContainerGap(164, Short.MAX_VALUE)
                 .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
+                    .addComponent(sysStartUserIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sysStartUserIdLabel)
                     .addComponent(jLabel12)
+                    .addComponent(jLabel13)
                     .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(sysStartErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, systemStartPanelLayout.createSequentialGroup()
                             .addComponent(sysStartQuitButton)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(sysStartLoginButton))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, systemStartPanelLayout.createSequentialGroup()
-                            .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(sysStartUserIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(sysStartUserIdLabel))
-                            .addGap(18, 18, 18)
-                            .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(sysStartPasswordLabel)
-                                .addComponent(sysStartPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sysStartPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sysStartErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sysStartPasswordLabel))))
                 .addContainerGap(164, Short.MAX_VALUE))
         );
 
@@ -361,42 +359,47 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         });
 
         employeeErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
-        employeeErrorLabel.setText("System startup successful...");
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel10.setText("Employee Login");
+
+        jLabel17.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        jLabel17.setText("System startup successful... ");
 
         javax.swing.GroupLayout employeeLoginPanelLayout = new javax.swing.GroupLayout(employeeLoginPanel);
         employeeLoginPanel.setLayout(employeeLoginPanelLayout);
         employeeLoginPanelLayout.setHorizontalGroup(
             employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(employeeLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(188, Short.MAX_VALUE)
+                .addContainerGap(164, Short.MAX_VALUE)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
+                    .addComponent(jLabel17)
+                    .addComponent(employeeErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(employeeErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, employeeLoginPanelLayout.createSequentialGroup()
-                            .addComponent(employeeQuitButton)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(employeeLoginPanelLayout.createSequentialGroup()
+                            .addComponent(employeeIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(employeeLoginButton))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, employeeLoginPanelLayout.createSequentialGroup()
-                            .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(employeeIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(employeeIdLabel))
-                            .addGap(18, 18, 18)
                             .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(employeePasswordLabel)
-                                .addComponent(employeePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(184, Short.MAX_VALUE))
+                                .addComponent(employeePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(employeeLoginPanelLayout.createSequentialGroup()
+                            .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(employeeQuitButton, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(employeeIdLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(190, 190, 190)
+                            .addComponent(employeeLoginButton))))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         employeeLoginPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {employeeIdTextField, employeePasswordField});
 
         employeeLoginPanelLayout.setVerticalGroup(
             employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(employeeLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, employeeLoginPanelLayout.createSequentialGroup()
+                .addContainerGap(99, Short.MAX_VALUE)
+                .addComponent(jLabel17)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -412,7 +415,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(employeeLoginButton))
                 .addGap(18, 18, 18)
                 .addComponent(employeeErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(150, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         getContentPane().add(employeeLoginPanel, "card13");
@@ -1535,6 +1538,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         });
 
         saleReturnErrorLabel.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        saleReturnErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         saleReturnReasonLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         saleReturnReasonLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1992,7 +1996,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         systemOffPanelLayout.setHorizontalGroup(
             systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(systemOffPanelLayout.createSequentialGroup()
-                .addContainerGap(187, Short.MAX_VALUE)
+                .addContainerGap(176, Short.MAX_VALUE)
                 .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -2009,7 +2013,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(sysOffPasswordLabel)
                                 .addComponent(sysOffPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(196, Short.MAX_VALUE))
         );
 
         systemOffPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {sysOffPasswordField, sysOffUserIdTextField});
@@ -2614,8 +2618,24 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_saleReturnCancelButtonActionPerformed
 
     private void startReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startReturnButtonActionPerformed
-
-        //NOTE: this is handling the sale return use case only!!!
+        // clear sale tables from past attempts
+        previousSaleTableModel.setRowCount(0);
+        saleReturnCartTableModel.setRowCount(0);
+        
+        // clear rental tables from past attempts
+        previousRentalTableModel.setRowCount(0);
+        rentalReturnCartTableModel.setRowCount(0);
+        
+        // clear return textfields
+        rentalReturnIdTextField.setText("");
+        saleReturnIdTextField.setText("");
+        saleReturnReasonTextField.setText("");
+        
+        // clear error messages
+        rentalReturnErrorLabel.setText("");
+        saleReturnErrorLabel.setText("");
+        
+        
         // switch to return view
         menuPanel.setVisible(false);
         previousPanel = menuPanel;
@@ -2664,10 +2684,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             saleReturnIdPanel.setVisible(false);
             previousPanel = saleReturnIdPanel;
             saleReturnPanel.setVisible(true);
-
-            // clear saleReturnTable from past attempts
-            previousSaleTableModel.setRowCount(0);
-            saleReturnCartTableModel.setRowCount(0);
 
         } catch (Exception ex) {
             saleReturnErrorLabel.setText("Invalid sale ID entered.");
@@ -2772,11 +2788,8 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             previousPanel = rentalReturnIdPanel;
             rentalReturnPanel.setVisible(true);
         } 
-        catch (NumberFormatException ex) {
+        catch (Exception ex) {
             rentalReturnErrorLabel.setText("Invalid ID entered.");
-        }
-        catch (ClassCastException cex) {
-            rentalReturnErrorLabel.setText("Rental ID not found in database");
         }
     }//GEN-LAST:event_rentalReturnIdOkButtonActionPerformed
 
@@ -3203,6 +3216,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
