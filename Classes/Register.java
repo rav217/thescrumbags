@@ -96,10 +96,8 @@ public class Register {
             currentTransaction.makeNewReceipt();
             currentTransaction.becomeComplete();
             return true;
-        }
-        else {
+        } else 
             return false;
-        }
     }
 
     public void sendReceipt(String to) {
