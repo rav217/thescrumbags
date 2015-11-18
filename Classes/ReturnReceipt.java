@@ -18,11 +18,5 @@ public class ReturnReceipt extends Receipt {
     @Override
     public void makeReceiptBody(Transaction t) {
         super.makeReceiptBody(t);
-        /*
-        for(LineItem l: t.getLineItems()) {
-            receiptBody+=l.toString()+"\n";
-        }
-                */
-    }
-    
+    }   
 }
