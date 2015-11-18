@@ -45,6 +45,10 @@ public class Receipt {
             receiptBody+=l.toString()+"\n";
         }
         receiptBody+="\nTOTAL\t\t\t\t$"+t.getTotal().toString()+"\n";
+        if(t.isCredit) {
+            String cc="************"+t.getCCNum().substring(12);
+            receiptBody+=cc;
+        }
     }
     
     public String getReceiptBody() { return receiptBody; } 
