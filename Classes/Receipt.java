@@ -60,7 +60,7 @@ public class Receipt {
      * @param subject subject of email
      * @param body the body of the email
      */
-    public static void emailReceipt(String[] to, String subject, String body) {
+    public static boolean emailReceipt(String[] to, String subject, String body) {
         Properties props=System.getProperties();
         String host="smtp.gmail.com";
         
@@ -87,12 +87,15 @@ public class Receipt {
             transport.connect(host, userName, password);
             transport.sendMessage(mess, mess.getAllRecipients());
             transport.close();
+            return true;
         }
         catch (AddressException a) {
             a.printStackTrace();
+            return false;
         }
         catch (MessagingException mex) {
             mex.printStackTrace();
+            return false;
         }
     }
 }
