@@ -25,7 +25,7 @@ public class Receipt {
         receiptBody="";
     }
     
-    
+    /*
     public static void main(String[] args) {
         Sale s=new Sale();
         ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "condoms");
@@ -35,18 +35,20 @@ public class Receipt {
         Receipt r=s.makeNewReceipt();
         System.out.print(r.getReceiptBody());
     }
-    
+    */
     //sets subject and body of email
     public void makeReceiptBody(Transaction t) {
         receiptBody+="SCRUMBAGS POS RECEIPT\n";
         receiptBody+=date.getTime().toString()+"\n\n";
-        receiptBody+="PRODUCT\t\tPRICE\t\tTOTAL\n";
+        String str=String.format("%-15s %s", "TOTAL", "PRICE");
+        receiptBody+=str+"\n";
         if(t.getLineItemsLength()>0) {
             for(LineItem l: t.getLineItems()) {
                 receiptBody+=l.toString()+"\n";
             }
         }
-        receiptBody+="\nTOTAL\t\t\t\t$"+t.getTotal().toString()+"\n";
+        String str1=String.format("%-27s", t.getTotal().toString());
+        receiptBody+=str1+"\n";
         if(t.isCredit) {
             String cc="************"+t.getCCNum().substring(12);
             receiptBody+=cc;
