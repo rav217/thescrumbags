@@ -7,7 +7,7 @@ import java.util.ArrayList;
 // the total and customer payment. It is able to add new line items to the sale, calculate the total,
 // and tender a payment. Implements the java.util.Date class
 public class Sale extends Transaction {
-
+    
   //creates a new sale object, date reflects current date and time, isComplete
     //is set to false at object creation
     public Sale() {
@@ -24,11 +24,6 @@ public class Sale extends Transaction {
         BigDecimal one=new BigDecimal(1);
         BigDecimal bd=one.subtract(discount);
         total = total.multiply(bd);
-    }
-    
-    @Override
-    public boolean accept(Payment p) {
-        return p.verify(this);
     }
     
     @Override
