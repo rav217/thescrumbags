@@ -25,7 +25,7 @@ public class Receipt {
         receiptBody="";
     }
     
-    /*
+    
     public static void main(String[] args) {
         Sale s=new Sale();
         ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "condoms");
@@ -35,14 +35,16 @@ public class Receipt {
         Receipt r=s.makeNewReceipt();
         System.out.print(r.getReceiptBody());
     }
-    */
+    
     //sets subject and body of email
     public void makeReceiptBody(Transaction t) {
         receiptBody+="SCRUMBAGS POS RECEIPT\n";
         receiptBody+=date.getTime().toString()+"\n\n";
         receiptBody+="PRODUCT\t\tPRICE\t\tTOTAL\n";
-        for(LineItem l: t.getLineItems()) {
-            receiptBody+=l.toString()+"\n";
+        if(t.getLineItemsLength()>0) {
+            for(LineItem l: t.getLineItems()) {
+                receiptBody+=l.toString()+"\n";
+            }
         }
         receiptBody+="\nTOTAL\t\t\t\t$"+t.getTotal().toString()+"\n";
         if(t.isCredit) {
@@ -61,7 +63,7 @@ public class Receipt {
      * @param body the body of the email
      * @return if the email went through
      */
-    public static boolean emailReceipt(String[] to, String subject, String body) {
+    public static boolean emailReceipt(String to, String subject, String body) {
         Properties props=System.getProperties();
         String host="smtp.gmail.com";
         
@@ -77,11 +79,8 @@ public class Receipt {
         
         try {
             mess.setFrom(new InternetAddress(userName));
-            InternetAddress[] toAddress=new InternetAddress[to.length];
-            for(int i=0; i < to.length; i++) {
-                InternetAddress ia=new InternetAddress(to[i]);
-                mess.addRecipient(Message.RecipientType.TO, ia);
-            }
+            InternetAddress ia=new InternetAddress(to);
+            mess.addRecipient(Message.RecipientType.TO, ia);
             mess.setSubject(subject);
             mess.setText(body);
             Transport transport = session.getTransport("smtp");
