@@ -19,6 +19,8 @@ public class CreditPayment implements Payment {
         this.cardNum = cardNum;
     }
     
+    public String getCardNum() { return cardNum; }
+    
     //use Transaction with credit authorization service
     @Override
     public boolean verify(Transaction t) {
