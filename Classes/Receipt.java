@@ -25,6 +25,7 @@ public class Receipt {
         receiptBody="";
     }
     
+    /*
     public static void main(String[] args) {
         Sale s=new Sale();
         ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "condoms");
@@ -34,7 +35,7 @@ public class Receipt {
         Receipt r=s.makeNewReceipt();
         System.out.print(r.getReceiptBody());
     }
-    
+    */
     //sets subject and body of email
     public void makeReceiptBody(Transaction t) {
         receiptBody+="SCRUMBAGS POS RECEIPT\n";
