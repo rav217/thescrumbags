@@ -147,6 +147,7 @@ public class DBHandler {
         String query = "select * from transactionhistory where transtype = '"+type+"' and transid = "+id;
         ArrayList<LineItem> items = new ArrayList<>();
         double totalPrice = 0;
+        int rPeriod = 0;
         try{
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
@@ -187,6 +188,7 @@ public class DBHandler {
                 //add this LineItem to ArrayList
                 items.add(li);
             }
+            rPeriod = rs.getInt("rentalperiod");
         } catch(SQLException ex){
             System.out.println("Error retrieving transaction from history");
             closeConnection();
@@ -197,7 +199,7 @@ public class DBHandler {
             return new Sale(items, tp);
         }
         else{
-            return new Rental(items, tp);
+            return new Rental(items, tp, rPeriod);
         }
     }
     
@@ -232,7 +234,7 @@ public class DBHandler {
             String descr = li.getProductDescription().getDescription();
             int quantity = li.getQuantity();
             String query = "insert into transactionhistory values ('"+type+"', "+highestID+", "+origTransID+", "+itemid+", "+price+", '"
-                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0, '"+dateString+"')";
+                    +descr+"', "+quantity+", "+subtotal+", '"+reason+"', 0, '"+dateString+"', "+rPeriod+")";
             System.out.println(query);
             try {
                 stmt = conn.createStatement();
