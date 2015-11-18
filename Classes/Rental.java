@@ -96,17 +96,6 @@ public class Rental extends Transaction {
     }
     
     /**
-     * Accepts a given Payment
-     * Passes itself to Payment's verify()
-     * @param p given payment
-     * @return whether or not payment went through
-     */
-    @Override
-    public boolean accept(Payment p) {
-        return p.verify(this);  
-    }
-    
-    /**
      * Updates inventory in DB
      */
     @Override
