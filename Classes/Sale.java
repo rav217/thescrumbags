@@ -42,7 +42,7 @@ public class Sale extends Transaction {
     
     @Override
     public Receipt makeNewReceipt() { 
-        this.receipt=new SaleReceipt();
+        this.receipt=new Receipt();
         this.receipt.makeReceiptBody(this);
         return receipt;
     }
