@@ -18,6 +18,8 @@ public abstract class Transaction {
     protected boolean isComplete;
     protected Money total;
     protected Receipt receipt;
+    protected boolean isCredit;
+    protected String ccNum;
 
     /**
      * Default constructor.
@@ -27,6 +29,8 @@ public abstract class Transaction {
         this.date = new GregorianCalendar();
         this.isComplete = false;
         this.total = new Money(new BigDecimal(0));
+        this.isCredit=false;
+        this.ccNum=null;
     }
     
 
@@ -105,8 +109,31 @@ public abstract class Transaction {
         this.total=m;
     }
     
-    public boolean accept(Payment p) { return false; }
+    public boolean isCredit() { return isCredit; }
     
+    public String getCCNum() { return ccNum; }
+    
+    /**
+     * Accepts a given Payment
+     * Passes itself to Payment's verify()
+     * @param p given payment
+     * @return whether or not payment went through
+     */
+    public boolean accept(Payment p) { 
+        if(p instanceof CreditPayment) {
+            CreditPayment c=(CreditPayment)p;
+            ccNum= c.getCardNum();
+            isCredit=true;
+        }
+        return p.verify(this);
+    }
+    
+    /**
+     * Accepts a given Reimbursement
+     * Passes itself to Reimbursement's verify()
+     * @param r given reimbursement
+     * @return whether or not reimbursement went through
+     */
     public boolean accept(Reimbursement r) { return false; }
     
     public void updateInventory() {}
