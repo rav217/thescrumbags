@@ -35,7 +35,7 @@ public class Rental extends Transaction {
     public Rental(ArrayList<LineItem> lineItems, Money total, int rentalPeriod){
         this.lineItems = lineItems;
         this.total = total;
-        this.rentalPeriod = rentalPeriod;
+        this.rentalPeriod = rentalPeriod; //added
     }
     
     /**

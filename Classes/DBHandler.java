@@ -196,7 +196,7 @@ public class DBHandler {
         BigDecimal totalPriceBD = BigDecimal.valueOf(totalPrice);
         Money tp = new Money(totalPriceBD);
         if (type.equals("S")){
-            return new Sale(items, tp);
+            return new Sale(items, tp); //return sale
         }
         else{
             return new Rental(items, tp, rPeriod);
