@@ -30,15 +30,15 @@ public class RentalReturn extends Transaction {
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
         this.rental = db.findTransaction("R", rentalID);
-        try {
-            if (this.rental instanceof Rental) {
-                this.rental = (Rental) this.rental;
-            } else {
-                throw new ClassCastException();
-            }
-        } catch (ClassCastException ex) {
-            System.out.println("Error casting to Rental object");
-        }
+//        try {
+//            if (this.rental instanceof Rental) {
+//                this.rental = (Rental) this.rental;
+//            } else {
+//                throw new ClassCastException();
+//            }
+//        } catch (ClassCastException ex) {
+//            System.out.println("Error casting to Rental object");
+//        }
         db.closeConnection();
         if (this.rental == null) {
             System.out.println("Rental not found in database");
