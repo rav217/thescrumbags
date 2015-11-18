@@ -59,6 +59,7 @@ public class Receipt {
      * @param to list of email addresses 
      * @param subject subject of email
      * @param body the body of the email
+     * @return if the email went through
      */
     public static boolean emailReceipt(String[] to, String subject, String body) {
         Properties props=System.getProperties();
@@ -89,12 +90,12 @@ public class Receipt {
             transport.close();
             return true;
         }
-        catch (AddressException a) {
-            a.printStackTrace();
+        catch (AddressException ex) {
+            ex.printStackTrace();
             return false;
         }
-        catch (MessagingException mex) {
-            mex.printStackTrace();
+        catch (MessagingException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
