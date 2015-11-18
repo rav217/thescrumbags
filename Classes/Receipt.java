@@ -3,13 +3,14 @@ package thescrumbags.Classes;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.math.BigDecimal;
 
 /**
  * An abstract class that e-mails a sales receipt to a customer.
  * SalesReceipt, RentalReceipt, and ReturnReceipt all extend this class.
  * @author The Scrumbags
  */
-public abstract class Receipt {
+public class Receipt {
     
     protected static final String userName="scrumbagspos";
     protected static final String password="scrumbags3";
@@ -24,8 +25,26 @@ public abstract class Receipt {
         receiptBody="";
     }
     
+    public static void main(String[] args) {
+        Sale s=new Sale();
+        ProductDescription pd=new ProductDescription(1, new Money(new BigDecimal(190)), "condoms");
+        ProductDescription pd1=new ProductDescription(1, new Money(new BigDecimal(75)), "blow");
+        s.makeLineItem(pd, 3);
+        s.makeLineItem(pd1, 1);
+        Receipt r=s.makeNewReceipt();
+        System.out.print(r.getReceiptBody());
+    }
+    
     //sets subject and body of email
-    public abstract void makeReceiptBody(Transaction t);
+    public void makeReceiptBody(Transaction t) {
+        receiptBody+="SCRUMBAGS POS RECEIPT\n";
+        receiptBody+=date.getTime().toString()+"\n\n";
+        receiptBody+="PRODUCT\t\tPRICE\t\tTOTAL\n";
+        for(LineItem l: t.getLineItems()) {
+            receiptBody+=l.toString()+"\n";
+        }
+        receiptBody+="\nTOTAL\t\t\t\t$"+t.getTotal().toString()+"\n";
+    }
     
     public String getReceiptBody() { return receiptBody; } 
     
