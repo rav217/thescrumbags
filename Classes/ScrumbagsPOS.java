@@ -2162,6 +2162,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             }
         } catch (NumberFormatException ex) {
         }
+        
+        catch(IllegalArgumentException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+       
     }//GEN-LAST:event_saleAddButtonActionPerformed
 
     private void itemAddOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddOkButtonActionPerformed
@@ -2256,7 +2262,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             }
         } catch (NumberFormatException ex) {
         }
-
+        
+        catch(IllegalArgumentException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_rentAddButtonActionPerformed
 
     private void rentCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCancelButtonActionPerformed

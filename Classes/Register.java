@@ -128,6 +128,28 @@ public class Register {
      */
     public LineItem enterItem(int id, int quantity) {
         ProductDescription desc = catalog.getProductDescription(id);
+        
+        String transType;
+        
+        if(currentTransaction instanceof Sale)
+        {
+            transType = "sale";
+        }
+        else
+        {
+            transType = "rental";
+        }
+        
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        int qoh = db.getQOH(id, transType);
+        db.closeConnection();
+        
+        if(qoh < quantity)
+        {
+            throw new IllegalArgumentException("Only " + qoh + "of item " + id + " are available at this time");
+        }
+        
         return currentTransaction.makeLineItem(desc, quantity);
     }
     
