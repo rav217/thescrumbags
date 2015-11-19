@@ -40,14 +40,14 @@ public class Receipt {
     public void makeReceiptBody(Transaction t) {
         receiptBody+="SCRUMBAGS POS RECEIPT\n";
         receiptBody+=date.getTime().toString()+"\n\n";
-        String str=String.format("%-15s %s", "TOTAL", "PRICE");
+        String str=String.format("%-16s %s", "TOTAL", "PRICE");
         receiptBody+=str+"\n";
         if(t.getLineItemsLength()>0) {
             for(LineItem l: t.getLineItems()) {
                 receiptBody+=l.toString()+"\n";
             }
         }
-        String str1=String.format("%-27s", t.getTotal().toString());
+        String str1=String.format("%-31s%s%s", "TOTAL","$ ", t.getTotal().toString());
         receiptBody+=str1+"\n";
         if(t.isCredit) {
             String cc="************"+t.getCCNum().substring(12);
