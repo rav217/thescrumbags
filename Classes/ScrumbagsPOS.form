@@ -162,9 +162,12 @@
                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                       <Component id="employeeErrorLabel" alignment="0" min="-2" pref="344" max="-2" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="jLabel10" min="-2" pref="344" max="-2" attributes="0"/>
+                          <Component id="jLabel10" alignment="0" min="-2" pref="344" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="employeeIdTextField" linkSize="16" min="-2" pref="141" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="employeeIdTextField" linkSize="16" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <Component id="employeeIdLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="employeePasswordLabel" min="-2" max="-2" attributes="0"/>
@@ -172,10 +175,7 @@
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="employeeQuitButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="employeeIdLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="employeeQuitButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
                               <Component id="employeeLoginButton" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -188,19 +188,19 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                  <EmptySpace pref="85" max="32767" attributes="0"/>
                   <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="employeeIdLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="employeePasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="employeePasswordField" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="employeeIdTextField" min="-2" max="-2" attributes="0"/>
+                      <Component id="employeePasswordLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="employeeIdLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="employeePasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="employeeIdTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -209,7 +209,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="employeeErrorLabel" min="-2" pref="25" max="-2" attributes="0"/>
-                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                  <EmptySpace pref="85" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
