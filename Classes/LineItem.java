@@ -52,7 +52,7 @@ public class LineItem {
     
     @Override
     public String toString() {
-        String str=String.format("%-15s %-3d %s %-7s %-15s", prod.getDescription(), qty,"x$", prod.getPrice().toString(), this.getSubtotal().toString() );
+        String str=String.format("%-15s %2d %s %-7s %s %-15s", prod.getDescription(), qty,"x $", prod.getPrice().toString(), "$", this.getSubtotal().toString() );
         return str;
     }
 }
