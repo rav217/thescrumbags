@@ -198,8 +198,7 @@ public class Register {
      * Current transaction accepts and handles reimbursement 
      */
     public void makeReimbursement() {
-        Reimbursement r = new Reimbursement();
-        currentTransaction.accept(r);
+        this.currentPayment = new Reimbursement();
     }
 
     /**
@@ -208,8 +207,7 @@ public class Register {
      * @param cardNum 
      */
     public void makeCreditReimbursement(String cardNum) {
-        CreditReimbursement r = new CreditReimbursement(cardNum);
-        this.currentTransaction.accept(r);
+        this.currentPayment = new CreditReimbursement(cardNum);
     }
 
     /**
