@@ -20,7 +20,7 @@ public class CreditReimbursement extends Reimbursement {
     
     //use SaleReturn with credit authorization service
     @Override
-    public boolean verify(SaleReturn s) {
+    public boolean verify(Transaction t) {
         if(cardNum.length()==16) return true;
         return false;
     }
