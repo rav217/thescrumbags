@@ -6,8 +6,10 @@
 package thescrumbags.Classes;
 
 import java.awt.event.WindowEvent;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -53,6 +55,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // disable login button on employee login panel
         sysStartLoginButton.setEnabled(false);
+        
+        // set default close operation
+        this.setDefaultCloseOperation(this.DO_NOTHING_ON_CLOSE);
     }
 
     /**
@@ -105,14 +110,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleCancelButton = new javax.swing.JButton();
         saleRemoveButton = new javax.swing.JButton();
         saleTotalLabel = new javax.swing.JLabel();
-        saleRemoveLabl = new javax.swing.JLabel();
-        saleRemoveTextField = new javax.swing.JTextField();
-        saleItemAddErrorPanel = new javax.swing.JPanel();
-        itemAddErrorLabel = new javax.swing.JLabel();
-        itemAddOkButton = new javax.swing.JButton();
-        saleRemoveErrorPanel = new javax.swing.JPanel();
-        removeErrorLabel = new javax.swing.JLabel();
-        removeErrorOkButton = new javax.swing.JButton();
         rentPanel = new javax.swing.JPanel();
         rentLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -127,8 +124,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentCancelButton = new javax.swing.JButton();
         rentRemoveButton = new javax.swing.JButton();
         rentTotalLabel = new javax.swing.JLabel();
-        rentRemoveLabel = new javax.swing.JLabel();
-        rentRemoveTextField = new javax.swing.JTextField();
         rentPeriodLabel = new javax.swing.JLabel();
         rentPeriodPanel = new javax.swing.JPanel();
         rentPeriodPanelLabel = new javax.swing.JLabel();
@@ -136,12 +131,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentPeriodSetButton = new javax.swing.JButton();
         rentPeriodCancelButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        rentRemoveErrorPanel = new javax.swing.JPanel();
-        rentRemoveErrorLabel = new javax.swing.JLabel();
-        rentRemoveErrorButton = new javax.swing.JButton();
-        rentItemAddErrorPanel = new javax.swing.JPanel();
-        rentItemAddErrorLabel = new javax.swing.JLabel();
-        rentItemAddErrorButton = new javax.swing.JButton();
         cashOrCreditPanel = new javax.swing.JPanel();
         cashButton = new javax.swing.JButton();
         creditButton = new javax.swing.JButton();
@@ -247,8 +236,15 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         shutDownShutDownButton = new javax.swing.JButton();
         shutDownCancelButton = new javax.swing.JButton();
+        receiptPanel = new javax.swing.JPanel();
+        receiptLabel = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        receiptTextArea = new javax.swing.JTextArea();
+        receiptOkButton = new javax.swing.JButton();
+        emailReceiptButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Scrumbags POS");
         getContentPane().setLayout(new java.awt.CardLayout());
 
         jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
@@ -288,7 +284,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         systemStartPanelLayout.setHorizontalGroup(
             systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(systemStartPanelLayout.createSequentialGroup()
-                .addContainerGap(164, Short.MAX_VALUE)
+                .addContainerGap(142, Short.MAX_VALUE)
                 .addGroup(systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sysStartUserIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sysStartUserIdLabel)
@@ -303,7 +299,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addComponent(sysStartPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sysStartErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sysStartPasswordLabel))))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         systemStartPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {sysStartPasswordField, sysStartUserIdTextField});
@@ -311,7 +307,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         systemStartPanelLayout.setVerticalGroup(
             systemStartPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(systemStartPanelLayout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
+                .addContainerGap(88, Short.MAX_VALUE)
                 .addComponent(jLabel12)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel13)
@@ -329,7 +325,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(sysStartLoginButton))
                 .addGap(18, 18, 18)
                 .addComponent(sysStartErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         getContentPane().add(systemStartPanel, "card21");
@@ -371,7 +367,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginPanelLayout.setHorizontalGroup(
             employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(employeeLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(164, Short.MAX_VALUE)
+                .addContainerGap(142, Short.MAX_VALUE)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
                     .addComponent(employeeErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,7 +385,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                                 .addComponent(employeeIdLabel, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGap(190, 190, 190)
                             .addComponent(employeeLoginButton))))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(142, Short.MAX_VALUE))
         );
 
         employeeLoginPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {employeeIdTextField, employeePasswordField});
@@ -397,7 +393,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginPanelLayout.setVerticalGroup(
             employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, employeeLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
+                .addContainerGap(88, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel10)
@@ -406,16 +402,16 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(employeeIdLabel)
                     .addComponent(employeePasswordLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(employeeIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(employeePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(employeePasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(employeeIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(employeeQuitButton)
                     .addComponent(employeeLoginButton))
                 .addGap(18, 18, 18)
                 .addComponent(employeeErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         getContentPane().add(employeeLoginPanel, "card13");
@@ -463,7 +459,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         menuPanelLayout.setHorizontalGroup(
             menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuPanelLayout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
+                .addContainerGap(236, Short.MAX_VALUE)
                 .addGroup(menuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(logOutButton)
                     .addComponent(userManagementButton)
@@ -471,7 +467,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(startReturnButton)
                     .addComponent(startRentalButton)
                     .addComponent(startSaleButton))
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         menuPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {logOutButton, startRentalButton, startReturnButton, startSaleButton, userManagementButton});
@@ -491,7 +487,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addComponent(userManagementButton)
                 .addGap(35, 35, 35)
                 .addComponent(logOutButton)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         getContentPane().add(menuPanel, "card2");
@@ -561,44 +557,33 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleTotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         saleTotalLabel.setText("Total:");
 
-        saleRemoveLabl.setText("Line to Remove:");
-
         javax.swing.GroupLayout salePanelLayout = new javax.swing.GroupLayout(salePanel);
         salePanel.setLayout(salePanelLayout);
         salePanelLayout.setHorizontalGroup(
             salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(salePanelLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
                 .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(salePanelLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(saleAddButton))
-                    .addGroup(salePanelLayout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(saleRemoveButton))
-                    .addGroup(salePanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salePanelLayout.createSequentialGroup()
-                                .addComponent(saleRemoveLabl)
-                                .addGap(18, 18, 18)
-                                .addComponent(saleRemoveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salePanelLayout.createSequentialGroup()
-                                .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(saleQtyLabel)
-                                    .addComponent(saleIdLabel))
-                                .addGap(18, 18, 18)
-                                .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(saleQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(saleIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salePanelLayout.createSequentialGroup()
+                            .addComponent(saleIdLabel)
+                            .addGap(18, 18, 18)
+                            .addComponent(saleIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salePanelLayout.createSequentialGroup()
+                            .addComponent(saleQtyLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(saleQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(saleAddButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
                 .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(salePanelLayout.createSequentialGroup()
                         .addComponent(saleCartLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saleRemoveButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                     .addGroup(salePanelLayout.createSequentialGroup()
                         .addComponent(saleTotalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                         .addComponent(saleCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saleCheckoutButton)))
@@ -609,112 +594,43 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        salePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {saleAddButton, saleIdTextField, saleQtyTextField, saleRemoveButton, saleRemoveTextField});
+        salePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {saleAddButton, saleIdTextField, saleQtyTextField, saleRemoveButton});
 
         salePanelLayout.setVerticalGroup(
             salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, salePanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(saleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(saleCartLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(salePanelLayout.createSequentialGroup()
+                        .addComponent(saleLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saleCartLabel))
+                    .addComponent(saleRemoveButton))
+                .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(salePanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(salePanelLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(saleIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(saleIdLabel))
-                        .addGap(18, 18, 18)
+                        .addGap(38, 38, 38)
                         .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(saleQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(saleQtyLabel))
-                        .addGap(18, 18, 18)
-                        .addComponent(saleAddButton)
-                        .addGap(18, 18, 18)
-                        .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(saleRemoveLabl)
-                            .addComponent(saleRemoveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(saleRemoveButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(31, 31, 31)
+                        .addComponent(saleAddButton)))
+                .addGap(9, 9, 9)
                 .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(saleCheckoutButton)
                     .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(saleTotalLabel)
                         .addComponent(saleCancelButton)))
-                .addGap(10, 10, 10))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         getContentPane().add(salePanel, "card3");
-
-        itemAddErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        itemAddErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        itemAddErrorLabel.setText("Error: Item ID not found");
-
-        itemAddOkButton.setText("OK");
-        itemAddOkButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemAddOkButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout saleItemAddErrorPanelLayout = new javax.swing.GroupLayout(saleItemAddErrorPanel);
-        saleItemAddErrorPanel.setLayout(saleItemAddErrorPanelLayout);
-        saleItemAddErrorPanelLayout.setHorizontalGroup(
-            saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(saleItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(195, Short.MAX_VALUE)
-                .addGroup(saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(itemAddErrorLabel)
-                    .addComponent(itemAddOkButton))
-                .addContainerGap(195, Short.MAX_VALUE))
-        );
-        saleItemAddErrorPanelLayout.setVerticalGroup(
-            saleItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, saleItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(183, Short.MAX_VALUE)
-                .addComponent(itemAddErrorLabel)
-                .addGap(18, 18, 18)
-                .addComponent(itemAddOkButton)
-                .addContainerGap(178, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(saleItemAddErrorPanel, "card7");
-
-        removeErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        removeErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        removeErrorLabel.setText("Error: Invalid index given");
-
-        removeErrorOkButton.setText("OK");
-        removeErrorOkButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeErrorOkButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout saleRemoveErrorPanelLayout = new javax.swing.GroupLayout(saleRemoveErrorPanel);
-        saleRemoveErrorPanel.setLayout(saleRemoveErrorPanelLayout);
-        saleRemoveErrorPanelLayout.setHorizontalGroup(
-            saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(saleRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(189, Short.MAX_VALUE)
-                .addGroup(saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(removeErrorOkButton)
-                    .addComponent(removeErrorLabel))
-                .addContainerGap(190, Short.MAX_VALUE))
-        );
-        saleRemoveErrorPanelLayout.setVerticalGroup(
-            saleRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(saleRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(178, Short.MAX_VALUE)
-                .addComponent(removeErrorLabel)
-                .addGap(18, 18, 18)
-                .addComponent(removeErrorOkButton)
-                .addContainerGap(183, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(saleRemoveErrorPanel, "card7");
 
         rentLabel.setFont(new java.awt.Font("Krungthep", 0, 24)); // NOI18N
         rentLabel.setText("New Rental");
@@ -781,8 +697,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentTotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         rentTotalLabel.setText("Total:");
 
-        rentRemoveLabel.setText("Line to Remove:");
-
+        rentPeriodLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         rentPeriodLabel.setText("Rental Period:");
 
         javax.swing.GroupLayout rentPanelLayout = new javax.swing.GroupLayout(rentPanel);
@@ -790,42 +705,33 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentPanelLayout.setHorizontalGroup(
             rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentPanelLayout.createSequentialGroup()
-                .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(rentPanelLayout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(rentAddButton))
-                    .addGroup(rentPanelLayout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(rentRemoveButton))
-                    .addGroup(rentPanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentPanelLayout.createSequentialGroup()
-                                .addComponent(rentRemoveLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rentRemoveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentPanelLayout.createSequentialGroup()
-                                .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rentQtyLabel)
-                                    .addComponent(rentIdLabel))
-                                .addGap(18, 18, 18)
-                                .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rentQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGap(32, 32, 32)
+                .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(rentPanelLayout.createSequentialGroup()
+                            .addComponent(rentIdLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(rentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(rentPanelLayout.createSequentialGroup()
+                            .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(rentQtyLabel)
+                                .addComponent(rentPeriodLabel))
+                            .addGap(18, 18, 18)
+                            .addComponent(rentQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(rentAddButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(rentPanelLayout.createSequentialGroup()
                         .addComponent(rentTotalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                         .addComponent(rentCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rentCheckoutButton))
                     .addGroup(rentPanelLayout.createSequentialGroup()
                         .addComponent(rentCartLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rentPeriodLabel)
-                        .addGap(55, 55, 55)))
+                        .addComponent(rentRemoveButton)))
                 .addContainerGap())
             .addGroup(rentPanelLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
@@ -833,7 +739,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        rentPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rentIdTextField, rentQtyTextField, rentRemoveTextField});
+        rentPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rentIdTextField, rentQtyTextField});
 
         rentPanelLayout.setVerticalGroup(
             rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -843,32 +749,29 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rentCartLabel)
-                    .addComponent(rentPeriodLabel))
+                    .addComponent(rentRemoveButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(rentPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentPanelLayout.createSequentialGroup()
                         .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rentIdLabel))
-                        .addGap(18, 18, 18)
+                        .addGap(27, 27, 27)
                         .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rentQtyTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(rentQtyLabel))
                         .addGap(18, 18, 18)
                         .addComponent(rentAddButton)
-                        .addGap(18, 18, 18)
-                        .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rentRemoveLabel)
-                            .addComponent(rentRemoveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(rentRemoveButton)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(61, 61, 61)))
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rentCheckoutButton)
                     .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(rentTotalLabel)
-                        .addComponent(rentCancelButton)))
+                        .addComponent(rentCancelButton)
+                        .addComponent(rentPeriodLabel)))
                 .addGap(10, 10, 10))
         );
 
@@ -877,7 +780,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentPeriodPanelLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         rentPeriodPanelLabel.setText("Rental Period:");
 
-        rentPeriodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 0, 14, 1));
+        rentPeriodSpinner.setModel(new javax.swing.SpinnerNumberModel(1, -2, 14, 1));
 
         rentPeriodSetButton.setText("Set");
         rentPeriodSetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -900,7 +803,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentPeriodPanelLayout.setHorizontalGroup(
             rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentPeriodPanelLayout.createSequentialGroup()
-                .addContainerGap(190, Short.MAX_VALUE)
+                .addContainerGap(168, Short.MAX_VALUE)
                 .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(rentPeriodPanelLayout.createSequentialGroup()
                         .addComponent(rentPeriodCancelButton)
@@ -913,12 +816,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addGap(5, 5, 5)))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
         rentPeriodPanelLayout.setVerticalGroup(
             rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentPeriodPanelLayout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rentPeriodPanelLabel)
                     .addComponent(rentPeriodSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -927,78 +830,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addGroup(rentPeriodPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rentPeriodSetButton)
                     .addComponent(rentPeriodCancelButton))
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         getContentPane().add(rentPeriodPanel, "card7");
-
-        rentRemoveErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        rentRemoveErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        rentRemoveErrorLabel.setText("Error: Invalid index given");
-
-        rentRemoveErrorButton.setText("OK");
-        rentRemoveErrorButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rentRemoveErrorButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout rentRemoveErrorPanelLayout = new javax.swing.GroupLayout(rentRemoveErrorPanel);
-        rentRemoveErrorPanel.setLayout(rentRemoveErrorPanelLayout);
-        rentRemoveErrorPanelLayout.setHorizontalGroup(
-            rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(189, Short.MAX_VALUE)
-                .addGroup(rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rentRemoveErrorButton)
-                    .addComponent(rentRemoveErrorLabel))
-                .addContainerGap(190, Short.MAX_VALUE))
-        );
-        rentRemoveErrorPanelLayout.setVerticalGroup(
-            rentRemoveErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rentRemoveErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(178, Short.MAX_VALUE)
-                .addComponent(rentRemoveErrorLabel)
-                .addGap(18, 18, 18)
-                .addComponent(rentRemoveErrorButton)
-                .addContainerGap(183, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(rentRemoveErrorPanel, "card7");
-
-        rentItemAddErrorLabel.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
-        rentItemAddErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        rentItemAddErrorLabel.setText("Error: Item ID not found");
-
-        rentItemAddErrorButton.setText("OK");
-        rentItemAddErrorButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rentItemAddErrorButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout rentItemAddErrorPanelLayout = new javax.swing.GroupLayout(rentItemAddErrorPanel);
-        rentItemAddErrorPanel.setLayout(rentItemAddErrorPanelLayout);
-        rentItemAddErrorPanelLayout.setHorizontalGroup(
-            rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rentItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(195, Short.MAX_VALUE)
-                .addGroup(rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rentItemAddErrorLabel)
-                    .addComponent(rentItemAddErrorButton))
-                .addContainerGap(195, Short.MAX_VALUE))
-        );
-        rentItemAddErrorPanelLayout.setVerticalGroup(
-            rentItemAddErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rentItemAddErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(183, Short.MAX_VALUE)
-                .addComponent(rentItemAddErrorLabel)
-                .addGap(18, 18, 18)
-                .addComponent(rentItemAddErrorButton)
-                .addContainerGap(178, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(rentItemAddErrorPanel, "card7");
 
         cashButton.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         cashButton.setText("Cash");
@@ -1021,11 +856,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         cashOrCreditPanelLayout.setHorizontalGroup(
             cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cashOrCreditPanelLayout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
+                .addContainerGap(145, Short.MAX_VALUE)
                 .addComponent(cashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(creditButton)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addContainerGap(189, Short.MAX_VALUE))
         );
 
         cashOrCreditPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cashButton, creditButton});
@@ -1033,11 +868,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         cashOrCreditPanelLayout.setVerticalGroup(
             cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cashOrCreditPanelLayout.createSequentialGroup()
-                .addContainerGap(165, Short.MAX_VALUE)
+                .addContainerGap(149, Short.MAX_VALUE)
                 .addGroup(cashOrCreditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cashButton, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(creditButton))
-                .addContainerGap(201, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         cashOrCreditPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cashButton, creditButton});
@@ -1077,7 +912,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         cashPanelLayout.setHorizontalGroup(
             cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cashPanelLayout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
+                .addContainerGap(144, Short.MAX_VALUE)
                 .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cashTotalLabel)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
@@ -1099,7 +934,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cashReceivedTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cashErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         cashPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {changeAmountLabel, changeLabel});
@@ -1107,7 +942,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         cashPanelLayout.setVerticalGroup(
             cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cashPanelLayout.createSequentialGroup()
-                .addContainerGap(110, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addComponent(cashTotalLabel)
                 .addGap(18, 18, 18)
                 .addGroup(cashPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1124,7 +959,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(changeAmountLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cashErrorLabel)
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         cashPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cashErrorLabel, cashReceivedTextField});
@@ -1176,7 +1011,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         managerLoginPanelLayout.setHorizontalGroup(
             managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(managerLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(188, Short.MAX_VALUE)
+                .addContainerGap(166, Short.MAX_VALUE)
                 .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
                     .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1193,7 +1028,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(managerPasswordLabel)
                                 .addComponent(managerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(184, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         managerLoginPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {managerNameTextField, managerPasswordField});
@@ -1201,7 +1036,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         managerLoginPanelLayout.setVerticalGroup(
             managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(managerLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(113, Short.MAX_VALUE)
+                .addContainerGap(97, Short.MAX_VALUE)
                 .addComponent(jLabel9)
                 .addGap(18, 18, 18)
                 .addGroup(managerLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1217,7 +1052,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(managerLoginButton))
                 .addGap(18, 18, 18)
                 .addComponent(managerErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         getContentPane().add(managerLoginPanel, "card13");
@@ -1286,7 +1121,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         userManagerPanelLayout.setHorizontalGroup(
             userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userManagerPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(userManagerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userManagerLabel)
                     .addComponent(employeesLabel)
@@ -1319,7 +1154,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                                     .addComponent(passwordLabel)))
                             .addGap(18, 18, 18)
                             .addComponent(addEmployeeButton)
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addContainerGap(30, Short.MAX_VALUE)))))
         );
 
         userManagerPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {employeeIDTextField, nameTextField, passwordTextField, removeEmployeeButton});
@@ -1352,7 +1187,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addComponent(employeeIdAddLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeEmployeeButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                         .addComponent(userManagerDoneButton))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
@@ -1504,7 +1339,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saleReturnReturnButton)
-                        .addGap(0, 68, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(saleReturnPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1549,7 +1384,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleReturnIdPanelLayout.setHorizontalGroup(
             saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleReturnIdPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(153, Short.MAX_VALUE)
                 .addGroup(saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addComponent(saleReturnIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1561,7 +1396,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addGap(85, 85, 85)
                             .addComponent(saleReturnOkButton)))
                     .addComponent(saleReturnErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
 
         saleReturnIdPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel5, saleReturnErrorLabel, saleReturnReasonLabel});
@@ -1569,7 +1404,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleReturnIdPanelLayout.setVerticalGroup(
             saleReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleReturnIdPanelLayout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addComponent(saleReturnIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1583,7 +1418,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(saleReturnOkButton))
                 .addGap(18, 18, 18)
                 .addComponent(saleReturnErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         getContentPane().add(saleReturnIdPanel, "card15");
@@ -1607,11 +1442,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleOrRentalReturnPanelLayout.setHorizontalGroup(
             saleOrRentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleOrRentalReturnPanelLayout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(185, Short.MAX_VALUE)
                 .addComponent(saleReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(rentalReturnButton)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         saleOrRentalReturnPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rentalReturnButton, saleReturnButton});
@@ -1619,11 +1454,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleOrRentalReturnPanelLayout.setVerticalGroup(
             saleOrRentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(saleOrRentalReturnPanelLayout.createSequentialGroup()
-                .addContainerGap(184, Short.MAX_VALUE)
+                .addContainerGap(168, Short.MAX_VALUE)
                 .addGroup(saleOrRentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saleReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rentalReturnButton))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         saleOrRentalReturnPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {rentalReturnButton, saleReturnButton});
@@ -1656,7 +1491,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentalReturnIdPanelLayout.setHorizontalGroup(
             rentalReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentalReturnIdPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(153, Short.MAX_VALUE)
                 .addGroup(rentalReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(rentalReturnIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1666,12 +1501,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addComponent(rentalReturnIdCancelButton)
                             .addGap(85, 85, 85)
                             .addComponent(rentalReturnIdOkButton))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         rentalReturnIdPanelLayout.setVerticalGroup(
             rentalReturnIdPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rentalReturnIdPanelLayout.createSequentialGroup()
-                .addContainerGap(116, Short.MAX_VALUE)
+                .addContainerGap(100, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(rentalReturnIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1681,7 +1516,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(rentalReturnIdOkButton))
                 .addGap(20, 20, 20)
                 .addComponent(rentalReturnErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         getContentPane().add(rentalReturnIdPanel, "card15");
@@ -1789,7 +1624,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(rentalReturnPanelLayout.createSequentialGroup()
-                                .addContainerGap(18, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(rentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lateFeeLabel)
                                     .addGroup(rentalReturnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -1828,7 +1663,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rentalReturnReturnButton)
-                        .addGap(0, 68, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(rentalReturnPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1867,7 +1702,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         creditPanelLayout.setHorizontalGroup(
             creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(creditPanelLayout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addContainerGap(192, Short.MAX_VALUE)
                 .addGroup(creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(creditTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1877,7 +1712,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(creditOkButton)))
                     .addComponent(creditErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         creditPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {creditErrorLabel, creditTextField, jLabel11});
@@ -1885,7 +1720,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         creditPanelLayout.setVerticalGroup(
             creditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, creditPanelLayout.createSequentialGroup()
-                .addContainerGap(156, Short.MAX_VALUE)
+                .addContainerGap(140, Short.MAX_VALUE)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(creditTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1895,7 +1730,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(creditOkButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(creditErrorLabel)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         creditPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {creditErrorLabel, creditTextField, jLabel11});
@@ -1923,7 +1758,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         logOutPanelLayout.setHorizontalGroup(
             logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logOutPanelLayout.createSequentialGroup()
-                .addContainerGap(219, Short.MAX_VALUE)
+                .addContainerGap(197, Short.MAX_VALUE)
                 .addGroup(logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(logOutErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(logOutPanelLayout.createSequentialGroup()
@@ -1937,7 +1772,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addGroup(logOutPanelLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(logOutIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         logOutPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel14, logOutLogOutButton});
@@ -1945,7 +1780,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         logOutPanelLayout.setVerticalGroup(
             logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logOutPanelLayout.createSequentialGroup()
-                .addContainerGap(144, Short.MAX_VALUE)
+                .addContainerGap(128, Short.MAX_VALUE)
                 .addGroup(logOutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(logOutIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1955,7 +1790,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(logOutCancelButton))
                 .addGap(18, 18, 18)
                 .addComponent(logOutErrorLabel)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         logOutPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {logOutCancelButton, logOutErrorLabel});
@@ -1996,7 +1831,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         systemOffPanelLayout.setHorizontalGroup(
             systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(systemOffPanelLayout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
+                .addContainerGap(154, Short.MAX_VALUE)
                 .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
                     .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -2013,7 +1848,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(sysOffPasswordLabel)
                                 .addComponent(sysOffPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         systemOffPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {sysOffPasswordField, sysOffUserIdTextField});
@@ -2021,7 +1856,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         systemOffPanelLayout.setVerticalGroup(
             systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(systemOffPanelLayout.createSequentialGroup()
-                .addContainerGap(113, Short.MAX_VALUE)
+                .addContainerGap(97, Short.MAX_VALUE)
                 .addComponent(jLabel15)
                 .addGap(18, 18, 18)
                 .addGroup(systemOffPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2037,7 +1872,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(sysOffShutDownButton))
                 .addGap(18, 18, 18)
                 .addComponent(sysOffErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         getContentPane().add(systemOffPanel, "card13");
@@ -2064,28 +1899,86 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         shutDownConfirmPanelLayout.setHorizontalGroup(
             shutDownConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(shutDownConfirmPanelLayout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
+                .addContainerGap(153, Short.MAX_VALUE)
                 .addGroup(shutDownConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(shutDownConfirmPanelLayout.createSequentialGroup()
                         .addComponent(shutDownCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(shutDownShutDownButton))
                     .addComponent(jLabel16))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
         shutDownConfirmPanelLayout.setVerticalGroup(
             shutDownConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(shutDownConfirmPanelLayout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addContainerGap(158, Short.MAX_VALUE)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(shutDownConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(shutDownShutDownButton)
                     .addComponent(shutDownCancelButton))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         getContentPane().add(shutDownConfirmPanel, "card24");
+
+        receiptLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        receiptLabel.setText("Customer Receipt");
+
+        receiptTextArea.setEditable(false);
+        receiptTextArea.setColumns(20);
+        receiptTextArea.setRows(5);
+        receiptTextArea.setToolTipText("");
+        jScrollPane8.setViewportView(receiptTextArea);
+
+        receiptOkButton.setText("Ok");
+        receiptOkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                receiptOkButtonActionPerformed(evt);
+            }
+        });
+
+        emailReceiptButton.setText("Email");
+        emailReceiptButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailReceiptButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout receiptPanelLayout = new javax.swing.GroupLayout(receiptPanel);
+        receiptPanel.setLayout(receiptPanelLayout);
+        receiptPanelLayout.setHorizontalGroup(
+            receiptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receiptPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(emailReceiptButton)
+                .addGap(91, 91, 91)
+                .addComponent(receiptOkButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(receiptPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receiptPanelLayout.createSequentialGroup()
+                .addContainerGap(237, Short.MAX_VALUE)
+                .addComponent(receiptLabel)
+                .addContainerGap(238, Short.MAX_VALUE))
+        );
+        receiptPanelLayout.setVerticalGroup(
+            receiptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(receiptPanelLayout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
+                .addComponent(receiptLabel)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(receiptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(receiptOkButton)
+                    .addComponent(emailReceiptButton))
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(receiptPanel, "card25");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -2116,7 +2009,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // clear text fields
         saleIdTextField.setText("");
         saleQtyTextField.setText("");
-        saleRemoveTextField.setText("");
 
         // switch back to menu view
         salePanel.setVisible(false);
@@ -2152,29 +2044,22 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 saleTotalLabel.setText(total);
 
-                // clear text fields
-                saleIdTextField.setText("");
-                saleQtyTextField.setText("");
             } catch (NullPointerException ex) {
-                salePanel.setVisible(false);
-                previousPanel = salePanel;
-                saleItemAddErrorPanel.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Item ID not found.", "ADD ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid item ID entered.", "INVALID ID ERROR", JOptionPane.ERROR_MESSAGE);
         }
+        
+        // reset text fields
+        saleIdTextField.setText("");
+        saleQtyTextField.setText("");
     }//GEN-LAST:event_saleAddButtonActionPerformed
-
-    private void itemAddOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAddOkButtonActionPerformed
-        saleItemAddErrorPanel.setVisible(false);
-        previousPanel = saleItemAddErrorPanel;
-        salePanel.setVisible(true);
-    }//GEN-LAST:event_itemAddOkButtonActionPerformed
 
     private void saleRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleRemoveButtonActionPerformed
         // get index of line to remove
         try {
-            Integer row = Integer.parseInt(saleRemoveTextField.getText()) - 1;
-
+            int row = saleCartTable.getSelectedRow();
             try {
                 // remove line from currentTransaction and from table
                 r.getCurrentTransaction().removeLineItem(row);
@@ -2184,23 +2069,16 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 saleTotalLabel.setText(total);
 
-                // reset text field
-                saleRemoveTextField.setText("");
             } catch (IndexOutOfBoundsException ex) {
-                salePanel.setVisible(false);
-                previousPanel = salePanel;
-                saleRemoveErrorPanel.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Item to remove not found.", "REMOVE ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid ID entered.", "INVALID ID ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        // clear line to remove text
+        // reset text fields
+        saleIdTextField.setText("");
+        saleQtyTextField.setText("");
     }//GEN-LAST:event_saleRemoveButtonActionPerformed
-
-    private void removeErrorOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeErrorOkButtonActionPerformed
-        saleRemoveErrorPanel.setVisible(false);
-        previousPanel = saleRemoveErrorPanel;
-        salePanel.setVisible(true);
-    }//GEN-LAST:event_removeErrorOkButtonActionPerformed
 
     private void saleCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleCheckoutButtonActionPerformed
         // set total label in cashPanel
@@ -2215,7 +2093,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // clear text fields
         saleIdTextField.setText("");
         saleQtyTextField.setText("");
-        saleRemoveTextField.setText("");
 
     }//GEN-LAST:event_saleCheckoutButtonActionPerformed
 
@@ -2223,7 +2100,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // clear text fields
         rentIdTextField.setText("");
         rentQtyTextField.setText("");
-        rentRemoveTextField.setText("");
 
         // return to menu view
         rentPanel.setVisible(false);
@@ -2246,16 +2122,15 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 rentTotalLabel.setText(total);
 
-                // clear text fields
-                rentIdTextField.setText("");
-                rentQtyTextField.setText("");
             } catch (NullPointerException ex) {
-                rentPanel.setVisible(false);
-                previousPanel = rentPanel;
-                rentItemAddErrorPanel.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Error adding item.", "ADD ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid item ID entered.", "INVALID ID ERROR", JOptionPane.ERROR_MESSAGE);
         }
+        // clear text fields
+        rentIdTextField.setText("");
+        rentQtyTextField.setText("");
 
     }//GEN-LAST:event_rentAddButtonActionPerformed
 
@@ -2271,7 +2146,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // clear text fields
         rentIdTextField.setText("");
         rentQtyTextField.setText("");
-        rentRemoveTextField.setText("");
 
         // switch back to menu view
         rentPanel.setVisible(false);
@@ -2282,7 +2156,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void rentRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentRemoveButtonActionPerformed
         // get index of line to remove
         try {
-            Integer row = Integer.parseInt(rentRemoveTextField.getText()) - 1;
+            int row = rentCartTable.getSelectedRow();
 
             try {
                 // remove line from currentTransaction and from table
@@ -2293,16 +2167,15 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 rentTotalLabel.setText(total);
 
-                // reset text field
-                rentRemoveTextField.setText("");
             } catch (IndexOutOfBoundsException ex) {
-                rentPanel.setVisible(false);
-                previousPanel = rentPanel;
-                rentRemoveErrorPanel.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Error removing item.", "REMOVE ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid item ID entered.", "INVALID ID ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        // clear line to remove text
+        // reset text field
+        rentIdTextField.setText("");
+        rentQtyTextField.setText("");
     }//GEN-LAST:event_rentRemoveButtonActionPerformed
 
     private void rentPeriodCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentPeriodCancelButtonActionPerformed
@@ -2389,21 +2262,32 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
 
         // create a new payment from cashReceived and verify that it is correct
-        r.makeCashPayment(new Money(cashReceived));
+        if (r.getCurrentPayment() instanceof SaleReturn || r.getCurrentPayment() instanceof RentalReturn) {
+            cashPanel.setVisible(false);
+            receiptPanel.setVisible(true);
+        }
+        else {
+            r.makeCreditPayment(creditTextField.getText());
+        }
 
         // attempt to end transaction
         if (r.endTransaction()) {
-            // return to menu view
-            cashPanel.setVisible(false);
-            previousPanel = cashPanel;
-            menuPanel.setVisible(true);
-            
             // clear sale return tables and rental return tables from past attempts
             previousSaleTableModel.setRowCount(0);
             saleReturnCartTableModel.setRowCount(0);
             previousRentalTableModel.setRowCount(0);
             rentalReturnCartTableModel.setRowCount(0);
-
+            
+            
+            // make a new receipt and add it to the receipt panel text area
+            receiptTextArea.setText("");
+            r.getCurrentTransaction().makeNewReceipt();
+            receiptTextArea.append(r.printReceipt());
+            
+            // return to menu view
+            cashPanel.setVisible(false);
+            previousPanel = cashPanel;
+            receiptPanel.setVisible(true);
         }
         // clear cash text fields
         cashReceivedTextField.setText("");
@@ -2423,20 +2307,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         changeAmountLabel.setText("");
         cashErrorLabel.setText("");
     }//GEN-LAST:event_cashPanelCancelButtonActionPerformed
-
-    private void rentRemoveErrorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentRemoveErrorButtonActionPerformed
-        // change back to rental view
-        rentRemoveErrorPanel.setVisible(false);
-        previousPanel = rentRemoveErrorPanel;
-        rentPanel.setVisible(true);
-    }//GEN-LAST:event_rentRemoveErrorButtonActionPerformed
-
-    private void rentItemAddErrorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentItemAddErrorButtonActionPerformed
-        // change back to rental view
-        rentItemAddErrorPanel.setVisible(false);
-        previousPanel = rentItemAddErrorPanel;
-        rentPanel.setVisible(true);
-    }//GEN-LAST:event_rentItemAddErrorButtonActionPerformed
 
     public void initEmployeeTable() {
         for (Employee employee : um.getEmployeeList().getEList()) {
@@ -2924,14 +2794,24 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         creditErrorLabel.setText("");
         
         // make a payment object using the credit card number given
-        r.makeCreditPayment(creditTextField.getText());
+        if (r.getCurrentPayment() instanceof SaleReturn || r.getCurrentPayment() instanceof RentalReturn) {
+            r.makeCreditReimbursement(creditTextField.getText());
+        }
+        else {
+            r.makeCreditPayment(creditTextField.getText());
+        }
 
         // end transaction
         if (r.endTransaction()) {
+            // make a new receipt and add it to the receipt panel text area
+            receiptTextArea.setText("");
+            r.getCurrentTransaction().makeNewReceipt();
+            receiptTextArea.append(r.getCurrentTransaction().getReceipt().getReceiptBody());
+            
             // return to menu view
             creditPanel.setVisible(false);
-            previousPanel = creditPanel;
-            menuPanel.setVisible(true);
+            previousPanel = cashPanel;
+            receiptPanel.setVisible(true);
         } else {
             creditErrorLabel.setText("Payment not authorized.");
         }
@@ -2992,7 +2872,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
     private void sysStartQuitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sysStartQuitButtonActionPerformed
         // quit program
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.dispose();
     }//GEN-LAST:event_sysStartQuitButtonActionPerformed
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
@@ -3091,7 +2971,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
     private void shutDownShutDownButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shutDownShutDownButtonActionPerformed
         // quit program
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.dispose();
     }//GEN-LAST:event_shutDownShutDownButtonActionPerformed
 
     private void shutDownCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shutDownCancelButtonActionPerformed
@@ -3109,6 +2989,29 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         creditPanel.setVisible(false);
         previousPanel.setVisible(true);
     }//GEN-LAST:event_creditCancelButtonActionPerformed
+
+    private void emailReceiptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailReceiptButtonActionPerformed
+        // get the email from a JOptionPane
+        String to = JOptionPane.showInputDialog(null, "Enter a valid email address:");
+        if (to != null) {
+            try{
+                r.sendReceipt(to);
+                
+                // disable the email button so you can only click ok
+                emailReceiptButton.setEnabled(false);
+            }
+            catch(MessagingException ex){
+                JOptionPane.showMessageDialog(null, "Receipt send failed.", "RECEIPT ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+    }//GEN-LAST:event_emailReceiptButtonActionPerformed
+
+    private void receiptOkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiptOkButtonActionPerformed
+        // switch back to menu view
+        receiptPanel.setVisible(false);
+        menuPanel.setVisible(true);
+    }//GEN-LAST:event_receiptOkButtonActionPerformed
 
     public void initPreviousRentalTable() {
         RentalReturn t = ((RentalReturn) r.getCurrentTransaction());
@@ -3194,6 +3097,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JButton creditOkButton;
     private javax.swing.JPanel creditPanel;
     private javax.swing.JTextField creditTextField;
+    private javax.swing.JButton emailReceiptButton;
     private javax.swing.JLabel employeeErrorLabel;
     private javax.swing.JTextField employeeIDTextField;
     private javax.swing.JLabel employeeIdAddLabel;
@@ -3206,8 +3110,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JButton employeeQuitButton;
     private javax.swing.JTable employeeTable;
     private javax.swing.JLabel employeesLabel;
-    private javax.swing.JLabel itemAddErrorLabel;
-    private javax.swing.JButton itemAddOkButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -3232,6 +3134,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JLabel lateFeeLabel;
     private javax.swing.JButton logOutButton;
     private javax.swing.JButton logOutCancelButton;
@@ -3255,9 +3158,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JTextField passwordTextField;
     private javax.swing.JTable previousRentalTable;
     private javax.swing.JTable previousSaleTable;
+    private javax.swing.JLabel receiptLabel;
+    private javax.swing.JButton receiptOkButton;
+    private javax.swing.JPanel receiptPanel;
+    private javax.swing.JTextArea receiptTextArea;
     private javax.swing.JButton removeEmployeeButton;
-    private javax.swing.JLabel removeErrorLabel;
-    private javax.swing.JButton removeErrorOkButton;
     private javax.swing.JButton rentAddButton;
     private javax.swing.JButton rentCancelButton;
     private javax.swing.JLabel rentCartLabel;
@@ -3265,9 +3170,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JButton rentCheckoutButton;
     private javax.swing.JLabel rentIdLabel;
     private javax.swing.JTextField rentIdTextField;
-    private javax.swing.JButton rentItemAddErrorButton;
-    private javax.swing.JLabel rentItemAddErrorLabel;
-    private javax.swing.JPanel rentItemAddErrorPanel;
     private javax.swing.JLabel rentLabel;
     private javax.swing.JPanel rentPanel;
     private javax.swing.JButton rentPeriodCancelButton;
@@ -3279,11 +3181,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JLabel rentQtyLabel;
     private javax.swing.JTextField rentQtyTextField;
     private javax.swing.JButton rentRemoveButton;
-    private javax.swing.JButton rentRemoveErrorButton;
-    private javax.swing.JLabel rentRemoveErrorLabel;
-    private javax.swing.JPanel rentRemoveErrorPanel;
-    private javax.swing.JLabel rentRemoveLabel;
-    private javax.swing.JTextField rentRemoveTextField;
     private javax.swing.JLabel rentTotalLabel;
     private javax.swing.JButton rentalReturnButton;
     private javax.swing.JButton rentalReturnCancelButton;
@@ -3305,16 +3202,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JButton saleCheckoutButton;
     private javax.swing.JLabel saleIdLabel;
     private javax.swing.JTextField saleIdTextField;
-    private javax.swing.JPanel saleItemAddErrorPanel;
     private javax.swing.JLabel saleLabel;
     private javax.swing.JPanel saleOrRentalReturnPanel;
     private javax.swing.JPanel salePanel;
     private javax.swing.JLabel saleQtyLabel;
     private javax.swing.JTextField saleQtyTextField;
     private javax.swing.JButton saleRemoveButton;
-    private javax.swing.JPanel saleRemoveErrorPanel;
-    private javax.swing.JLabel saleRemoveLabl;
-    private javax.swing.JTextField saleRemoveTextField;
     private javax.swing.JButton saleReturnButton;
     private javax.swing.JButton saleReturnCancelButton;
     private javax.swing.JTable saleReturnCartTable;
