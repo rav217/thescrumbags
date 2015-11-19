@@ -102,18 +102,10 @@ public class Register {
             return false;
     }
 
-    public boolean sendReceipt(String to) {
+    public boolean sendReceipt(String to) throws MessagingException{
         GregorianCalendar date=new GregorianCalendar();
-        try{
-            return Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.getTime().toString(), currentTransaction.getReceipt().getReceiptBody());
-        }
-        catch(AddressException ex) {
-            System.out.println("Error--Address exception");
-        }
-        catch(MessagingException ex) {
-            System.out.println("Error--Address exception");
-        }
-        return false;
+        return Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.getTime().toString(), currentTransaction.getReceipt().getReceiptBody());
+
     }
     
     public String printReceipt() { 
@@ -147,9 +139,8 @@ public class Register {
         
         if(qoh < quantity)
         {
-            throw new IllegalArgumentException("Only " + qoh + "of item " + id + " are available at this time");
+            throw new IllegalArgumentException("Only " + qoh + " of item " + id + " are available at this time");
         }
-        
         return currentTransaction.makeLineItem(desc, quantity);
     }
     
@@ -207,8 +198,7 @@ public class Register {
      * Current transaction accepts and handles reimbursement 
      */
     public void makeReimbursement() {
-        Reimbursement r = new Reimbursement();
-        currentTransaction.accept(r);
+        this.currentPayment = new Reimbursement();
     }
 
     /**
@@ -217,8 +207,7 @@ public class Register {
      * @param cardNum 
      */
     public void makeCreditReimbursement(String cardNum) {
-        CreditReimbursement r = new CreditReimbursement(cardNum);
-        this.currentTransaction.accept(r);
+        this.currentPayment = new CreditReimbursement(cardNum);
     }
 
     /**
