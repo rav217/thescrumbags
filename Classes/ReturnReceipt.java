@@ -1,7 +1,5 @@
 package thescrumbags.Classes;
 
-import java.util.GregorianCalendar;
-
 /**
  * A class to represent a receipt for a sale return.
  * Extends Receipt.
