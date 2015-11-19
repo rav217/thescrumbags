@@ -1,6 +1,8 @@
 package thescrumbags.Classes;
 
 import java.util.GregorianCalendar;
+import javax.mail.internet.*;
+import javax.mail.*;
 
 /**
  * A Singleton class representing a cash register for a POS system
@@ -102,7 +104,16 @@ public class Register {
 
     public boolean sendReceipt(String to) {
         GregorianCalendar date=new GregorianCalendar();
-        return Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.toString(), currentTransaction.getReceipt().getReceiptBody());
+        try{
+            return Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.getTime().toString(), currentTransaction.getReceipt().getReceiptBody());
+        }
+        catch(AddressException ex) {
+            System.out.println("Error--Address exception");
+        }
+        catch(MessagingException ex) {
+            System.out.println("Error--Address exception");
+        }
+        return false;
     }
     
     public String printReceipt() { 
