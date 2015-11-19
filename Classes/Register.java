@@ -102,18 +102,10 @@ public class Register {
             return false;
     }
 
-    public boolean sendReceipt(String to) {
+    public boolean sendReceipt(String to) throws MessagingException{
         GregorianCalendar date=new GregorianCalendar();
-        try{
-            return Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.getTime().toString(), currentTransaction.getReceipt().getReceiptBody());
-        }
-        catch(AddressException ex) {
-            System.out.println("Error--Address exception");
-        }
-        catch(MessagingException ex) {
-            System.out.println("Error--Address exception");
-        }
-        return false;
+        return Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.getTime().toString(), currentTransaction.getReceipt().getReceiptBody());
+
     }
     
     public String printReceipt() { 
