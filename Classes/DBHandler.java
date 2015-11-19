@@ -190,6 +190,7 @@ public class DBHandler {
                 //add this LineItem to ArrayList
                 items.add(li);
             }
+            rs.last();
             rPeriod = rs.getInt("rentalperiod");
             String dateString = rs.getString("date");
             date = getGregorianCalendar(dateString);
@@ -212,7 +213,7 @@ public class DBHandler {
         //Tue Nov 17 13:47:38 EST 2015
         String[] splitDate = dateString.split("-");
         int days = Integer.parseInt(splitDate[0]);
-        int month = Integer.parseInt(splitDate[1]);
+        int month = Integer.parseInt(splitDate[1]) - 1;
         int year = Integer.parseInt(splitDate[2]);
         return new GregorianCalendar(year, month, days);
     }

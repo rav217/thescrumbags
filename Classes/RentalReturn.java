@@ -100,13 +100,8 @@ public class RentalReturn extends Transaction {
      */
     public final int getDaysLate() {
         GregorianCalendar now = this.date;
-        System.out.println("rental return date");
-        System.out.println(this.rental.getReturnDate());
-        System.out.println("today's date");
-        System.out.println(now);
         if (now.after(rental.getReturnDate())) { //TODO: either fix this or change DBHandler
             daysLate = now.get(Calendar.DAY_OF_YEAR) - rental.getReturnDate().get(Calendar.DAY_OF_YEAR);
-            
             return daysLate;
         }
         else
@@ -121,7 +116,7 @@ public class RentalReturn extends Transaction {
         System.out.println("setting late fee");
         for (LineItem lineItem : rental.getLineItems()) {
             System.out.println(lineItem.toString());
-            fee = lineItem.getSubtotal().getAmount().doubleValue() * .25;
+            fee = lineItem.getSubtotal().getAmount().doubleValue();
             totalFee += fee;            
         }
         this.daysLate = getDaysLate();

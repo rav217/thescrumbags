@@ -30,7 +30,6 @@ public class Rental extends Transaction {
         this.rentalPeriod = rentalPeriod;
         this.returnDate = new GregorianCalendar();
         this.returnDate.add(Calendar.DAY_OF_YEAR, rentalPeriod);
-        System.out.println(this.returnDate);
     }
     
     //need 2 arg constructor for DB purposes
@@ -86,7 +85,7 @@ public class Rental extends Transaction {
     public LineItem makeLineItem(ProductDescription desc, int qty) {
         LineItem lineItem = new LineItem(desc, qty);
         lineItems.add(lineItem);
-        total = total.add(lineItem.getSubtotal().multiply(new BigDecimal(.1)));
+        total = total.add(lineItem.getSubtotal());
         return lineItem;
     }
     

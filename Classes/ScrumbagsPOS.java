@@ -2237,11 +2237,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
 
             // create a new payment to verify with transaction
-            r.setCurrentPayment(new CashPayment(cashReceived));
-            System.out.println("cash given: " + ((CashPayment) r.getCurrentPayment()).getCashGiven().getAmount().doubleValue());
+            r.makeCashPayment(new Money(cashReceived));
             if (r.getCurrentTransaction().accept(r.getCurrentPayment())) {
-                System.out.println("change: " + ((CashPayment) r.getCurrentPayment()).getChange().getAmount().doubleValue());
-                String changeString = String.format("%4.2f", ((CashPayment) r.getCurrentPayment()).getChange().getAmount());
+                String changeString = String.format("%4.2f", ((CashPayment)r.getCurrentPayment()).getChange().getAmount().doubleValue());
                 changeAmountLabel.setText(changeString);
 
                 // allow done button to be pressed
@@ -2254,7 +2252,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 // clear cash text fields
                 cashReceivedTextField.setText("");
             }
-        } catch (NumberFormatException ex) {
+        } catch (Exception ex) {
             cashErrorLabel.setText("Enter a valid amount.");
             // clear cash text fields
             cashReceivedTextField.setText("");
@@ -2262,13 +2260,18 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_calcChangeButtonActionPerformed
 
     private void cashDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashDoneButtonActionPerformed
-        try {
+        try{
             // get cash received
             Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
 
             // create a new payment from cashReceived and verify that it is correct
-
-            r.makeCashPayment(new Money(cashReceived));
+            if (r.getCurrentPayment() instanceof SaleReturn) {
+                cashPanel.setVisible(false);
+                receiptPanel.setVisible(true);
+            }
+            else {
+                r.makeCashPayment(new Money(cashReceived));
+            }
 
             // attempt to end transaction
             if (r.endTransaction()) {
@@ -2281,6 +2284,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
                 // make a new receipt and add it to the receipt panel text area
                 receiptTextArea.setText("");
+                r.getCurrentTransaction().makeNewReceipt();
                 receiptTextArea.append(r.printReceipt());
 
                 // return to menu view
@@ -2289,10 +2293,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 receiptPanel.setVisible(true);
             }
         }
-        catch (NumberFormatException ex) {
+        catch (NumberFormatException ex){
             cashErrorLabel.setText("Invalid amount entered");
         }
-
         // clear cash text fields
         cashReceivedTextField.setText("");
         //changeAmountLabel.setText("");
@@ -2550,20 +2553,24 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             r.makeNewSaleReturn(saleID, reason);
 
             // check that sale was found
-            if (((SaleReturn) r.getCurrentTransaction()).getSale() != null) {
+            if (((SaleReturn) r.getCurrentTransaction()).getSale().getLineItemsLength() != 0) {
                 initPreviousSaleTable();
-            }
 
+                // switch to saleReturn view
+                saleReturnIdPanel.setVisible(false);
+                previousPanel = saleReturnIdPanel;
+                saleReturnPanel.setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "No items to return", "RETURN ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            
             // clear saleReturnIdLabel's textfield
             saleReturnIdTextField.setText("");
             saleReturnReasonTextField.setText("");
 
-            // switch to saleReturn view
-            saleReturnIdPanel.setVisible(false);
-            previousPanel = saleReturnIdPanel;
-            saleReturnPanel.setVisible(true);
-
         } catch (Exception ex) {
+            System.err.println(ex);
             saleReturnErrorLabel.setText("Invalid sale ID entered.");
         }
     }//GEN-LAST:event_saleReturnOkButtonActionPerformed
@@ -2647,7 +2654,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             Rental rental = (Rental) rentReturn.getRental();
 
             // check that rental was found in transaction database
-            if (rental != null) {
+            if (rental.getLineItemsLength() != 0) {
                 System.out.println("initializing previous rental table");
                 
                 // initialize the items that can be returned
@@ -2656,17 +2663,21 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 // display late fee
                 String lateFee = String.format("Late Fee: $%4.2f", rentReturn.getTotal().getAmount().doubleValue());
                 lateFeeLabel.setText(lateFee);
+                
+                // switch to saleReturn view
+                rentalReturnIdPanel.setVisible(false);
+                previousPanel = rentalReturnIdPanel;
+                rentalReturnPanel.setVisible(true);
             }
-
+            else {
+                JOptionPane.showMessageDialog(null, "No items to return", "RETURN ERROR", JOptionPane.ERROR_MESSAGE);
+            }
             // clear saleReturnIdLabel's textfield
             rentalReturnIdTextField.setText("");
 
-            // switch to saleReturn view
-            rentalReturnIdPanel.setVisible(false);
-            previousPanel = rentalReturnIdPanel;
-            rentalReturnPanel.setVisible(true);
         } 
-        catch (NumberFormatException ex) {
+        catch (Exception ex) {
+            System.out.println(ex);
             rentalReturnErrorLabel.setText("Invalid ID entered.");
         }
     }//GEN-LAST:event_rentalReturnIdOkButtonActionPerformed
