@@ -1,7 +1,8 @@
 package thescrumbags.Classes;
 
 import java.util.GregorianCalendar;
-import javax.mail.MessagingException;
+import javax.mail.internet.*;
+import javax.mail.*;
 
 /**
  * A Singleton class representing a cash register for a POS system
@@ -101,9 +102,18 @@ public class Register {
             return false;
     }
 
-    public boolean sendReceipt(String to) throws MessagingException {
+    public boolean sendReceipt(String to) {
         GregorianCalendar date=new GregorianCalendar();
-        return Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.toString(), currentTransaction.getReceipt().getReceiptBody());
+        try{
+            return Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.getTime().toString(), currentTransaction.getReceipt().getReceiptBody());
+        }
+        catch(AddressException ex) {
+            System.out.println("Error--Address exception");
+        }
+        catch(MessagingException ex) {
+            System.out.println("Error--Address exception");
+        }
+        return false;
     }
     
     public String printReceipt() { 
@@ -118,6 +128,27 @@ public class Register {
      */
     public LineItem enterItem(int id, int quantity) {
         ProductDescription desc = catalog.getProductDescription(id);
+        
+        String transType;
+        
+        if(currentTransaction instanceof Sale)
+        {
+            transType = "sale";
+        }
+        else
+        {
+            transType = "rental";
+        }
+        
+        DBHandler db = DBHandler.getInstance();
+        db.openConnection("sql595207", "nT1*rF4!");
+        int qoh = db.getQOH(id, transType);
+        db.closeConnection();
+        
+        if(qoh < quantity)
+        {
+            throw new IllegalArgumentException("Only " + qoh + "of item " + id + " are available at this time");
+        }
         return currentTransaction.makeLineItem(desc, quantity);
     }
     

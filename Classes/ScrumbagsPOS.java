@@ -2051,9 +2051,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Invalid item ID entered.", "INVALID ID ERROR", JOptionPane.ERROR_MESSAGE);
         }
         
-        // reset text fields
-        saleIdTextField.setText("");
-        saleQtyTextField.setText("");
+        catch(IllegalArgumentException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+       
     }//GEN-LAST:event_saleAddButtonActionPerformed
 
     private void saleRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleRemoveButtonActionPerformed
@@ -2128,10 +2130,11 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Invalid item ID entered.", "INVALID ID ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        // clear text fields
-        rentIdTextField.setText("");
-        rentQtyTextField.setText("");
-
+        
+        catch(IllegalArgumentException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_rentAddButtonActionPerformed
 
     private void rentCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCancelButtonActionPerformed
