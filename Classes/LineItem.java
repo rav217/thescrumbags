@@ -1,6 +1,7 @@
 package thescrumbags.Classes;
 
 import java.math.BigDecimal;
+import java.util.*;
 
 public class LineItem {
 
@@ -51,7 +52,7 @@ public class LineItem {
     
     @Override
     public String toString() {
-        String str= prod.getDescription()+ "\t\t"+qty+"x $"+prod.getPrice().toString()+"\t\t$"+getSubtotal();
+        String str=String.format("%-15s %2d %s %-7s %s %.5s", prod.getDescription(), qty,"x $", prod.getPrice().toString(), "$", this.getSubtotal().toString() );
         return str;
     }
 }
