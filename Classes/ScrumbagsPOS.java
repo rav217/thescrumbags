@@ -2474,7 +2474,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // return to menu panel
         saleReturnPanel.setVisible(false);
         previousPanel = saleReturnPanel;
-        menuPanel.setVisible(true);
+        receiptPanel.setVisible(true);
     }//GEN-LAST:event_saleReturnCheckoutButtonActionPerformed
 
     private void saleReturnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCancelButtonActionPerformed
@@ -2689,7 +2689,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             // return to menu panel
             rentalReturnPanel.setVisible(false);
             previousPanel = rentalReturnPanel;
-            menuPanel.setVisible(true);
+            receiptPanel.setVisible(true);
             
         }
     }//GEN-LAST:event_rentalReturnDoneButtonActionPerformed
