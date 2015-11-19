@@ -5,7 +5,7 @@ package thescrumbags.Classes;
  * CreditReiumbursement will extend Reimbursement
  * @author The Scrumbags
  */
-public class Reimbursement {
+public class Reimbursement implements Payment {
     
     private Money amount;
     
@@ -26,9 +26,14 @@ public class Reimbursement {
      * @param s the SaleReturn to be verified
      * @return success/failure of method
      */
-    public boolean verify(SaleReturn s) {
-        amount=s.negateTotal();
-        System.out.println("Give the customer $"+amount); //will show negative number
-        return true; //TODO
+    @Override
+    public boolean verify(Transaction t) {
+        if(t instanceof SaleReturn) {
+            SaleReturn s=(SaleReturn)t;
+            amount=s.negateTotal();
+            System.out.println("Give the customer $"+amount); //will show negative number
+            return true;
+        }
+        return false;
     }
 }
