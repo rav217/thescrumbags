@@ -139,7 +139,7 @@ public class Register {
         
         if(qoh < quantity)
         {
-            throw new IllegalArgumentException("Only " + qoh + "of item " + id + " are available at this time");
+            throw new IllegalArgumentException("Only " + qoh + " of item " + id + " are available at this time");
         }
         return currentTransaction.makeLineItem(desc, quantity);
     }
