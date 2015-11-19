@@ -156,9 +156,10 @@ public class RentalReturn extends Transaction {
         db.closeConnection();
     }
     
-    public Receipt makeNewReceipt()
-    {
-        return null;
+    public Receipt makeNewReceipt() {
+        this.receipt=new ReturnReceipt();
+        this.receipt.makeReceiptBody(this);
+        return receipt;
     }
     
 
