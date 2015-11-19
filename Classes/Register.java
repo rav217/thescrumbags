@@ -102,7 +102,7 @@ public class Register {
 
     public void sendReceipt(String to) {
         GregorianCalendar date=new GregorianCalendar();
-        Receipt.emailReceipt(to, "Your Scrumbags Receipt" + date.getTime().toString(), currentTransaction.getReceipt().getReceiptBody());
+        Receipt.emailReceipt(to, "Your Scrumbags Receipt " + date.getTime().toString(), currentTransaction.getReceipt().getReceiptBody());
     }
     
     public String printReceipt() { 
