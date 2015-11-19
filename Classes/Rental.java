@@ -38,7 +38,7 @@ public class Rental extends Transaction {
         this.lineItems = lineItems;
         this.total = total;
         this.rentalPeriod = rentalPeriod; //added
-        this.returnDate = date;
+        this.date = date;
     }
     
     /**

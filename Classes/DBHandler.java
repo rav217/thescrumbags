@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.GregorianCalendar;
-import java.util.Date;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
 
 public class DBHandler {
     
@@ -191,7 +191,8 @@ public class DBHandler {
                 items.add(li);
             }
             rPeriod = rs.getInt("rentalperiod");
-            date = getGregorianCalendar(rs.getString("date"));
+            String dateString = rs.getString("date");
+            date = getGregorianCalendar(dateString);
         } catch(SQLException ex){
             System.out.println("Error retrieving transaction from history");
             closeConnection();
@@ -209,25 +210,11 @@ public class DBHandler {
     //returns GregorianCalendar object for the date of a rental
     public GregorianCalendar getGregorianCalendar(String dateString){
         //Tue Nov 17 13:47:38 EST 2015
-        Scanner s = new Scanner(dateString);
-        String dayString = s.next();
-        String monthString = s.next();
-        String dayofMonthString = s.next();
-        String timeString = s.next(); //13:47:38
-        String timeZone = s.next();
-        String yearString = s.next();
-        char h1 = timeString.charAt(0);
-        char h2 = timeString.charAt(1);
-        char m1 = timeString.charAt(3);
-        char m2 = timeString.charAt(4);
-        char s1 = timeString.charAt(6);
-        char s2 = timeString.charAt(7);
-        String hourString = ""+h1+h2;
-        String minuteString = ""+m1+m2;
-        String secondString = ""+s1+s2;
-        return new GregorianCalendar(Integer.parseInt(yearString), Integer.parseInt(monthString), Integer.parseInt(dayofMonthString),
-                Integer.parseInt(hourString), Integer.parseInt(minuteString), Integer.parseInt(secondString));
-        //return new GregorianCalendar(year, month, dayOfMonth, hourOfDay, minute, second);
+        String[] splitDate = dateString.split("-");
+        int days = Integer.parseInt(splitDate[0]);
+        int month = Integer.parseInt(splitDate[1]);
+        int year = Integer.parseInt(splitDate[2]);
+        return new GregorianCalendar(year, month, days);
     }
     //adds transaction to transaction table in DB (type S, R, SR, RR)
     //add field for rental period
@@ -248,8 +235,7 @@ public class DBHandler {
         highestID += 1;
         Iterator<LineItem> i = lineItems.iterator();
         //get date String from GregorianCalendar obj
-        Date dateobj = date.getTime();
-        String dateString = dateobj.toString();
+        String dateString = format(date);
 	while (i.hasNext()){
             LineItem li = i.next();
             int itemid = li.getProductDescription().getItemID();
@@ -273,6 +259,13 @@ public class DBHandler {
             if (type.equals("SR") || type.equals("RR"))
                 setReturnFlag(origTransID, itemid);
         }
+    }
+    
+    public String format(GregorianCalendar calendar){
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+        fmt.setCalendar(calendar);
+        String dateFormatted = fmt.format(calendar.getTime());
+        return dateFormatted;
     }
     
     //sets return flag for appropriate sale or rental line items in transactionhistory table in DB
