@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.GregorianCalendar;
 import java.util.Date;
+import java.util.Scanner;
 
 public class DBHandler {
     
@@ -148,6 +149,7 @@ public class DBHandler {
         ArrayList<LineItem> items = new ArrayList<>();
         double totalPrice = 0;
         int rPeriod = 0;
+        GregorianCalendar date = null;
         try{
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
@@ -189,6 +191,7 @@ public class DBHandler {
                 items.add(li);
             }
             rPeriod = rs.getInt("rentalperiod");
+            date = getGregorianCalendar(rs.getString("date"));
         } catch(SQLException ex){
             System.out.println("Error retrieving transaction from history");
             closeConnection();
@@ -199,10 +202,33 @@ public class DBHandler {
             return new Sale(items, tp); //return sale
         }
         else{
-            return new Rental(items, tp, rPeriod);
+            return new Rental(items, tp, rPeriod, date);
         }
     }
     
+    //returns GregorianCalendar object for the date of a rental
+    public GregorianCalendar getGregorianCalendar(String dateString){
+        //Tue Nov 17 13:47:38 EST 2015
+        Scanner s = new Scanner(dateString);
+        String dayString = s.next();
+        String monthString = s.next();
+        String dayofMonthString = s.next();
+        String timeString = s.next(); //13:47:38
+        String timeZone = s.next();
+        String yearString = s.next();
+        char h1 = timeString.charAt(0);
+        char h2 = timeString.charAt(1);
+        char m1 = timeString.charAt(3);
+        char m2 = timeString.charAt(4);
+        char s1 = timeString.charAt(6);
+        char s2 = timeString.charAt(7);
+        String hourString = ""+h1+h2;
+        String minuteString = ""+m1+m2;
+        String secondString = ""+s1+s2;
+        return new GregorianCalendar(Integer.parseInt(yearString), Integer.parseInt(monthString), Integer.parseInt(dayofMonthString),
+                Integer.parseInt(hourString), Integer.parseInt(minuteString), Integer.parseInt(secondString));
+        //return new GregorianCalendar(year, month, dayOfMonth, hourOfDay, minute, second);
+    }
     //adds transaction to transaction table in DB (type S, R, SR, RR)
     //add field for rental period
     public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID, GregorianCalendar date, int rPeriod){
