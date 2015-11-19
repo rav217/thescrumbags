@@ -63,7 +63,7 @@ public class Receipt {
      * @param body the body of the email
      * @return if the email went through
      */
-    public static boolean emailReceipt(String to, String subject, String body) {
+    public static boolean emailReceipt(String to, String subject, String body) throws AddressException, MessagingException {
         Properties props=System.getProperties();
         String host="smtp.gmail.com";
         
@@ -90,12 +90,10 @@ public class Receipt {
             return true;
         }
         catch (AddressException ex) {
-            ex.printStackTrace();
-            return false;
+            throw ex;
         }
         catch (MessagingException ex) {
-            ex.printStackTrace();
-            return false;
+            throw ex;
         }
     }
 }
