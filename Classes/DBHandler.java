@@ -190,6 +190,7 @@ public class DBHandler {
                 //add this LineItem to ArrayList
                 items.add(li);
             }
+           // rs.last();
             rPeriod = rs.getInt("rentalperiod");
             String dateString = rs.getString("date");
             date = getGregorianCalendar(dateString);

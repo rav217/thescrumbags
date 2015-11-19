@@ -2262,36 +2262,41 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_calcChangeButtonActionPerformed
 
     private void cashDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashDoneButtonActionPerformed
-        // get cash received
-        Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
+        try{
+            // get cash received
+            Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
 
-        // create a new payment from cashReceived and verify that it is correct
-        if (r.getCurrentPayment() instanceof SaleReturn || r.getCurrentPayment() instanceof RentalReturn) {
-            cashPanel.setVisible(false);
-            receiptPanel.setVisible(true);
-        }
-        else {
-            r.makeCreditPayment(creditTextField.getText());
-        }
+            // create a new payment from cashReceived and verify that it is correct
+            if (r.getCurrentPayment() instanceof SaleReturn) {
+                cashPanel.setVisible(false);
+                receiptPanel.setVisible(true);
+            }
+            else {
+                r.makeCashPayment(new Money(cashReceived));
+            }
 
-        // attempt to end transaction
-        if (r.endTransaction()) {
-            // clear sale return tables and rental return tables from past attempts
-            previousSaleTableModel.setRowCount(0);
-            saleReturnCartTableModel.setRowCount(0);
-            previousRentalTableModel.setRowCount(0);
-            rentalReturnCartTableModel.setRowCount(0);
-            
-            
-            // make a new receipt and add it to the receipt panel text area
-            receiptTextArea.setText("");
-            r.getCurrentTransaction().makeNewReceipt();
-            receiptTextArea.append(r.printReceipt());
-            
-            // return to menu view
-            cashPanel.setVisible(false);
-            previousPanel = cashPanel;
-            receiptPanel.setVisible(true);
+            // attempt to end transaction
+            if (r.endTransaction()) {
+                // clear sale return tables and rental return tables from past attempts
+                previousSaleTableModel.setRowCount(0);
+                saleReturnCartTableModel.setRowCount(0);
+                previousRentalTableModel.setRowCount(0);
+                rentalReturnCartTableModel.setRowCount(0);
+
+
+                // make a new receipt and add it to the receipt panel text area
+                receiptTextArea.setText("");
+                r.getCurrentTransaction().makeNewReceipt();
+                receiptTextArea.append(r.printReceipt());
+
+                // return to menu view
+                cashPanel.setVisible(false);
+                previousPanel = cashPanel;
+                receiptPanel.setVisible(true);
+            }
+        }
+        catch (NumberFormatException ex){
+            cashErrorLabel.setText("Invalid amount entered");
         }
         // clear cash text fields
         cashReceivedTextField.setText("");
@@ -2663,6 +2668,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             rentalReturnPanel.setVisible(true);
         } 
         catch (Exception ex) {
+            System.out.println(ex);
             rentalReturnErrorLabel.setText("Invalid ID entered.");
         }
     }//GEN-LAST:event_rentalReturnIdOkButtonActionPerformed
