@@ -1,6 +1,8 @@
 package thescrumbags.Classes;
 
 import java.util.*;
+import java.math.BigDecimal;
+
 /**
  * Represents a Rental in a POS system
  * Extends Transaction
@@ -81,7 +83,7 @@ public class Rental extends Transaction {
     public LineItem makeLineItem(ProductDescription desc, int qty) {
         LineItem lineItem = new LineItem(desc, qty);
         lineItems.add(lineItem);
-        total = total.add(lineItem.getSubtotal());
+        total = total.add(lineItem.getSubtotal().multiply(new BigDecimal(.1)));
         return lineItem;
     }
     
