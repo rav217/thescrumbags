@@ -46,7 +46,7 @@ public class RentalReturn extends Transaction {
         else {
             this.setLateFee();
             System.out.println(this.total);
-            this.daysLate = this.getDaysLate();
+            //this.daysLate = this.getDaysLate();
         }
     }
 
@@ -124,7 +124,7 @@ public class RentalReturn extends Transaction {
             fee = lineItem.getSubtotal().getAmount().doubleValue() * .25;
             totalFee += fee;            
         }
-        
+        this.daysLate = getDaysLate();
         totalFee *= this.daysLate;
         this.total = new Money(totalFee);        
     }
