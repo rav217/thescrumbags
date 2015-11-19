@@ -391,4 +391,27 @@ public class DBHandler {
         }
         return list;
     }
+    
+    //returns the qoh of the given product id
+    public int getQOH(int prodId, String prodType)
+    {       
+        String query = "select qoh from " + prodType + "products where id = " + prodId;
+        int qoh = 0;
+        
+        try
+        {
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(query);
+            rs.next();
+            qoh = rs.getInt("qoh");
+        }
+            
+        catch(SQLException ex)
+        {
+            System.out.println("Error checking QOH");
+            System.out.println(ex.getMessage());
+        }
+       
+        return qoh;        
+    }
 }
