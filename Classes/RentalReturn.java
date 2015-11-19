@@ -156,6 +156,7 @@ public class RentalReturn extends Transaction {
         db.closeConnection();
     }
     
+    @Override
     public Receipt makeNewReceipt() {
         this.receipt=new ReturnReceipt();
         this.receipt.makeReceiptBody(this);
