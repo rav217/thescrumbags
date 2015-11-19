@@ -40,11 +40,15 @@ public class Receipt {
     public void makeReceiptBody(Transaction t) {
         receiptBody+="SCRUMBAGS POS RECEIPT\n";
         receiptBody+=date.getTime().toString()+"\n\n";
-        receiptBody+="PRODUCT\t\tPRICE\t\tTOTAL\n";
-        for(LineItem l: t.getLineItems()) {
-            receiptBody+=l.toString()+"\n";
+        String str=String.format("%-16s %s", "TOTAL", "PRICE");
+        receiptBody+=str+"\n";
+        if(t.getLineItemsLength()>0) {
+            for(LineItem l: t.getLineItems()) {
+                receiptBody+=l.toString()+"\n";
+            }
         }
-        receiptBody+="\nTOTAL\t\t\t\t$"+t.getTotal().toString()+"\n";
+        String str1=String.format("%-31s%s%s", "TOTAL","$ ", t.getTotal().toString());
+        receiptBody+=str1+"\n";
         if(t.isCredit) {
             String cc="************"+t.getCCNum().substring(12);
             receiptBody+=cc;
@@ -61,7 +65,7 @@ public class Receipt {
      * @param body the body of the email
      * @return if the email went through
      */
-    public static boolean emailReceipt(String[] to, String subject, String body) {
+    public static boolean emailReceipt(String to, String subject, String body) throws AddressException, MessagingException {
         Properties props=System.getProperties();
         String host="smtp.gmail.com";
         
@@ -77,11 +81,8 @@ public class Receipt {
         
         try {
             mess.setFrom(new InternetAddress(userName));
-            InternetAddress[] toAddress=new InternetAddress[to.length];
-            for(int i=0; i < to.length; i++) {
-                InternetAddress ia=new InternetAddress(to[i]);
-                mess.addRecipient(Message.RecipientType.TO, ia);
-            }
+            InternetAddress ia=new InternetAddress(to);
+            mess.addRecipient(Message.RecipientType.TO, ia);
             mess.setSubject(subject);
             mess.setText(body);
             Transport transport = session.getTransport("smtp");
@@ -91,12 +92,10 @@ public class Receipt {
             return true;
         }
         catch (AddressException ex) {
-            ex.printStackTrace();
-            return false;
+            throw ex;
         }
         catch (MessagingException ex) {
-            ex.printStackTrace();
-            return false;
+            throw ex;
         }
     }
 }
