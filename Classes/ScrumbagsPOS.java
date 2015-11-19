@@ -372,17 +372,17 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(jLabel17)
                     .addComponent(employeeErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(employeeLoginPanelLayout.createSequentialGroup()
-                            .addComponent(employeeIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(employeeIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(employeeIdLabel))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(employeePasswordLabel)
                                 .addComponent(employeePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(employeeLoginPanelLayout.createSequentialGroup()
-                            .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(employeeQuitButton, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(employeeIdLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(employeeQuitButton)
                             .addGap(190, 190, 190)
                             .addComponent(employeeLoginButton))))
                 .addContainerGap(142, Short.MAX_VALUE))
@@ -393,17 +393,17 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginPanelLayout.setVerticalGroup(
             employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, employeeLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+                .addContainerGap(85, Short.MAX_VALUE)
                 .addComponent(jLabel17)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
-                .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(employeeIdLabel)
-                    .addComponent(employeePasswordLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(employeePasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(employeePasswordLabel)
+                    .addComponent(employeeIdLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(employeePasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(employeeIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -411,7 +411,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(employeeLoginButton))
                 .addGap(18, 18, 18)
                 .addComponent(employeeErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         getContentPane().add(employeeLoginPanel, "card13");
@@ -1955,14 +1955,15 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addGap(91, 91, 91)
                 .addComponent(receiptOkButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(receiptPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receiptPanelLayout.createSequentialGroup()
-                .addContainerGap(237, Short.MAX_VALUE)
-                .addComponent(receiptLabel)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(receiptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receiptPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receiptPanelLayout.createSequentialGroup()
+                        .addComponent(receiptLabel)
+                        .addContainerGap(238, Short.MAX_VALUE))))
         );
         receiptPanelLayout.setVerticalGroup(
             receiptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2474,7 +2475,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // return to menu panel
         saleReturnPanel.setVisible(false);
         previousPanel = saleReturnPanel;
-        menuPanel.setVisible(true);
+        receiptPanel.setVisible(true);
     }//GEN-LAST:event_saleReturnCheckoutButtonActionPerformed
 
     private void saleReturnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCancelButtonActionPerformed
@@ -2689,7 +2690,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             // return to menu panel
             rentalReturnPanel.setVisible(false);
             previousPanel = rentalReturnPanel;
-            menuPanel.setVisible(true);
+            receiptPanel.setVisible(true);
             
         }
     }//GEN-LAST:event_rentalReturnDoneButtonActionPerformed
