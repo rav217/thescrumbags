@@ -118,7 +118,8 @@ public class Money implements Comparable {
     
     @Override
     public String toString() {
-        String str=amount.toString();
+        float d=amount.floatValue();
+        String str=String.format("%-5.2f", d);
         return str;
     }
 }
