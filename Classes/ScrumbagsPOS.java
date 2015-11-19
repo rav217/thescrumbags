@@ -2266,13 +2266,8 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         Double cashReceived = Double.parseDouble(cashReceivedTextField.getText());
 
         // create a new payment from cashReceived and verify that it is correct
-        if (r.getCurrentPayment() instanceof SaleReturn || r.getCurrentPayment() instanceof RentalReturn) {
-            cashPanel.setVisible(false);
-            receiptPanel.setVisible(true);
-        }
-        else {
-            r.makeCreditPayment(creditTextField.getText());
-        }
+        
+        r.makeCashPayment(new Money(cashReceived));
 
         // attempt to end transaction
         if (r.endTransaction()) {
@@ -2285,7 +2280,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             
             // make a new receipt and add it to the receipt panel text area
             receiptTextArea.setText("");
-            r.getCurrentTransaction().makeNewReceipt();
             receiptTextArea.append(r.printReceipt());
             
             // return to menu view
@@ -2472,6 +2466,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         previousSaleTableModel.setRowCount(0);
         saleReturnCartTableModel.setRowCount(0);
 
+        // make a new receipt and add it to the receipt panel text area
+        receiptTextArea.setText("");
+        receiptTextArea.append(r.printReceipt());
+        
         // return to menu panel
         saleReturnPanel.setVisible(false);
         previousPanel = saleReturnPanel;
@@ -2670,7 +2668,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void rentalReturnDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnDoneButtonActionPerformed
         // check if the customer incurred a late fee
         if (r.getCurrentTransaction().getTotal().getAmount().doubleValue() > 0) {
-            
             // go to cash or credit panel
             rentalReturnPanel.setVisible(false);
             previousPanel = rentalReturnPanel;
@@ -2687,11 +2684,14 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             previousRentalTableModel.setRowCount(0);
             rentalReturnCartTableModel.setRowCount(0);
             
+            // make a new receipt and add it to the receipt panel text area
+            receiptTextArea.setText("");
+            receiptTextArea.append(r.printReceipt());
+            
             // return to menu panel
             rentalReturnPanel.setVisible(false);
             previousPanel = rentalReturnPanel;
             receiptPanel.setVisible(true);
-            
         }
     }//GEN-LAST:event_rentalReturnDoneButtonActionPerformed
 
@@ -2809,8 +2809,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         if (r.endTransaction()) {
             // make a new receipt and add it to the receipt panel text area
             receiptTextArea.setText("");
-            r.getCurrentTransaction().makeNewReceipt();
-            receiptTextArea.append(r.getCurrentTransaction().getReceipt().getReceiptBody());
+            receiptTextArea.append(r.printReceipt());
             
             // return to menu view
             creditPanel.setVisible(false);

@@ -38,7 +38,9 @@ public class Rental extends Transaction {
         this.lineItems = lineItems;
         this.total = total;
         this.rentalPeriod = rentalPeriod; //added
+        this.date = date;
         this.returnDate = date;
+        this.returnDate.add(GregorianCalendar.DAY_OF_YEAR, rentalPeriod);
     }
     
     /**
