@@ -2361,7 +2361,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private void removeEmployeeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeEmployeeButtonActionPerformed
         int employeeToRemove = Integer.parseInt(employeeIDTextField.getText());
         int rowIndex = getRowByID(employeeTable.getModel(), employeeToRemove);
-
+        
         try {
             um.removeEmployee(employeeToRemove);
             ((DefaultTableModel) employeeTable.getModel()).removeRow(rowIndex);
@@ -2462,24 +2462,30 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_managerPasswordFieldPropertyChange
 
     private void saleReturnCheckoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCheckoutButtonActionPerformed
-        // create a reimbursement
-        r.makeReimbursement();  
-
-        // update inventory in database
-        r.endTransaction();
-
-        // clear tables
-        previousSaleTableModel.setRowCount(0);
-        saleReturnCartTableModel.setRowCount(0);
-
-        // make a new receipt and add it to the receipt panel text area
-        receiptTextArea.setText("");
-        receiptTextArea.append(r.printReceipt());
         
-        // return to menu panel
-        saleReturnPanel.setVisible(false);
-        previousPanel = saleReturnPanel;
-        receiptPanel.setVisible(true);
+        if (r.getCurrentTransaction().getLineItemsLength() != 0) {
+            // create a reimbursement
+            r.makeReimbursement();  
+
+            // update inventory in database
+            r.endTransaction();
+
+            // clear tables
+            previousSaleTableModel.setRowCount(0);
+            saleReturnCartTableModel.setRowCount(0);
+
+            // make a new receipt and add it to the receipt panel text area
+            receiptTextArea.setText("");
+            receiptTextArea.append(r.printReceipt());
+
+            // return to menu panel
+            saleReturnPanel.setVisible(false);
+            previousPanel = saleReturnPanel;
+            receiptPanel.setVisible(true);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "You have not returned anything", "RETURN ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_saleReturnCheckoutButtonActionPerformed
 
     private void saleReturnCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleReturnCancelButtonActionPerformed
@@ -2680,32 +2686,38 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     }//GEN-LAST:event_rentalReturnIdOkButtonActionPerformed
 
     private void rentalReturnDoneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentalReturnDoneButtonActionPerformed
-        // check if the customer incurred a late fee
-        if (r.getCurrentTransaction().getTotal().getAmount().doubleValue() > 0) {
-            // go to cash or credit panel
-            rentalReturnPanel.setVisible(false);
-            previousPanel = rentalReturnPanel;
-            cashOrCreditPanel.setVisible(true);
+        
+        if (r.getCurrentTransaction().getLineItemsLength() != 0) {
+            // check if the customer incurred a late fee
+            if (r.getCurrentTransaction().getTotal().getAmount().doubleValue() > 0) {
+                // go to cash or credit panel
+                rentalReturnPanel.setVisible(false);
+                previousPanel = rentalReturnPanel;
+                cashOrCreditPanel.setVisible(true);
+            }
+            else {
+                // make a new payment to satisfy verify
+                r.makeCashPayment(new Money(0));
+
+                // end the transaction because no payment needed
+                r.endTransaction();
+
+                // clear tables and total
+                previousRentalTableModel.setRowCount(0);
+                rentalReturnCartTableModel.setRowCount(0);
+
+                // make a new receipt and add it to the receipt panel text area
+                receiptTextArea.setText("");
+                receiptTextArea.append(r.printReceipt());
+
+                // return to menu panel
+                rentalReturnPanel.setVisible(false);
+                previousPanel = rentalReturnPanel;
+                receiptPanel.setVisible(true);
+            }
         }
         else {
-            // make a new payment to satisfy verify
-            r.makeCashPayment(new Money(0));
-            
-            // end the transaction because no payment needed
-            r.endTransaction();
-            
-            // clear tables and total
-            previousRentalTableModel.setRowCount(0);
-            rentalReturnCartTableModel.setRowCount(0);
-            
-            // make a new receipt and add it to the receipt panel text area
-            receiptTextArea.setText("");
-            receiptTextArea.append(r.printReceipt());
-            
-            // return to menu panel
-            rentalReturnPanel.setVisible(false);
-            previousPanel = rentalReturnPanel;
-            receiptPanel.setVisible(true);
+            JOptionPane.showMessageDialog(null, "You have not returned anything", "RETURN ERROR", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_rentalReturnDoneButtonActionPerformed
 
