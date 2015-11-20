@@ -88,7 +88,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginButton = new javax.swing.JButton();
         employeeErrorLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
         menuPanel = new javax.swing.JPanel();
         menuLabel = new javax.swing.JLabel();
         startSaleButton = new javax.swing.JButton();
@@ -359,9 +358,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel10.setText("Employee Login");
 
-        jLabel17.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel17.setText("System startup successful... ");
-
         javax.swing.GroupLayout employeeLoginPanelLayout = new javax.swing.GroupLayout(employeeLoginPanel);
         employeeLoginPanel.setLayout(employeeLoginPanelLayout);
         employeeLoginPanelLayout.setHorizontalGroup(
@@ -369,7 +365,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             .addGroup(employeeLoginPanelLayout.createSequentialGroup()
                 .addContainerGap(142, Short.MAX_VALUE)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel17)
                     .addComponent(employeeErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -393,9 +388,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         employeeLoginPanelLayout.setVerticalGroup(
             employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, employeeLoginPanelLayout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
-                .addComponent(jLabel17)
-                .addGap(29, 29, 29)
+                .addContainerGap(136, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addGap(18, 18, 18)
                 .addGroup(employeeLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1958,12 +1951,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receiptPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(receiptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receiptPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, receiptPanelLayout.createSequentialGroup()
-                        .addComponent(receiptLabel)
-                        .addContainerGap(238, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(receiptLabel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         receiptPanelLayout.setVerticalGroup(
             receiptPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2057,6 +2047,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
        
+        // clear the text fields
+        saleIdTextField.setText("");
+        saleQtyTextField.setText("");
     }//GEN-LAST:event_saleAddButtonActionPerformed
 
     private void saleRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleRemoveButtonActionPerformed
@@ -2136,6 +2129,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
+        // clear the text fields
+        rentIdTextField.setText("");
+        rentQtyTextField.setText("");
     }//GEN-LAST:event_rentAddButtonActionPerformed
 
     private void rentCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentCancelButtonActionPerformed
@@ -2866,6 +2863,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 // initialize the Register to make sales
                 r = Register.getInstance();
 
+                // alert that initialization was successful
+                JOptionPane.showMessageDialog(null, "System startup successful.", "STARTUP SUCESS", JOptionPane.INFORMATION_MESSAGE);
+                
                 // switch to employee login
                 systemStartPanel.setVisible(false);
                 previousPanel = systemStartPanel;
@@ -3138,7 +3138,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
