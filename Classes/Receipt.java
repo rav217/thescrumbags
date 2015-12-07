@@ -40,6 +40,7 @@ public class Receipt {
     public void makeReceiptBody(Transaction t) {
         receiptBody+="SCRUMBAGS POS RECEIPT\n";
         receiptBody+=date.getTime().toString()+"\n\n";
+        receiptBody+=t.getId();
         String str=String.format("%-16s %s", "TOTAL", "PRICE");
         receiptBody+=str+"\n";
         if(t.getLineItemsLength()>0) {
