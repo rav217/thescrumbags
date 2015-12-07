@@ -47,6 +47,8 @@ public class Receipt {
                 receiptBody+=l.toString()+"\n";
             }
         }
+        String str2=String.format("%-31s%s%s", "SUBTOTAL", "$ ", t.getSubtotal().toString());
+        String str3=String.format("%-31s%s%s", "TAX", "$ ", t.getTax().toString());
         String str1=String.format("%-31s%s%s", "TOTAL","$ ", t.getTotal().toString());
         receiptBody+=str1+"\n";
         if(t.isCredit) {
