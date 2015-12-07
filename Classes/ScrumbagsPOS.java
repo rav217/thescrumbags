@@ -108,6 +108,8 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         saleAddButton = new javax.swing.JButton();
         saleCancelButton = new javax.swing.JButton();
         saleRemoveButton = new javax.swing.JButton();
+        saleSubtotalLabel = new javax.swing.JLabel();
+        saleTaxLabel = new javax.swing.JLabel();
         saleTotalLabel = new javax.swing.JLabel();
         rentPanel = new javax.swing.JPanel();
         rentLabel = new javax.swing.JLabel();
@@ -122,8 +124,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentAddButton = new javax.swing.JButton();
         rentCancelButton = new javax.swing.JButton();
         rentRemoveButton = new javax.swing.JButton();
-        rentTotalLabel = new javax.swing.JLabel();
+        rentSubtotalLabel = new javax.swing.JLabel();
         rentPeriodLabel = new javax.swing.JLabel();
+        rentTaxLabel = new javax.swing.JLabel();
+        rentTotalLabel = new javax.swing.JLabel();
         rentPeriodPanel = new javax.swing.JPanel();
         rentPeriodPanelLabel = new javax.swing.JLabel();
         rentPeriodSpinner = new javax.swing.JSpinner();
@@ -547,6 +551,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             }
         });
 
+        saleSubtotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        saleSubtotalLabel.setText("Subtotal:");
+
+        saleTaxLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        saleTaxLabel.setText("Sales Tax:");
+
         saleTotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         saleTotalLabel.setText("Total:");
 
@@ -554,6 +564,10 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         salePanel.setLayout(salePanelLayout);
         salePanelLayout.setHorizontalGroup(
             salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salePanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(saleLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(salePanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -570,21 +584,22 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(salePanelLayout.createSequentialGroup()
+                        .addComponent(saleTotalLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(salePanelLayout.createSequentialGroup()
                         .addComponent(saleCartLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(saleRemoveButton))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
                     .addGroup(salePanelLayout.createSequentialGroup()
-                        .addComponent(saleTotalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                        .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(saleSubtotalLabel)
+                            .addComponent(saleTaxLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(saleCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(saleCheckoutButton)))
                 .addContainerGap())
-            .addGroup(salePanelLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(saleLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         salePanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {saleAddButton, saleIdTextField, saleQtyTextField, saleRemoveButton});
@@ -614,13 +629,21 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                             .addComponent(saleQtyLabel))
                         .addGap(31, 31, 31)
                         .addComponent(saleAddButton)))
-                .addGap(9, 9, 9)
                 .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(saleCheckoutButton)
-                    .addGroup(salePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(saleTotalLabel)
-                        .addComponent(saleCancelButton)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addGroup(salePanelLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(saleCheckoutButton))
+                    .addGroup(salePanelLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(saleCancelButton))
+                    .addGroup(salePanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(saleSubtotalLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(saleTaxLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(saleTotalLabel)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         getContentPane().add(salePanel, "card3");
@@ -687,16 +710,26 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             }
         });
 
-        rentTotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        rentTotalLabel.setText("Total:");
+        rentSubtotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        rentSubtotalLabel.setText("Subtotal:");
 
         rentPeriodLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         rentPeriodLabel.setText("Rental Period:");
+
+        rentTaxLabel.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        rentTaxLabel.setText("Sales Tax:");
+
+        rentTotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        rentTotalLabel.setText("Total:");
 
         javax.swing.GroupLayout rentPanelLayout = new javax.swing.GroupLayout(rentPanel);
         rentPanel.setLayout(rentPanelLayout);
         rentPanelLayout.setHorizontalGroup(
             rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rentPanelLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(rentLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(rentPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -714,10 +747,15 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                     .addComponent(rentAddButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(rentPanelLayout.createSequentialGroup()
                         .addComponent(rentTotalLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(rentPanelLayout.createSequentialGroup()
+                        .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rentSubtotalLabel)
+                            .addComponent(rentTaxLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
                         .addComponent(rentCancelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rentCheckoutButton))
@@ -726,10 +764,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(rentRemoveButton)))
                 .addContainerGap())
-            .addGroup(rentPanelLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addComponent(rentLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         rentPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {rentIdTextField, rentQtyTextField});
@@ -761,11 +795,16 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                         .addGap(61, 61, 61)))
                 .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rentCheckoutButton)
-                    .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(rentTotalLabel)
-                        .addComponent(rentCancelButton)
-                        .addComponent(rentPeriodLabel)))
-                .addGap(10, 10, 10))
+                    .addGroup(rentPanelLayout.createSequentialGroup()
+                        .addGroup(rentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rentSubtotalLabel)
+                            .addComponent(rentCancelButton)
+                            .addComponent(rentPeriodLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rentTaxLabel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rentTotalLabel)
+                .addGap(48, 48, 48))
         );
 
         getContentPane().add(rentPanel, "card3");
@@ -1206,7 +1245,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         });
 
         saleReturnTotalLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        saleReturnTotalLabel.setText("Total:");
+        saleReturnTotalLabel.setText("Total (with sales tax):");
 
         previousSaleTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1978,13 +2017,17 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // clear table from previous sale
         saleTableModel.setRowCount(0);
 
-        // clear total from last sale
-        saleTotalLabel.setText("Total:");
-
         r.makeNewSale();
-        // set the total label to the new total
+        // set the total label to the current total
+        String subtotal = String.format("Subtotal: $%4.2f", r.getCurrentTransaction().getSubtotal().getAmount().doubleValue());
+        saleSubtotalLabel.setText(subtotal);
+        // set the tax label to the current tax
+        String tax = String.format("Sales Tax: $%4.2f", r.getCurrentTransaction().getTax().getAmount().doubleValue());
+        saleTaxLabel.setText(tax);
+        // set the total label to the current total
         String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
         saleTotalLabel.setText(total);
+        
         menuPanel.setVisible(false);
         previousPanel = menuPanel;
         salePanel.setVisible(true);
@@ -2011,9 +2054,6 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         // clear table from previous rental
         rentTableModel.setRowCount(0);
 
-        // clear total from last rental
-        rentTotalLabel.setText("Total:");
-
         // switch to rental view
         menuPanel.setVisible(false);
         previousPanel = menuPanel;
@@ -2028,12 +2068,27 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
             // create and add line item to sale
             try {
-                Object[] row = makeRow(r.enterItem(id, qty));
-                saleTableModel.addRow(row);
+                if (qty > 0){
+//                    LineItem newLineItem = r.enterItem(id.intValue(), qty.intValue());
+//                    System.out.println("newLineItem before makeRow: " + newLineItem.getSubtotal());
+                    Object[] row = makeRow(r.enterItem(id, qty));
+//                    System.out.println("newLineItem after makeRow: " + newLineItem.getSubtotal());
+                    System.out.println(row[3]);
+                    saleTableModel.addRow(row);
 
-                // set the total label to the new total
-                String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
-                saleTotalLabel.setText(total);
+                    // set the subtotal label to the new total
+                    String subtotal = String.format("Subtotal: $%4.2f", r.getCurrentTransaction().getSubtotal().getAmount().doubleValue());
+                    saleSubtotalLabel.setText(subtotal);
+                    // set the tax label to the new total tax
+                    String tax = String.format("Sales Tax: $%4.2f ", r.getCurrentTransaction().getTax().getAmount().doubleValue());
+                    saleTaxLabel.setText(tax);
+                    // set the total label to the new total
+                    String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+                    saleTotalLabel.setText(total);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Quantity must be positive.", "ADD ERROR", JOptionPane.ERROR_MESSAGE);
+                }
 
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Item ID not found.", "ADD ERROR", JOptionPane.ERROR_MESSAGE);
@@ -2061,7 +2116,15 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 r.getCurrentTransaction().removeLineItem(row);
                 saleTableModel.removeRow(row);
 
-                // update total
+                // set the total label to the current total
+                String subtotal = String.format("Subtotal: $%4.2f", r.getCurrentTransaction().getSubtotal().getAmount().doubleValue());
+                saleSubtotalLabel.setText(subtotal);
+
+                // set the tax label to the current tax
+                String tax = String.format("Sales Tax: $%4.2f", r.getCurrentTransaction().getTax().getAmount().doubleValue());
+                saleTaxLabel.setText(tax);
+
+                // set the total label to the current total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 saleTotalLabel.setText(total);
 
@@ -2101,6 +2164,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         rentPanel.setVisible(false);
         previousPanel = rentPanel;
         cashOrCreditPanel.setVisible(true);
+        cashButton.setEnabled(false);
     }//GEN-LAST:event_rentCheckoutButtonActionPerformed
 
     private void rentAddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentAddButtonActionPerformed
@@ -2111,13 +2175,23 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
             // create and add line item to sale
             try {
-                Object[] row = makeRow(r.enterItem(id, qty));
-                rentTableModel.addRow(row);
+                if (qty > 0) {
+                    Object[] row = makeRow(r.enterItem(id, qty));
+                    rentTableModel.addRow(row);
 
-                // set the total label to the new total
-                String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
-                rentTotalLabel.setText(total);
-
+                    // set the subtotal label to the new total
+                    String subtotal = String.format("Subtotal: $%4.2f", r.getCurrentTransaction().getSubtotal().getAmount().doubleValue());
+                    rentSubtotalLabel.setText(subtotal);
+                    // set the tax label to the new total tax
+                    String tax = String.format("Sales Tax: $%4.2f ", r.getCurrentTransaction().getTax().getAmount().doubleValue());
+                    rentTaxLabel.setText(tax);
+                    // set the total label to the new total
+                    String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+                    rentTotalLabel.setText(total);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Quantity must be positive.", "ADD ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(null, "Error adding item.", "ADD ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -2164,7 +2238,15 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 r.getCurrentTransaction().removeLineItem(row);
                 rentTableModel.removeRow(row);
 
-                // update total
+                // set the total label to the current total
+                String subtotal = String.format("Subtotal: $%4.2f", r.getCurrentTransaction().getSubtotal().getAmount().doubleValue());
+                rentSubtotalLabel.setText(subtotal);
+
+                // set the tax label to the current tax
+                String tax = String.format("Sales Tax: $%4.2f", r.getCurrentTransaction().getTax().getAmount().doubleValue());
+                rentTaxLabel.setText(tax);
+
+                // set the total label to the current total
                 String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
                 rentTotalLabel.setText(total);
 
@@ -2206,6 +2288,18 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
         // set rental period in rentPanel to rental period provided
         rentPeriodLabel.setText("Rental Period: " + numDays + " days");
+        
+        // set the total label to the current total
+        String subtotal = String.format("Subtotal: $%4.2f", r.getCurrentTransaction().getSubtotal().getAmount().doubleValue());
+        rentSubtotalLabel.setText(subtotal);
+        
+        // set the tax label to the current tax
+        String tax = String.format("Sales Tax: $%4.2f", r.getCurrentTransaction().getTax().getAmount().doubleValue());
+        rentTaxLabel.setText(tax);
+        
+        // set the total label to the current total
+        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        rentTotalLabel.setText(total);
     }//GEN-LAST:event_rentPeriodSetButtonActionPerformed
 
     private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
@@ -2557,7 +2651,12 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
 
             // check that sale was found
             if (((SaleReturn) r.getCurrentTransaction()).getSale().getLineItemsLength() != 0) {
+                // populate table
                 initPreviousSaleTable();
+                
+                // set total value
+                String total = String.format("Total (with sales tax): $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+                saleReturnTotalLabel.setText(total);
 
                 // switch to saleReturn view
                 saleReturnIdPanel.setVisible(false);
@@ -2595,7 +2694,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         t.removeLineItem(returnRow);
 
         // set total value
-        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        String total = String.format("Total (with sales tax): $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
         saleReturnTotalLabel.setText(total);
     }//GEN-LAST:event_saleReturnReturnButtonActionPerformed
 
@@ -2617,7 +2716,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         prevSale.makeLineItem(line);
 
         // set total value
-        String total = String.format("Total: $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
+        String total = String.format("Total (with sales tax): $%4.2f", r.getCurrentTransaction().getTotal().getAmount().doubleValue());
         saleReturnTotalLabel.setText(total);
     }//GEN-LAST:event_saleReturnRemoveButtonActionPerformed
 
@@ -2664,7 +2763,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
                 initPreviousRentalTable();
                 
                 // display late fee
-                String lateFee = String.format("Late Fee: $%4.2f", rentReturn.getTotal().getAmount().doubleValue());
+                String lateFee = String.format("Late Fee: $%4.2f", rentReturn.getSubtotal().getAmount().doubleValue());
                 lateFeeLabel.setText(lateFee);
                 
                 // switch to saleReturn view
@@ -2836,6 +2935,9 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
             // make a new receipt and add it to the receipt panel text area
             receiptTextArea.setText("");
             receiptTextArea.append(r.printReceipt());
+            
+            // reset cash button if a rental was processed
+            cashButton.setEnabled(true);
             
             // return to menu view
             creditPanel.setVisible(false);
@@ -3067,6 +3169,7 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
         String qtyString = String.format("%d", l.getQuantity());
 
         double subtotal = l.getSubtotal().getAmount().doubleValue();
+        System.out.println(subtotal);
         String subtotalString = String.format("$%4.2f", subtotal);
 
         Object[] row = {desc, priceString, qtyString, subtotalString};
@@ -3212,6 +3315,8 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JLabel rentQtyLabel;
     private javax.swing.JTextField rentQtyTextField;
     private javax.swing.JButton rentRemoveButton;
+    private javax.swing.JLabel rentSubtotalLabel;
+    private javax.swing.JLabel rentTaxLabel;
     private javax.swing.JLabel rentTotalLabel;
     private javax.swing.JButton rentalReturnButton;
     private javax.swing.JButton rentalReturnCancelButton;
@@ -3255,6 +3360,8 @@ public class ScrumbagsPOS extends javax.swing.JFrame {
     private javax.swing.JButton saleReturnRemoveButton;
     private javax.swing.JButton saleReturnReturnButton;
     private javax.swing.JLabel saleReturnTotalLabel;
+    private javax.swing.JLabel saleSubtotalLabel;
+    private javax.swing.JLabel saleTaxLabel;
     private javax.swing.JLabel saleTotalLabel;
     private javax.swing.JButton shutDownCancelButton;
     private javax.swing.JPanel shutDownConfirmPanel;

@@ -26,8 +26,8 @@ public class Money implements Comparable {
      * as a parameter.
      * @param amount BigDouble that defines the amount of the Money object.
      */
-    public Money(BigDecimal amount) {
-        this.amount = amount;
+    public Money(BigDecimal a) {
+        this.amount = a;
     }
 
     /**
@@ -35,16 +35,16 @@ public class Money implements Comparable {
      * as a parameter.
      * @param amount double that defines the amount of the Money object.
      */
-    public Money (double amount) {
-        this.amount = new BigDecimal(amount);
+    public Money (double a) {
+        this.amount = new BigDecimal(a);
     }
     
     /**
      * Returns the value of the amount of the calling Money object
      * @return BigDecimal amount of the calling object
      */
-    public java.math.BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getAmount() {
+        return new BigDecimal(this.amount.doubleValue());
     }
 
     /**
@@ -53,31 +53,31 @@ public class Money implements Comparable {
      * @return 
      */
     public Money add(Money m) {
-        BigDecimal temp = amount;
+        System.out.println("money in: " +m);
+        BigDecimal temp = this.amount;
+        System.out.println("before add: " + temp);
         temp = temp.add(m.getAmount());
+        System.out.println("after add: " +temp);
         return new Money(temp);
     }
 
     public Money add(BigDecimal bd) {
-        amount = amount.add(bd);
-        return this;
+        return new Money(this.amount.add(bd));
     }
 
     public Money subtract(Money m) {
         // this is much safer
-        BigDecimal temp = amount;
+        BigDecimal temp = this.amount;
         temp = temp.subtract(m.getAmount());
         return new Money(temp);
     }
 
     public Money subtract(BigDecimal bd) {
-        amount = amount.subtract(bd);
-        return this;
+        return new Money(this.amount.subtract(bd));
     }
 
     public Money multiply(BigDecimal bd) {
-        amount = amount.multiply(bd);
-        return this;
+        return new Money(this.amount.multiply(bd));
 
     }
 

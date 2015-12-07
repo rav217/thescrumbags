@@ -45,18 +45,18 @@ public class RentalReturn extends Transaction {
         }
         else {
             this.setLateFee();
-            System.out.println(this.total);
+            System.out.println(this.subtotal);
             //this.daysLate = this.getDaysLate();
         }
     }
 
       //creates a new LineItem for the sale given a description and quantity,
-    //adds new LineItem to the lineItems ArrayList, total updated with new subtotal
+    //adds new LineItem to the lineItems ArrayList, subtotal updated with new subtotal
     @Override
     public LineItem makeLineItem(ProductDescription desc, int qty) {
         LineItem lineItem = new LineItem(desc, qty);
         lineItems.add(lineItem);
-        // total = total.add(lineItem.getSubtotal());
+        // subtotal = subtotal.add(lineItem.getSubtotal());
         return lineItem;
     }
     
@@ -64,7 +64,7 @@ public class RentalReturn extends Transaction {
     public LineItem makeLineItem(LineItem li) {
         LineItem lineItem = new LineItem(li);
         lineItems.add(lineItem);
-        // total = total.add(lineItem.getSubtotal());
+        // subtotal = subtotal.add(lineItem.getSubtotal());
         return lineItem;
     }
     
@@ -94,8 +94,8 @@ public class RentalReturn extends Transaction {
 
     /**
      * Compares today's date to original rental's date.
-     * If late, creates a new Money object and sets it as the total, returns true.
-     * Otherwise returns false
+     * If late, creates a new Money object and sets it as the subtotal, returns true.
+ Otherwise returns false
      * @return whether or not return is late
      */
     public final int getDaysLate() {
@@ -121,7 +121,7 @@ public class RentalReturn extends Transaction {
         }
         this.daysLate = getDaysLate();
         totalFee *= this.daysLate;
-        this.total = new Money(totalFee);        
+        this.subtotal = new Money(totalFee);        
     }
 
     /**

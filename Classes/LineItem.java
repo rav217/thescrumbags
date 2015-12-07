@@ -13,9 +13,13 @@ public class LineItem {
     public LineItem(ProductDescription prod, int qty) {
         this.prod = prod;
         this.qty = qty;
-        BigDecimal q=new BigDecimal(qty);
+        BigDecimal q = new BigDecimal(qty);
+        System.out.println(q);
+        System.out.println(prod);
         BigDecimal bd = prod.getPrice().getAmount().multiply(q);
+        System.out.println(bd);
         this.subtotal = new Money(bd);
+        System.out.println(this.subtotal);
     }
     
     // constructor for LineItems added by Jacob
@@ -34,7 +38,7 @@ public class LineItem {
 
     //calculates the subtotal of a LineItem object
     public Money getSubtotal() {
-        return this.subtotal;
+        return new Money(this.subtotal.getAmount());
     }
 
     public int getQuantity(){ //recently added by chris

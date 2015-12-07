@@ -119,6 +119,7 @@ public class Register {
      * @return the new line item
      */
     public LineItem enterItem(int id, int quantity) {
+        System.out.println("Register's id and quantity enterItem");
         ProductDescription desc = catalog.getProductDescription(id);
         
         String transType;
@@ -150,6 +151,7 @@ public class Register {
      * @return the new line item
      */
     public LineItem enterItem(LineItem li) {
+        System.out.println("Register's LineItem enterItem");
         return currentTransaction.makeLineItem(li);
     }
 

@@ -1,7 +1,7 @@
 package thescrumbags.Classes;
 
-import java.util.*;
 import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Represents a Rental in a POS system
@@ -36,6 +36,8 @@ public class Rental extends Transaction {
     public Rental(ArrayList<LineItem> lineItems, Money total, int rentalPeriod, GregorianCalendar date){
         this.lineItems = lineItems;
         this.total = total;
+        this.tax = total.multiply(new BigDecimal(Transaction.tax_rate));
+        this.subtotal = total.subtract(tax);
         this.rentalPeriod = rentalPeriod; //added
         this.date = date;
         this.returnDate = date;
@@ -85,7 +87,20 @@ public class Rental extends Transaction {
     public LineItem makeLineItem(ProductDescription desc, int qty) {
         LineItem lineItem = new LineItem(desc, qty);
         lineItems.add(lineItem);
-        total = total.add(lineItem.getSubtotal());
+        BigDecimal rentPeriodBD = new BigDecimal(rentalPeriod);
+        
+        // add item subtotal to subtotal
+        Money tempSub = lineItem.getSubtotal().multiply(rentPeriodBD);
+        this.subtotal = this.subtotal.add(tempSub);
+        
+        // add the subtotal * tax_rate to the tax
+        Money tempTax = tempSub.multiply(new BigDecimal(tax_rate));
+        this.tax = this.tax.add(tempTax);
+        
+        // add the subtotal and tax to the total
+        Money tempTot = tempSub.add(tempTax);
+        this.total = this.total.add(tempTot);
+        
         return lineItem;
     }
     
@@ -96,7 +111,21 @@ public class Rental extends Transaction {
     @Override
     public void removeLineItem(int index) {
         LineItem lineItem = lineItems.get(index);
-        total = total.subtract(lineItem.getSubtotal());
+        BigDecimal rentPeriodBD = new BigDecimal(rentalPeriod);
+        
+        // get lineItem subtotal and subtract from transaction subtotal
+        Money tempSub = lineItem.getSubtotal().multiply(rentPeriodBD);
+        this.subtotal = this.subtotal.subtract(tempSub);
+        
+        // get lineItem tax and subtract from transactions tax total
+        Money tempTax = tempSub.multiply(new BigDecimal(tax_rate));
+        this.tax = this.tax.subtract(tempTax);
+        
+        // get the sum of tempSub and tempTax and subtract from transaction total
+        Money tempTot = tempSub.add(tempTax);
+        this.total = this.total.subtract(tempTot);
+        
+        // remove the line item from the lineItems ArrayList
         this.lineItems.remove(index);
     }
     

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 //This is the Sale class which stores a list of items being sold, the current date,
-// the total and customer payment. It is able to add new line items to the sale, calculate the total,
+// the subtotal and customer payment. It is able to add new line items to the sale, calculate the subtotal,
 // and tender a payment. Implements the java.util.Date class
 public class Sale extends Transaction {
     
@@ -16,14 +16,17 @@ public class Sale extends Transaction {
     
     //need constructor w 2 args for DB purposes
     public Sale(ArrayList<LineItem> lineItems, Money total){
+        System.out.println("In Sale 2 arg constructor");
         this.lineItems = lineItems;
         this.total = total;
+        this.tax = total.multiply(new BigDecimal(Transaction.tax_rate));
+        this.subtotal = total.subtract(tax);
     }
     
     public void calculateDiscount(BigDecimal discount) {
         BigDecimal one=new BigDecimal(1);
         BigDecimal bd=one.subtract(discount);
-        total = total.multiply(bd);
+        subtotal = subtotal.multiply(bd);
     }
     
     @Override

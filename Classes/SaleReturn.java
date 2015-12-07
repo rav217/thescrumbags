@@ -61,9 +61,9 @@ public class SaleReturn extends Transaction {
     public int getSaleID() { return saleID; } 
     
     /**
-     * After the total is calculated by Transaction methods, negates the Money amount.
-     * For returns, the total should be negative.
-     * @return the new transaction total
+     * After the subtotal is calculated by Transaction methods, negates the Money amount.
+     * For returns, the subtotal should be negative.
+     * @return the new transaction subtotal
      */
     public Money negateTotal() {
         return getTotal().multiply(new BigDecimal(-1));

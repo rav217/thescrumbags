@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 
 /**
  * The Transaction class stores a list of items being sold or rented.
- * Stores the current date, the total, and customer payment/reimbursement
- * Adds new line items to the transaction, calculates total, and processes payments
+ * Stores the current date, the subtotal, and customer payment/reimbursement
+ Adds new line items to the transaction, calculates subtotal, and processes payments
  * @author The Scrumbags
  */
 public abstract class Transaction {
@@ -16,18 +16,25 @@ public abstract class Transaction {
     //date also functions as transaction ID
     protected GregorianCalendar date;
     protected boolean isComplete;
+    protected Money subtotal;
+    protected Money tax;
     protected Money total;
+    
+    // this value can be changed to reflect tax values
+    protected static double tax_rate = 0.05;
+    
     protected Receipt receipt;
     protected boolean isCredit;
     protected String ccNum;
-
     /**
      * Default constructor.
-     * Creates new Calendar for the current date, sets total to 0
+     * Creates new Calendar for the current date, sets subtotal to 0
      */
     public Transaction() {
         this.date = new GregorianCalendar();
         this.isComplete = false;
+        this.subtotal = new Money(new BigDecimal(0));
+        this.tax = new Money(new BigDecimal(0));
         this.total = new Money(new BigDecimal(0));
         this.isCredit=false;
         this.ccNum=null;
@@ -38,13 +45,15 @@ public abstract class Transaction {
     
     /**
      * 2-arg constructor for Transaction
-     * Sets lineItems to li, total to total
+ Sets lineItems to li, subtotal to subtotal
      * @param li new line items
-     * @param total new total
+     * @param total new subtotal
      */
     public Transaction(ArrayList<LineItem> li, Money total){
         this.lineItems = li;
         this.total = total;
+        this.tax = total.multiply(new BigDecimal(tax_rate));
+        this.subtotal = total.subtract(tax);
     }
 
     /**
@@ -62,25 +71,49 @@ public abstract class Transaction {
         return this.isComplete;
     }
 
-  //creates a new LineItem for the sale given a description and quantity,
-    //adds new LineItem to the lineItems ArrayList, total updated with new subtotal
+    //creates a new LineItem for the sale given a description and quantity,
+    //adds new LineItem to the lineItems ArrayList, subtotal updated with new subtotal
     public LineItem makeLineItem(ProductDescription desc, int qty) {
         LineItem lineItem = new LineItem(desc, qty);
-        lineItems.add(lineItem);
-        total = total.add(lineItem.getSubtotal());
+        lineItem = this.makeLineItem(lineItem);
         return lineItem;
     }
     
     public LineItem makeLineItem(LineItem li) {
         LineItem lineItem = new LineItem(li);
         lineItems.add(lineItem);
-        total = total.add(lineItem.getSubtotal());
+        
+        // add item subtotal to subtotal
+        Money tempSub = lineItem.getSubtotal();
+        this.subtotal = this.subtotal.add(tempSub);
+        
+        // add the subtotal * tax_rate to the tax
+        Money tempTax = tempSub.multiply(new BigDecimal(tax_rate));
+        this.tax = this.tax.add(tempTax);
+        
+        // add the subtotal and tax to the total
+        Money tempTot = tempSub.add(tempTax);
+        this.total = this.total.add(tempTot);
+        
         return lineItem;
     }
 
     public void removeLineItem(int index) {
         LineItem lineItem = lineItems.get(index);
-        total = total.subtract(lineItem.getSubtotal());
+        
+        // get lineItem subtotal and subtract from transaction subtotal
+        Money tempSub = lineItem.getSubtotal();
+        this.subtotal = this.subtotal.subtract(tempSub);
+        
+        // get lineItem tax and subtract from transactions tax total
+        Money tempTax = lineItem.getSubtotal().multiply(new BigDecimal(tax_rate));
+        this.tax = this.tax.subtract(tempTax);
+        
+        // get the sum of tempSub and tempTax and subtract from transaction total
+        Money tempTot = tempSub.add(tempTax);
+        this.total = this.total.subtract(tempTot);
+        
+        // remove the line item from the lineItems ArrayList
         this.lineItems.remove(index);
     }
     
@@ -98,15 +131,27 @@ public abstract class Transaction {
         return this.lineItems.get(this.lineItems.size() - 1);
     }
     
-    public Receipt getReceipt() { return receipt; }
-
-    //returns the current total for the Sale object
+    public Receipt getReceipt() { return receipt;}
+    
+    //returns the current subtotal for the Sale object
+    public Money getSubtotal() {
+        return subtotal;
+    }
+    
+    public void setSubtotal(Money m) { 
+        this.subtotal=m;
+    }
+    
     public Money getTotal() {
         return total;
     }
     
-    public void setTotal(Money m) { 
-        this.total=m;
+    public void setTotal(Money m) {
+        this.total = m;
+    }
+    
+    public Money getTax() {
+        return this.tax;
     }
     
     public boolean isCredit() { return isCredit; }
