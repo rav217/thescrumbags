@@ -41,16 +41,18 @@ public class Receipt {
         receiptBody+="SCRUMBAGS POS RECEIPT\n";
         receiptBody+=date.getTime().toString()+"\n\n";
         receiptBody+="Transaction ID:\t"+t.getId()+"\n\n";
-        String str=String.format("%-20s %-15s %-10s", "DESCRIPTION", "PRICE", "TOTAL");
+        receiptBody+="----------------------------------------------\n\n";
+        String str=String.format("%-21s %-15s %-10s", "DESCRIPTION", "PRICE", "TOTAL");
         receiptBody+=str+"\n";
         if(t.getLineItemsLength()>0) {
             for(LineItem l: t.getLineItems()) {
                 receiptBody+=l.toString()+"\n";
             }
         }
-        receiptBody+="\nSUBTOTAL\t\t"+t.getSubtotal().toString()+"\n";
-        receiptBody+="TAX     \t\t"+t.getTax().toString()+"\n";
-        receiptBody+="TOTAL   \t\t"+t.getTotal().toString()+"\n";
+        receiptBody+="----------------------------------------------\n\n";
+        receiptBody+="SUBTOTAL\t"+t.getSubtotal().toString()+"\n";
+        receiptBody+="TAX     \t"+t.getTax().toString()+"\n";
+        receiptBody+="TOTAL   \t"+t.getTotal().toString()+"\n";
 
         if(t.isCredit) {
             String cc="************"+t.getCCNum().substring(12);
