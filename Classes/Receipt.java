@@ -40,7 +40,7 @@ public class Receipt {
     public void makeReceiptBody(Transaction t) {
         receiptBody+="SCRUMBAGS POS RECEIPT\n";
         receiptBody+=date.getTime().toString()+"\n\n";
-        receiptBody+=t.getId();
+        receiptBody+="Transaction ID:\t\t"+t.getId()+"\n";
         String str=String.format("%-16s %s", "TOTAL", "PRICE");
         receiptBody+=str+"\n";
         if(t.getLineItemsLength()>0) {
@@ -48,10 +48,10 @@ public class Receipt {
                 receiptBody+=l.toString()+"\n";
             }
         }
-        String str2=String.format("%-31s%s%s", "SUBTOTAL", "$ ", t.getSubtotal().toString());
-        String str3=String.format("%-31s%s%s", "TAX", "$ ", t.getTax().toString());
-        String str1=String.format("%-31s%s%s", "TOTAL","$ ", t.getTotal().toString());
-        receiptBody+=str2+"\n"+str3+"\n"+str1+"\n";
+        receiptBody+="SUBTOTAL\t\t\t\t"+t.getSubtotal().toString()+"\n";
+        receiptBody+="TAX     \t\t\t\t"+t.getTax().toString()+"\n";
+        receiptBody+="TOTAL   \t\t\t\t"+t.getTotal().toString()+"\n";
+
         if(t.isCredit) {
             String cc="************"+t.getCCNum().substring(12);
             receiptBody+=cc;
