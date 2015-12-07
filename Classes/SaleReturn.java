@@ -85,7 +85,7 @@ public class SaleReturn extends Transaction {
         //use dbh, itemsReturned and lineItems to update inv
         DBHandler db = DBHandler.getInstance();
         db.openConnection("sql595207", "nT1*rF4!");
-        db.addTransaction("SR", this.lineItems, this.reason, this.saleID, this.date, 0);
+        this.id = db.addTransaction("SR", this.lineItems, this.reason, this.saleID, this.date, 0);
         db.closeConnection();
     }
     

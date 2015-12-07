@@ -219,7 +219,7 @@ public class DBHandler {
     }
     //adds transaction to transaction table in DB (type S, R, SR, RR)
     //add field for rental period
-    public void addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID, GregorianCalendar date, int rPeriod){
+    public int addTransaction(String type, ArrayList<LineItem> lineItems, String reason, int origTransID, GregorianCalendar date, int rPeriod){
         //query into db, select greatest transid, make transid that +1
         int highestID = 1; //if 1st element, transid will be 1
         String subQuery = "select max(transid) as transid from transactionhistory";
@@ -260,6 +260,7 @@ public class DBHandler {
             if (type.equals("SR") || type.equals("RR"))
                 setReturnFlag(origTransID, itemid);
         }
+        return highestID;
     }
     
     public String format(GregorianCalendar calendar){

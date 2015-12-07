@@ -19,6 +19,7 @@ public abstract class Transaction {
     protected Money subtotal;
     protected Money tax;
     protected Money total;
+    protected int id;
     
     // this value can be changed to reflect tax values
     protected static double tax_rate = 0.05;
@@ -157,6 +158,8 @@ public abstract class Transaction {
     public boolean isCredit() { return isCredit; }
     
     public String getCCNum() { return ccNum; }
+    
+    public int getId() { return this.id; }
     
     /**
      * Accepts a given Payment
