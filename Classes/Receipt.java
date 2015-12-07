@@ -42,7 +42,7 @@ public class Receipt {
         receiptBody+=date.getTime().toString()+"\n\n";
         receiptBody+="Transaction ID:\t"+t.getId()+"\n\n";
         receiptBody+="----------------------------------------------\n\n";
-        String str=String.format("%-19s %-15s %-10s", "DESCRIPTION", "PRICE", "TOTAL");
+        String str=String.format("%-20s %-15s %-10s", "DESCRIPTION", "PRICE", "TOTAL");
         receiptBody+=str+"\n";
         if(t.getLineItemsLength()>0) {
             for(LineItem l: t.getLineItems()) {
